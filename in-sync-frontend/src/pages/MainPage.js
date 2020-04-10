@@ -1,12 +1,12 @@
-import React from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import React from "react";
+import { Typography, Grid } from "@material-ui/core";
 
-import CreateJoinRoomButton from '../components/CreateJoinRooms'
+import CreateJoinRoomButton from "../components/CreateJoinRooms";
 
 
 class MainPage extends React.Component {
-    render() {
-        return (
+  render() {
+    return (
             <div className="App">
                 <header className="App-header">
                     <Grid container spacing={10}>
@@ -21,8 +21,8 @@ class MainPage extends React.Component {
                     </Grid>
                 </header>
             </div>
-        );
-    }
+    );
+  }
 }
 
 export default MainPage;

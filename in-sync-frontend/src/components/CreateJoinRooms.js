@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 
-class CreateRoomButton extends React.Component {
+class CreateJoinRoomButton extends React.Component {
     render() {
         return (
             <div className="App">
@@ -42,4 +42,4 @@ class CreateRoomButton extends React.Component {
     }
 }
 
-export default CreateRoomButton;
+export default CreateJoinRoomButton;

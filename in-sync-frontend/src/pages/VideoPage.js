@@ -7,7 +7,7 @@ class VideoPage extends React.Component {
             <div className="App">
                 <header className="App-header">
                     <p>Video Page Placeholder</p>
-                    <EmbeddedVideo url='https://www.youtube.com/watch?v=ysz5S6PUM-U'/>
+                    <EmbeddedVideo url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'/>
                 </header>
             </div>
         );

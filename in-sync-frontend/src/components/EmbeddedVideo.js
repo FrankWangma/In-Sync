@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactPlayer from "react-player";
+import ReactPlayer from 'react-player';
+import Grid from '@material-ui/core/Grid';
 
 class EmbeddedVideo extends React.Component {
     state = {
@@ -23,22 +24,31 @@ class EmbeddedVideo extends React.Component {
                     onPlay={this.handlePlay}
                     onPause={this.handlePause}
                     onEnded={this.handlePause}
+                    onProgress={this.handleProgress}
                 />
 
                 {/* Video Player Controls */}
-                <button onClick={this.handlePlayPause}>{this.state.playing ? '\u23F8' : '\u25B6'}</button>
-
-                <p>Seek</p>
-                <input
-                    type='range' min={0} max={0.999999} step='any'
-                    value={this.state.played}
-                    onMouseDown={this.handleSeekMouseDown}
-                    onChange={this.handleSeekChange}
-                    onMouseUp={this.handleSeekMouseUp}
-                />
-
-                <p>{'\u{1F50A}'}</p>
-                <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.handleVolumeChange} />
+                <Grid container spacing={0}>
+                    <Grid item xs={1}>
+                        <button onClick={this.handlePlayPause}>{this.state.playing ? '\u23F8' : '\u25B6'}</button>
+                    </Grid>
+                    <Grid item xs={11}>
+                        <input
+                            type='range' min={0} max={0.999999} step='any'
+                            className='seek'
+                            value={this.state.played}
+                            onMouseDown={this.handleSeekMouseDown}
+                            onChange={this.handleSeekChange}
+                            onMouseUp={this.handleSeekMouseUp}
+                        />
+                    </Grid>
+                    <Grid item xs={1}>
+                        <p className='volume'>{'\u{1F50A}'}</p>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.handleVolumeChange} />
+                    </Grid>
+                </Grid>
             </div>
         );
     }
@@ -70,6 +80,13 @@ class EmbeddedVideo extends React.Component {
 
     handleVolumeChange = e => {
         this.setState({ volume: parseFloat(e.target.value) })
+    }
+
+    handleProgress = state => {
+        // We only want to update time slider if we are not currently seeking
+        if (!this.state.seeking) {
+            this.setState(state)
+        }
     }
 }
 

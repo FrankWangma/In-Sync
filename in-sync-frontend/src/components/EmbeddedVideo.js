@@ -1,6 +1,8 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import Grid from '@material-ui/core/Grid';
+import screenfull from 'screenfull';
 
 class EmbeddedVideo extends React.Component {
     state = {
@@ -32,7 +34,7 @@ class EmbeddedVideo extends React.Component {
                     <Grid item xs={1}>
                         <button onClick={this.handlePlayPause}>{this.state.playing ? '\u23F8' : '\u25B6'}</button>
                     </Grid>
-                    <Grid item xs={11}>
+                    <Grid item xs={10}>
                         <input
                             type='range' min={0} max={0.999999} step='any'
                             className='seek'
@@ -41,6 +43,9 @@ class EmbeddedVideo extends React.Component {
                             onChange={this.handleSeekChange}
                             onMouseUp={this.handleSeekMouseUp}
                         />
+                    </Grid>
+                    <Grid item xs={1}>
+                        <button onClick={this.handleClickFullscreen}>{'\u26F6'}</button>
                     </Grid>
                     <Grid item xs={1}>
                         <p className='volume'>{'\u{1F50A}'}</p>
@@ -87,6 +92,10 @@ class EmbeddedVideo extends React.Component {
         if (!this.state.seeking) {
             this.setState(state)
         }
+    }
+
+    handleClickFullscreen = () => {
+        screenfull.request(findDOMNode(this.player))
     }
 }
 

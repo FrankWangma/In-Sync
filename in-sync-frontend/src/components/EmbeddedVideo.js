@@ -1,12 +1,11 @@
 import React from 'react';
+import ReactPlayer from "react-player";
 
 class EmbeddedVideo extends React.Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <p>Embedded Video Placeholder</p>
-                </header>
+                <ReactPlayer url={this.props.url} />
             </div>
         );
     }

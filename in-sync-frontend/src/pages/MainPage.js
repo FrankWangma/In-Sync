@@ -9,7 +9,7 @@ class MainPage extends React.Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <Grid container spacing={0}>
+                    <Grid container spacing={10}>
                         <Grid item xs={12}>
                             <Typography variant='h1'>
                                 In-Sync

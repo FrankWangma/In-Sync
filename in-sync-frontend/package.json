@@ -11,11 +11,12 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "react": "^16.13.1",
+    "react-chatbox-component": "0.0.5",
     "react-dom": "^16.13.1",
+    "react-player": "^1.15.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "screenfull": "^5.0.2",
-    "react-player": "^1.15.3"
+    "screenfull": "^5.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

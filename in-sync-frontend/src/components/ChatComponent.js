@@ -25,6 +25,9 @@ const messages = [
 const user = {
   "uid" : "user1"
 }
+
+
+
 class ChatComponent extends React.Component {
     render() {
         return (
@@ -32,10 +35,14 @@ class ChatComponent extends React.Component {
             <div className='chat-header'>
               <h5>Chat</h5>
             </div>
-            <ChatBox messages={messages} user={user}/>
+            <ChatBox messages={messages} user={user} onSubmit={(message) => this.handleSubmit(message)}/>
         </div>
         );
-      }
+    }
+
+    handleSubmit = (message) => {
+      console.log(message);
+    }
 }
 
 export default ChatComponent;

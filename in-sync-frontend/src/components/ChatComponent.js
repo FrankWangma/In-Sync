@@ -26,8 +26,6 @@ const user = {
   "uid" : "user1"
 }
 
-
-
 class ChatComponent extends React.Component {
     render() {
         return (
@@ -40,7 +38,7 @@ class ChatComponent extends React.Component {
         );
     }
 
-    handleSubmit = (message) => {
+    handleSubmit = message => {
       console.log(message);
     }
 }

@@ -30,9 +30,6 @@ class ChatComponent extends React.Component {
     render() {
         return (
           <div className='container'>
-            <div className='chat-header'>
-              <h5>Chat</h5>
-            </div>
             <ChatBox messages={messages} user={user} onSubmit={(message) => this.handleSubmit(message)}/>
         </div>
         );

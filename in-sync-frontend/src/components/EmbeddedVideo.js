@@ -17,7 +17,7 @@ class EmbeddedVideo extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="App EmbeddedVideo">
                 <ReactPlayer
                     url={this.props.url}
                     ref={this.ref}

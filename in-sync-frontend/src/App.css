@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.EmbeddedVideo {
+  max-width: 640px;
+}
+
 .seek {
   margin-top: 15px;
   width: 97%;

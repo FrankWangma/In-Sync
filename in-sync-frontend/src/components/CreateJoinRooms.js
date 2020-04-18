@@ -2,11 +2,15 @@ import React from "react";
 import "./CreateJoinRooms.css";
 import { Button, Grid, Typography } from "@material-ui/core";
 import CreateRoomModal from "./CreateRoomModal";
+import JoinRoomModal from "./JoinRoomModal";
 
 class CreateJoinRoomButton extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { showCreateRoomModal: false };
+        this.state = { 
+            showCreateRoomModal: false,
+            showJoinRoomModal: false
+        };
         this.createRoom = this.createRoom.bind(this);
         this.cancelCreateRoom = this.cancelCreateRoom.bind(this);
     }
@@ -20,6 +24,18 @@ class CreateJoinRoomButton extends React.Component {
     cancelCreateRoom() {
         this.setState({
             showCreateRoomModal: false
+        });
+    }
+
+    joinRoom() {
+        this.setState({
+            showJoinRoomModal: true
+        });
+    }
+
+    cancelJoinRoom() {
+        this.setState({
+            showJoinRoomModal: false
         });
     }
     
@@ -57,6 +73,7 @@ class CreateJoinRoomButton extends React.Component {
                     </Grid>
                 </Grid>
                 <CreateRoomModal showModal={this.state.showCreateRoomModal} onClose={this.cancelCreateRoom}/>
+                <JoinRoomModal showModal={this.state.showJoinRoomModal} onClose={this.cancelJoinRoom}/>
             </>
         );
     }

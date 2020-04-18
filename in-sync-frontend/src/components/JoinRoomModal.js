@@ -3,26 +3,18 @@ import { Button, TextField, Typography, Modal } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import './Modal.css';
 
-class CreateRoomModal extends React.Component {
+class JoinRoomModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            url: ''
+            roomID: '',
         };
-        this.setRoomTitle = this.setRoomTitle.bind(this);
-        this.setURL = this.setURL.bind(this);
+        this.setRoomID = this.setRoomID.bind(this);
     }
 
-    setRoomTitle(e) {
+    setRoomID(e) {
         this.setState({
             title: e.target.value
-        })
-    };
-
-    setURL(e) {
-        this.setState({
-            url: e.target.value
         })
     };
 
@@ -31,25 +23,18 @@ class CreateRoomModal extends React.Component {
             <Modal open={this.props.showModal}>
                 <div className={"modal"}>
                     <Typography variant="h2" className={"title"}>
-                        Create Room
+                        Join Room
                     </Typography>
-                    <Typography>Room Title</Typography>
+                    <Typography>Enter Room ID or URL</Typography>
+                    <Typography>e.g. SD23F5G or insync.com/SD23F5G</Typography>
                     <TextField
                         className={"bodyText"}
                         InputProps={{ disableUnderline: true }}
                         margin="normal"
                         name="title"
                         value={this.state.title}
+                        placeholder="e.g. SD23F5G or insync.com/SD23F5G"
                         onChange={this.setRoomTitle}
-                    />
-                    <Typography>Video URL</Typography>
-                    <TextField
-                        className={"bodyText"}
-                        InputProps={{ disableUnderline: true }}
-                        margin="normal"
-                        name="url"
-                        value={this.state.url}
-                        onChange={this.setURL}
                     />
                     <div className={"modalButtons"}>
                         <Button className={"cancelButton"} onClick={this.props.onClose}>
@@ -57,7 +42,7 @@ class CreateRoomModal extends React.Component {
                         </Button>
                         <Link to={`/video`}>
                             <Button className={"createButton"}>
-                                Create
+                                Join
                             </Button>
                         </Link>
                     </div>
@@ -67,4 +52,4 @@ class CreateRoomModal extends React.Component {
     };
 };
 
-export default CreateRoomModal;
+export default JoinRoomModal;

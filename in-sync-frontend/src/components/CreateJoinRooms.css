@@ -2,4 +2,9 @@
     min-width: 200px;
     width: 450px;
     height: 100%;
+    margin: 20px !important;
+}
+
+.containedButton {
+    margin-bottom: 40px !important;
 }

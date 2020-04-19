@@ -8,7 +8,7 @@ class MainPage extends React.Component {
   render() {
     return (
         <div className="MainPage">
-            <Grid container spacing={10}>
+            <Grid container spacing={0}>
                 <Grid item xs={12}>
                     <Typography variant='h1'>
                         In-Sync

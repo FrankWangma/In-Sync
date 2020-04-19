@@ -26,8 +26,8 @@ class CreateJoinRoomButton extends React.Component {
     render() {
         return (
             <>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
+                <Grid container spacing={0}>
+                    <Grid item xs={12} className="containedButton">
                         <Button variant="contained" className={"button"}>
                             <Grid item xs={6}>
                                 <Typography variant={"h5"}>
@@ -41,7 +41,7 @@ class CreateJoinRoomButton extends React.Component {
                             </Grid>
                         </Button>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} className="containedButton">
                         <Button variant="contained" className={"button"} onClick={this.createRoom}>
                             <Grid item xs={6}>
                                 <Typography variant={"h5"}>

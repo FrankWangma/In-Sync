@@ -2,7 +2,8 @@ import React from "react";
 import 'react-chatbox-component/dist/style.css';
 import { ChatBox } from 'react-chatbox-component';
 
-const messages = [
+// Messages would populate from incoming messages as well as messages sent by this client
+let messages = [
   {
     "text": "Hello there",
     "id": "1",
@@ -22,22 +23,33 @@ const messages = [
     },
   },
 ]
+
 const user = {
-  "uid" : "user1"
+  "name": "Ironman",
+  "uid": "user1",
+  "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
 }
 
 class ChatComponent extends React.Component {
-    render() {
-        return (
-          <div className='container'>
-            <ChatBox messages={messages} user={user} onSubmit={(message) => this.handleSubmit(message)}/>
-        </div>
-        );
+  render() {
+    return (
+      <div className='container'>
+        <ChatBox messages={messages} user={user} onSubmit={(message) => this.handleSubmit(message)} />
+      </div>
+    );
+  }
+
+  handleSubmit = message => {
+    // Template of sent message by this client
+    const userMessage = {
+      "text": message,
+      "id": messages.length + 1,
+      "sender": user,
     }
 
-    handleSubmit = message => {
-      console.log(message);
-    }
+    // New message would also be pushed out to other clients at this point
+    messages.push(userMessage);
+  }
 }
 
 export default ChatComponent;

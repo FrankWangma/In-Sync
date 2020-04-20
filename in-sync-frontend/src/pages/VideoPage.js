@@ -13,18 +13,22 @@ class VideoPage extends React.Component {
         </Typography>
 
         <Grid container spacing={0}>
-          <Grid item xs={1} />
-          <Grid item xs={6}>
+          <Grid item sm={12} md={1} />
+          <Grid item sm={12} md={6}>
             <EmbeddedVideo url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' />
             <Button variant="contained" color="primary" className={'addVideoButton'}>
               Add Video
             </Button>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item sm={12} md={4}>
             <ChatComponent className="chat" />
           </Grid>
+<<<<<<< HEAD
           <Grid item xs={1} />
           <Grid item xs={1} />
+=======
+          <Grid item sm={12} md={1} />
+>>>>>>> master
         </Grid>
       </div>
     );

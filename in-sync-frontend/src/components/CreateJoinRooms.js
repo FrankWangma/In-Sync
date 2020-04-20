@@ -1,82 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CreateJoinRooms.css";
 import { Button, Grid, Typography } from "@material-ui/core";
 import CreateRoomModal from "./CreateRoomModal";
 import JoinRoomModal from "./JoinRoomModal";
 
-class CreateJoinRoomButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            showCreateRoomModal: false,
-            showJoinRoomModal: false
-        };
-        this.createRoom = this.createRoom.bind(this);
-        this.cancelCreateRoom = this.cancelCreateRoom.bind(this);
-    }
+const CreateJoinRoomButton = () => {
+    const [showCreateRoomModal, changeCreateModal] = useState(false);
+    const [showJoinRoomModal, changeJoinModal] = useState(false);
 
-    createRoom() {
-        this.setState({
-            showCreateRoomModal: true
-        });
-    }
-
-    cancelCreateRoom() {
-        this.setState({
-            showCreateRoomModal: false
-        });
-    }
-
-    joinRoom() {
-        this.setState({
-            showJoinRoomModal: true
-        });
-    }
-
-    cancelJoinRoom() {
-        this.setState({
-            showJoinRoomModal: false
-        });
-    }
-    
-    render() {
-        return (
-            <>
-                <Grid container spacing={0}>
-                    <Grid item xs={12} className="containedButton">
-                        <Button variant="contained" className={"button"}>
-                            <Grid item xs={6}>
-                                <Typography variant={"h5"}>
-                                    Join Room
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant={"subtitle1"}>
-                                    Join an existing In-Sync room
-                                </Typography>
-                            </Grid>
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12} className="containedButton">
-                        <Button variant="contained" className={"button"} onClick={this.createRoom}>
-                            <Grid item xs={6}>
-                                <Typography variant={"h5"}>
-                                    Create Room
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant={"subtitle1"}>
-                                    Create a new In-Sync room
-                                </Typography>
-                            </Grid>
-                        </Button>
-                    </Grid>
+    return (
+        <>
+            <Grid container spacing={0}>
+                <Grid item xs={12} className="containedButton">
+                    <Button variant="contained" className={"button"} onClick={() => {changeJoinModal(true)}}>
+                        <Grid item xs={6}>
+                            <Typography variant={"h5"}>
+                                Join Room
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography variant={"subtitle1"}>
+                                Join an existing In-Sync room
+                            </Typography>
+                        </Grid>
+                    </Button>
                 </Grid>
-                <CreateRoomModal showModal={this.state.showCreateRoomModal} onClose={this.cancelCreateRoom}/>
-                <JoinRoomModal showModal={this.state.showJoinRoomModal} onClose={this.cancelJoinRoom}/>
-            </>
-        );
-    }
+                <Grid item xs={12} className="containedButton">
+                    <Button variant="contained" className={"button"} onClick={() => {changeCreateModal(true)}}>
+                        <Grid item xs={6}>
+                            <Typography variant={"h5"}>
+                                Create Room
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography variant={"subtitle1"}>
+                                Create a new In-Sync room
+                            </Typography>
+                        </Grid>
+                    </Button>
+                </Grid>
+            </Grid>
+            <CreateRoomModal showModal={showCreateRoomModal} modalHandler={changeCreateModal}/>
+            <JoinRoomModal showModal={showJoinRoomModal} modalHandler={changeJoinModal}/>
+        </>
+    );
 }
 
 export default CreateJoinRoomButton;

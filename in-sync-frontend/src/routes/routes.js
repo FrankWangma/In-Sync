@@ -8,7 +8,7 @@ import LoginPage from "../pages/LoginPage";
 const paths = {
   MAINPAGE: "/",
   VIDEOPAGE: "/video",
-  LOGPAGE: "/login",
+  LOGINPAGE: "/login",
 };
 
 const routes = (

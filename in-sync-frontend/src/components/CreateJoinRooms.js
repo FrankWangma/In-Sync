@@ -4,27 +4,27 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import CreateRoomModal from "./CreateRoomModal";
 
 class CreateJoinRoomButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { showCreateRoomModal: false };
-        this.createRoom = this.createRoom.bind(this);
-        this.cancelCreateRoom = this.cancelCreateRoom.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = { showCreateRoomModal: false };
+    this.createRoom = this.createRoom.bind(this);
+    this.cancelCreateRoom = this.cancelCreateRoom.bind(this);
+  }
 
-    createRoom() {
-        this.setState({
-            showCreateRoomModal: true
-        });
-    }
+  createRoom() {
+    this.setState({
+      showCreateRoomModal: true,
+    });
+  }
 
-    cancelCreateRoom() {
-        this.setState({
-            showCreateRoomModal: false
-        });
-    }
-    
-    render() {
-        return (
+  cancelCreateRoom() {
+    this.setState({
+      showCreateRoomModal: false,
+    });
+  }
+
+  render() {
+    return (
             <>
                 <Grid container spacing={0}>
                     <Grid item xs={12} className="containedButton">
@@ -58,8 +58,8 @@ class CreateJoinRoomButton extends React.Component {
                 </Grid>
                 <CreateRoomModal showModal={this.state.showCreateRoomModal} onClose={this.cancelCreateRoom}/>
             </>
-        );
-    }
+    );
+  }
 }
 
 export default CreateJoinRoomButton;

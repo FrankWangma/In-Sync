@@ -1,11 +1,10 @@
 import React from "react";
-import Login from "../components/LoginComponent"
-import SignUp from "../components/SignUpComponent"
-import styles from "./LoginPage.module.css";
 import { Grid } from "@material-ui/core";
+import Login from "../components/LoginComponent";
+import SignUp from "../components/SignUpComponent";
+import styles from "./LoginPage.module.css";
 
-const LoginPage = () => {
-    return (
+const LoginPage = () => (
         <div className={styles.LoginPage}>
             <Grid container spacing={5}>
                 <Grid item xs={2} />
@@ -18,7 +17,6 @@ const LoginPage = () => {
                 <Grid item xs={2} />
             </Grid>
         </div>
-    );
-}
+);
 
-export default LoginPage; 
+export default LoginPage;

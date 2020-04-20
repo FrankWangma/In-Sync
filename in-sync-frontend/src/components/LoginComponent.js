@@ -1,42 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardHeader, CardContent, CardActions, Button, TextField } from "@material-ui/core";
+import {
+  Card, CardHeader, CardContent, CardActions, Button, TextField,
+} from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-    const [helperText, setHelperText] = useState('');
-    const [error, setError] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [helperText, setHelperText] = useState("");
+  const [error, setError] = useState(false);
 
-    useEffect( () => {
-        if (username.trim() && password.trim()) {
-            setIsButtonDisabled(false);
-        } else {
-            setIsButtonDisabled(true);
-        }
-    }, [username, password]);
-
-    const handleLogin = () => {
-        if (username === 'username' && password === 'password') {
-            setError(false);
-            setHelperText('Login Successfully');
-        } else {
-            setError(true);
-            setHelperText('Incorrect username or password');
-        }
+  useEffect(() => {
+    if (username.trim() && password.trim()) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
     }
+  }, [username, password]);
 
-    const handleKeyPress = (e) => {
-        if (e.keyCode === 13 || e.which === 13) {
-            console.log(isButtonDisabled);
-            if (!isButtonDisabled) {
-                handleLogin();
-            }
-        }
+  const handleLogin = () => {
+    if (username === "username" && password === "password") {
+      setError(false);
+      setHelperText("Login Successfully");
+    } else {
+      setError(true);
+      setHelperText("Incorrect username or password");
     }
+  };
 
-    return (
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13 || e.which === 13) {
+      console.log(isButtonDisabled);
+      if (!isButtonDisabled) {
+        handleLogin();
+      }
+    }
+  };
+
+  return (
         <form noValidate autoComplete="off">
             <Card>
                 <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
@@ -50,8 +52,8 @@ const Login = () => {
                             label="Username"
                             placeholder="Username"
                             margin="normal"
-                            onChange={(e)=>setUsername(e.target.value)}
-                            onKeyPress={(e)=>handleKeyPress(e)}
+                            onChange={(e) => setUsername(e.target.value)}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                         <TextField
                             error={error}
@@ -62,8 +64,8 @@ const Login = () => {
                             placeholder="Password"
                             margin="normal"
                             helperText={helperText}
-                            onChange={(e)=>setPassword(e.target.value)}
-                            onKeyPress={(e)=>handleKeyPress(e)}
+                            onChange={(e) => setPassword(e.target.value)}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                     </div>
                 </CardContent>
@@ -72,14 +74,14 @@ const Login = () => {
                     variant="contained"
                     size="large"
                     color="secondary"
-                    onClick={()=>handleLogin()}
+                    onClick={() => handleLogin()}
                     disabled={isButtonDisabled}>
                     Login
                     </Button>
                 </CardActions>
             </Card>
         </form>
-    );
-}
+  );
+};
 
 export default Login;

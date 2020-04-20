@@ -1,59 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardHeader, CardContent, CardActions, Button, TextField } from "@material-ui/core";
+import {
+  Card, CardHeader, CardContent, CardActions, Button, TextField,
+} from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
 
 const SignUp = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-    const [helperText, setHelperText] = useState('');
-    const [error, setError] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [helperText, setHelperText] = useState("");
+  const [error, setError] = useState(false);
 
-    useEffect( () => {
-        if (email.trim() && username.trim() && password.trim() ) {
-            setIsButtonDisabled(false);
-        } else {
-            setIsButtonDisabled(true);
-        }
-    }, [ email, username, password]);
-
-    const handleSignUp = () => {
-        if (!validateEmail(email)) {
-            setError(true);
-            setHelperText('Please enter a valid Email');
-        } else if (email === 'meme@gmail.com') {  
-            setError(true);
-            setHelperText('Email has already been used');
-        }
-        else {
-            setError(false);
-            setHelperText('Sign up successful');
-        }
+  useEffect(() => {
+    if (email.trim() && username.trim() && password.trim()) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
     }
+  }, [email, username, password]);
 
-    const handleKeyPress = (e) => {
-        if (e.keyCode === 13 || e.which === 13) {
-            console.log(isButtonDisabled);
-            if (!isButtonDisabled) {
-                handleSignUp();
-            }
-        }
+  const handleSignUp = () => {
+    if (!validateEmail(email)) {
+      setError(true);
+      setHelperText("Please enter a valid Email");
+    } else if (email === "meme@gmail.com") {
+      setError(true);
+      setHelperText("Email has already been used");
+    } else {
+      setError(false);
+      setHelperText("Sign up successful");
     }
+  };
 
-    const validateEmail = (email) => {
-        // Regex used to validate email
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13 || e.which === 13) {
+      console.log(isButtonDisabled);
+      if (!isButtonDisabled) {
+        handleSignUp();
+      }
     }
+  };
 
-    return (
+  const validateEmail = (email) => {
+    // Regex used to validate email
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
+  return (
         <form noValidate autoComplete="off">
             <Card>
                 <CardHeader className={styles.signUpHeader} title="Sign Up"/>
                 <CardContent>
                     <div>
-                        <TextField 
+                        <TextField
                             error={error}
                             fullWidth
                             id="email"
@@ -61,8 +62,8 @@ const SignUp = () => {
                             label="E-mail"
                             placeholder="E-mail"
                             margin="normal"
-                            onChange={(e)=>setEmail(e.target.value)}
-                            onKeyPress={(e)=>handleKeyPress(e)}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                         <TextField
                             error={error}
@@ -72,8 +73,8 @@ const SignUp = () => {
                             label="Username"
                             placeholder="Username"
                             margin="normal"
-                            onChange={(e)=>setUsername(e.target.value)}
-                            onKeyPress={(e)=>handleKeyPress(e)}
+                            onChange={(e) => setUsername(e.target.value)}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                         <TextField
                             error={error}
@@ -84,8 +85,8 @@ const SignUp = () => {
                             placeholder="Password"
                             margin="normal"
                             helperText={helperText}
-                            onChange={(e)=>setPassword(e.target.value)}
-                            onKeyPress={(e)=>handleKeyPress(e)}
+                            onChange={(e) => setPassword(e.target.value)}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                     </div>
                 </CardContent>
@@ -94,14 +95,14 @@ const SignUp = () => {
                     variant="contained"
                     size="large"
                     color="Primary"
-                    onClick={()=>handleSignUp()}
+                    onClick={() => handleSignUp()}
                     disabled={isButtonDisabled}>
                     Sign Up
                     </Button>
                 </CardActions>
             </Card>
         </form>
-    );
-}
+  );
+};
 
 export default SignUp;

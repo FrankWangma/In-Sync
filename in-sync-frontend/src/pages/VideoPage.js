@@ -2,7 +2,7 @@ import React from "react";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import "./VideoPage.css";
 import ChatComponent from "../components/ChatComponent";
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid } from "@material-ui/core";
 
 class VideoPage extends React.Component {
   render() {

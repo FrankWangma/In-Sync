@@ -1,5 +1,11 @@
-.header {
+.loginHeader {
     text-align: 'center';
     background-color: #212121;
+    color: #fff;
+}
+
+.signUpHeader {
+    text-align: 'center';
+    background-color: #550a8a;
     color: #fff;
 }

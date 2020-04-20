@@ -2,28 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent, CardActions, Button, TextField } from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
 
-const Login = () => {
+const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [helperText, setHelperText] = useState('');
     const [error, setError] = useState(false);
 
     useEffect( () => {
-        if (username.trim() && password.trim()) {
+        if (email.trim() && username.trim() && password.trim() ) {
             setIsButtonDisabled(false);
         } else {
             setIsButtonDisabled(true);
         }
-    }, [username, password]);
+    }, [ email, username, password]);
 
-    const handleLogin = () => {
-        if (username === 'username' && password === 'password') {
-            setError(false);
-            setHelperText('Login Successfully');
-        } else {
+    const handleSignUp = () => {
+        if (!validateEmail(email)) {
             setError(true);
-            setHelperText('Incorrect username or password');
+            setHelperText('Please enter a valid Email');
+        } else if (email === 'meme@gmail.com') {  
+            setError(true);
+            setHelperText('Email has already been used');
+        }
+        else {
+            setError(false);
+            setHelperText('Sign up successful');
         }
     }
 
@@ -31,17 +36,34 @@ const Login = () => {
         if (e.keyCode === 13 || e.which === 13) {
             console.log(isButtonDisabled);
             if (!isButtonDisabled) {
-                handleLogin();
+                handleSignUp();
             }
         }
+    }
+
+    const validateEmail = (email) => {
+        // Regex used to validate email
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 
     return (
         <form noValidate autoComplete="off">
             <Card>
-                <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
+                <CardHeader className={styles.signUpHeader} title="Sign Up"/>
                 <CardContent>
                     <div>
+                        <TextField 
+                            error={error}
+                            fullWidth
+                            id="email"
+                            type="email"
+                            label="E-mail"
+                            placeholder="E-mail"
+                            margin="normal"
+                            onChange={(e)=>setEmail(e.target.value)}
+                            onKeyPress={(e)=>handleKeyPress(e)}
+                        />
                         <TextField
                             error={error}
                             fullWidth
@@ -71,10 +93,10 @@ const Login = () => {
                     <Button
                     variant="contained"
                     size="large"
-                    color="secondary"
-                    onClick={()=>handleLogin()}
+                    color="Primary"
+                    onClick={()=>handleSignUp()}
                     disabled={isButtonDisabled}>
-                    Login
+                    Sign Up
                     </Button>
                 </CardActions>
             </Card>
@@ -82,4 +104,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default SignUp;

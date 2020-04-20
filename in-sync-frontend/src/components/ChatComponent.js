@@ -30,24 +30,24 @@ const user = {
   "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
 }
 
-function ChatComponent() {
+const ChatComponent = () => {
+  const handleSubmit = (message) => {
+    // Template of sent message by this client
+    const userMessage = {
+      "text": message,
+      "id": messages.length + 1,
+      "sender": user,
+    }
+
+    // New message would also be pushed out to other clients at this point
+    messages.push(userMessage);
+  }
+
   return (
     <div className='container'>
       <ChatBox messages={messages} user={user} onSubmit={(message) => handleSubmit(message)} />
     </div>
   );
-}
-
-function handleSubmit(message) {
-  // Template of sent message by this client
-  const userMessage = {
-    "text": message,
-    "id": messages.length + 1,
-    "sender": user,
-  }
-
-  // New message would also be pushed out to other clients at this point
-  messages.push(userMessage);
 }
 
 export default ChatComponent;

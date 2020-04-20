@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Typography, Modal, ListItemText } from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { Button, TextField, Typography, Grid, Modal, List, ListItem, ListItemText } from "@material-ui/core";
 import './Modal.css';
 
 const AddVideoModal = ({showModal, modalHandler}) => {
@@ -9,7 +8,7 @@ const AddVideoModal = ({showModal, modalHandler}) => {
 
     return (
         <Modal open={showModal} onBackdropClick={() => {modalHandler(false)}}>
-            <div className={"appModal"}>
+            <div className={"addVideoModal"}>
                 <Grid container spacing={0}>
                     <Grid item xs={1} />
                     <Grid item xs={5}>
@@ -18,17 +17,17 @@ const AddVideoModal = ({showModal, modalHandler}) => {
                         </Typography>
                         <Typography>Video URL</Typography>
                         <TextField
-                            className={"bodyText"}
+                            className={"addVideoText"}
                             InputProps={{ disableUnderline: true }}
                             margin="normal"
                             name="videoURL"
                             value={url}
-                            placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                             onChange={(e) => {setVideoURL(e.target.value)}}
                         />
                         <Typography>Search for a video</Typography>
                         <TextField
-                            className={"bodyText"}
+                            className={"addVideoText"}
                             InputProps={{ disableUnderline: true }}
                             margin="normal"
                             name="videoSearch"
@@ -39,46 +38,24 @@ const AddVideoModal = ({showModal, modalHandler}) => {
                             <Button className={"cancelButton"} onClick={() => {modalHandler(false)}}>
                                 Cancel
                             </Button>
-                            <Link to={`/video`}>
-                                <Button className={"createButton"}>
-                                    Join
-                                </Button>
-                            </Link>
+                            <Button className={"createButton"} onClick={() => {modalHandler(false)}}>
+                                Add
+                            </Button>
                         </div>
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={1}/>
+                    <Grid item xs={4}>
                         <List component="nav">
                             <ListItem button>
                                 <ListItemText primary="Search for a video" />
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemText primary="Searched/found videos will show up in a list here" />
                             </ListItem>
                         </List>
                     </Grid>
                     <Grid item xs={1}/>
                 </Grid>
-
-                <Typography variant="h2" className={"title"}>
-                    Join Room
-                </Typography>
-                <Typography>Enter Room ID or URL</Typography>
-                <TextField
-                    className={"bodyText"}
-                    InputProps={{ disableUnderline: true }}
-                    margin="normal"
-                    name="ID"
-                    value={roomID}
-                    placeholder="e.g. SD23F5G or insync.com/SD23F5G"
-                    onChange={setRoomID}
-                />
-                <div className={"modalButtons"}>
-                    <Button className={"cancelButton"} onClick={() => {modalHandler(false)}}>
-                        Cancel
-                    </Button>
-                    <Link to={`/video`}>
-                        <Button className={"createButton"}>
-                            Join
-                        </Button>
-                    </Link>
-                </div>
             </div>
         </Modal>
     )

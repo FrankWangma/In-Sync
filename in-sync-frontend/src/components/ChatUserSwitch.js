@@ -2,6 +2,7 @@ import React from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ChatComponent from "./ChatComponent";
+import UserList from "./UserList";
 
 class ChatUserSwitch extends React.Component {
     state = {
@@ -38,7 +39,7 @@ class ChatUserSwitch extends React.Component {
         if (this.state.currentToggle === "chat") {
             return <ChatComponent className="chat" />
         } else {
-            return <p>Users</p>
+            return <UserList />
         }
     }
 }

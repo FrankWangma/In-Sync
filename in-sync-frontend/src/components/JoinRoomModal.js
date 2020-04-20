@@ -20,7 +20,7 @@ const JoinRoomModal = ({showModal, modalHandler}) => {
                     name="ID"
                     value={roomID}
                     placeholder="e.g. SD23F5G or insync.com/SD23F5G"
-                    onChange={setRoomID}
+                    onChange={(e) => {setRoomID(e.target.value)}}
                 />
                 <div className={"modalButtons"}>
                     <Button className={"cancelButton"} onClick={() => {modalHandler(false)}}>

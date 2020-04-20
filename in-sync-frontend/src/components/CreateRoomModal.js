@@ -20,7 +20,7 @@ const CreateRoomModal = ({showModal, modalHandler}) => {
                     margin="normal"
                     name="title"
                     value={title}
-                    onChange={setRoomTitle}
+                    onChange={(e) => {setRoomTitle(e.target.value)}}
                 />
                 <Typography>Video URL</Typography>
                 <TextField
@@ -28,7 +28,7 @@ const CreateRoomModal = ({showModal, modalHandler}) => {
                     margin="normal"
                     name="url"
                     value={url}
-                    onChange={setURL}
+                    onChange={(e) => {setURL(e.target.value)}}
                 />
                 <div className={"modalButtons"}>
                     <Button className={"cancelButton"} onClick={() => {modalHandler(false)}}>

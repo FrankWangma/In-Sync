@@ -29,7 +29,7 @@ class CreateRoomModal extends React.Component {
     render() {
         return (
             <Modal open={this.props.showModal}>
-                <div className={"modal"}>
+                <div className={"appModal"}>
                     <Typography variant="h2" className={"title"}>
                         Create Room
                     </Typography>
@@ -45,7 +45,6 @@ class CreateRoomModal extends React.Component {
                     <Typography>Video URL</Typography>
                     <TextField
                         className={"bodyText"}
-                        InputProps={{ disableUnderline: true }}
                         margin="normal"
                         name="url"
                         value={this.state.url}

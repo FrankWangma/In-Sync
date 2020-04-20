@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent, CardActions, Button, TextField } from "@material-ui/core";
+import styles from "./LoginComponent.module.css";
+
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +39,7 @@ const Login = () => {
     return (
         <form noValidate autoComplete="off">
             <Card>
-                <CardHeader title="In-Sync Login"/>
+                <CardHeader className={styles.header} title="In-Sync Login"/>
                 <CardContent>
                     <div>
                         <TextField

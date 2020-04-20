@@ -1,8 +1,8 @@
 import React from "react";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import "./VideoPage.css";
-import ChatComponent from "../components/ChatComponent";
 import { Typography, Grid } from '@material-ui/core';
+import ChatUserSwitch from "../components/ChatUserSwitch";
 
 class VideoPage extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class VideoPage extends React.Component {
             <EmbeddedVideo url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' />
           </Grid>
           <Grid item xs={4}>
-            <ChatComponent className="chat" />
+            <ChatUserSwitch />
           </Grid>
           <Grid item xs={1} />
         </Grid>

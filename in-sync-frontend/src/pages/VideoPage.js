@@ -23,12 +23,7 @@ class VideoPage extends React.Component {
           <Grid item sm={12} md={4}>
             <ChatComponent className="chat" />
           </Grid>
-<<<<<<< HEAD
-          <Grid item xs={1} />
-          <Grid item xs={1} />
-=======
           <Grid item sm={12} md={1} />
->>>>>>> master
         </Grid>
       </div>
     );

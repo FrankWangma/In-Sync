@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Typography, Grid, Button } from "@material-ui/core";
 import EmbeddedVideo from "../components/EmbeddedVideo";
-import "./VideoPage.css";
 import ChatComponent from "../components/ChatComponent";
-import { Typography, Grid, Button } from '@material-ui/core';
 import AddVideoModal from "../components/AddVideoModal";
+import "./VideoPage.css";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
@@ -18,7 +18,7 @@ const VideoPage = () => {
           <Grid item sm={12} md={1} />
           <Grid item sm={12} md={6}>
             <EmbeddedVideo url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' />
-            <Button variant="contained" color="primary" className={'addVideoButton'} onClick={() => {changeAddVideoModal(true)}}>
+            <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
               Add Video
             </Button>
           </Grid>
@@ -31,6 +31,6 @@ const VideoPage = () => {
       </div>
     </>
   );
-}
+};
 
 export default VideoPage;

@@ -1,8 +1,8 @@
 import React from "react";
+import { Typography, Grid } from "@material-ui/core";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import styles from "./VideoPage.module.css";
 import ChatComponent from "../components/ChatComponent";
-import { Typography, Grid } from '@material-ui/core';
 
 class VideoPage extends React.Component {
   render() {

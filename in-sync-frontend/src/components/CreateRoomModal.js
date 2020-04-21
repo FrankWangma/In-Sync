@@ -1,33 +1,35 @@
-import React from 'react';
-import { Button, TextField, Typography, Modal } from "@material-ui/core";
-import { Link } from 'react-router-dom';
-import styles from './CreateRoomModal.module.css';
+import React from "react";
+import {
+  Button, TextField, Typography, Modal,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import styles from "./CreateRoomModal.module.css";
 
 class CreateRoomModal extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: '',
-            url: ''
-        };
-        this.setRoomTitle = this.setRoomTitle.bind(this);
-        this.setURL = this.setURL.bind(this);
-    }
-
-    setRoomTitle(e) {
-        this.setState({
-            title: e.target.value
-        })
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      url: "",
     };
+    this.setRoomTitle = this.setRoomTitle.bind(this);
+    this.setURL = this.setURL.bind(this);
+  }
 
-    setURL(e) {
-        this.setState({
-            url: e.target.value
-        })
-    };
+  setRoomTitle(e) {
+    this.setState({
+      title: e.target.value,
+    });
+  }
 
-    render() {
-        return (
+  setURL(e) {
+    this.setState({
+      url: e.target.value,
+    });
+  }
+
+  render() {
+    return (
             <Modal open={this.props.showModal}>
                 <div className={styles.appModal}>
                     <Typography variant="h2" className={styles.title}>
@@ -61,8 +63,8 @@ class CreateRoomModal extends React.Component {
                     </div>
                 </div>
             </Modal>
-        )
-    };
-};
+    );
+  }
+}
 
 export default CreateRoomModal;

@@ -3,6 +3,8 @@ import {
   Card, CardHeader, CardContent, CardActions, Button, TextField,
 } from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
+import { useHistory } from "react-router-dom";
+
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -11,6 +13,7 @@ const SignUp = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (email.trim() && username.trim() && password.trim()) {
@@ -29,7 +32,7 @@ const SignUp = () => {
       setHelperText("Email has already been used");
     } else {
       setError(false);
-      setHelperText("Sign up successful");
+      history.push("/");
     }
   };
 

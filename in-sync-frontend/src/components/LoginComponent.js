@@ -3,6 +3,7 @@ import {
   Card, CardHeader, CardContent, CardActions, Button, TextField,
 } from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -10,6 +11,7 @@ const Login = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -22,7 +24,7 @@ const Login = () => {
   const handleLogin = () => {
     if (username === "username" && password === "password") {
       setError(false);
-      setHelperText("Login Successfully");
+      history.push("/");
     } else {
       setError(true);
       setHelperText("Incorrect username or password");

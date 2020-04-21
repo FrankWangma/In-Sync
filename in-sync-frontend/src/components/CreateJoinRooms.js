@@ -1,5 +1,5 @@
 import React from "react";
-import "./CreateJoinRooms.css";
+import styles from "./CreateJoinRooms.module.css";
 import { Button, Grid, Typography } from "@material-ui/core";
 import CreateRoomModal from "./CreateRoomModal";
 
@@ -27,8 +27,8 @@ class CreateJoinRoomButton extends React.Component {
         return (
             <>
                 <Grid container spacing={0}>
-                    <Grid item xs={12} className="containedButton">
-                        <Button variant="contained" className={"button"}>
+                    <Grid item xs={12} className={styles.containedButton}>
+                        <Button variant="contained" className={styles.button}>
                             <Grid item xs={6}>
                                 <Typography variant={"h5"}>
                                     Join Room
@@ -41,8 +41,8 @@ class CreateJoinRoomButton extends React.Component {
                             </Grid>
                         </Button>
                     </Grid>
-                    <Grid item xs={12} className="containedButton">
-                        <Button variant="contained" className={"button"} onClick={this.createRoom}>
+                    <Grid item xs={12} className={styles.containedButton}>
+                        <Button variant="contained" className={styles.button} onClick={this.createRoom}>
                             <Grid item xs={6}>
                                 <Typography variant={"h5"}>
                                     Create Room

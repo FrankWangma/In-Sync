@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, TextField, Typography, Modal } from "@material-ui/core";
 import { Link } from 'react-router-dom';
-import './CreateRoomModal.css';
+import styles from './CreateRoomModal.module.css';
 
 class CreateRoomModal extends React.Component {
     constructor(props) {
@@ -29,13 +29,13 @@ class CreateRoomModal extends React.Component {
     render() {
         return (
             <Modal open={this.props.showModal}>
-                <div className={"appModal"}>
-                    <Typography variant="h2" className={"title"}>
+                <div className={styles.appModal}>
+                    <Typography variant="h2" className={styles.title}>
                         Create Room
                     </Typography>
                     <Typography>Room Title</Typography>
                     <TextField
-                        className={"bodyText"}
+                        className={styles.bodyText}
                         margin="normal"
                         name="title"
                         value={this.state.title}
@@ -43,18 +43,18 @@ class CreateRoomModal extends React.Component {
                     />
                     <Typography>Video URL</Typography>
                     <TextField
-                        className={"bodyText"}
+                        className={styles.bodyText}
                         margin="normal"
                         name="url"
                         value={this.state.url}
                         onChange={this.setURL}
                     />
-                    <div className={"modalButtons"}>
-                        <Button className={"cancelButton"} onClick={this.props.onClose}>
+                    <div className={styles.modalButtons}>
+                        <Button className={styles.cancelButton} onClick={this.props.onClose}>
                             Cancel
                         </Button>
                         <Link to={`/video`}>
-                            <Button className={"createButton"}>
+                            <Button className={styles.createButton}>
                                 Create
                             </Button>
                         </Link>

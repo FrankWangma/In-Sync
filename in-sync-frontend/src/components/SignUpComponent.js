@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
   Card, CardHeader, CardContent, CardActions, Button, TextField,
 } from "@material-ui/core";
-import styles from "./LoginComponent.module.css";
 import { useHistory } from "react-router-dom";
+import styles from "./LoginComponent.module.css";
 
 
 const SignUp = () => {

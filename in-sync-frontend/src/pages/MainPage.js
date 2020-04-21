@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Typography, Grid } from "@material-ui/core";
 import "./MainPage.css";
-import CreateJoinRoomButton from "../components/CreateJoinRooms";
 import { Link } from "react-router-dom";
+import CreateJoinRoomButton from "../components/CreateJoinRooms";
 
 class MainPage extends React.Component {
   render() {

@@ -1,6 +1,5 @@
 import React from "react";
-import 'react-chatbox-component/dist/style.css';
-import { ChatBox } from 'react-chatbox-component';
+import "./UserList.css";
 
 // Users would populate from backend
 let users = [
@@ -17,9 +16,18 @@ let users = [
 ]
 
 const UserList = () => {
+  const displayUser = (user) => {
+    return (
+      <div className="userInfo">
+        <img className="userPic" src={user.avatar} alt="User avatar"/>
+        <p className="userName">{user.name}</p>
+      </div>
+    );
+  }
+  
   return (
     <div className='container'>
-      <ChatBox />
+      {users.map((user, index) => <div key={index} >{displayUser(user)}</div>)}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import {
   Button,
   TextField,
   Typography,
-  Modal
+  Modal,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "./Modal.module.css";

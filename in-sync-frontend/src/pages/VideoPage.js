@@ -1,30 +1,36 @@
-import React from "react";
-import { Typography, Grid } from "@material-ui/core";
+import React, { useState } from "react";
+import { Typography, Grid, Button } from "@material-ui/core";
 import EmbeddedVideo from "../components/EmbeddedVideo";
-import styles from "./VideoPage.module.css";
 import ChatComponent from "../components/ChatComponent";
+import AddVideoModal from "../components/AddVideoModal";
+import styles from "./VideoPage.module.css";
 
-class VideoPage extends React.Component {
-  render() {
-    return (
+const VideoPage = () => {
+  const [showAddVideoModal, changeAddVideoModal] = useState(false);
+
+  return (
+    <>
       <div className={styles.VideoPage}>
         <Typography variant='h1'>
           In-Sync
         </Typography>
-
         <Grid container spacing={0}>
           <Grid item sm={12} md={1} />
           <Grid item sm={12} md={6}>
             <EmbeddedVideo url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' />
+            <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
+              Add Video
+            </Button>
           </Grid>
           <Grid item sm={12} md={4}>
             <ChatComponent className={styles.chat} />
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>
+        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} />
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default VideoPage;

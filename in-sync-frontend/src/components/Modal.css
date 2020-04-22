@@ -6,13 +6,31 @@
     position: fixed;
     margin-top: 50px;
     left: calc(50% - 250px);
-    top: 100px;
+    background-color: white;
+    padding: 15px 15px 15px 15px;
+}
+
+.addVideoModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1000px;
+    position: fixed;
+    margin-top: 50px;
+    left: calc(50% - 500px);
     background-color: white;
     padding: 15px 15px 15px 15px;
 }
 
 .title {
     margin-bottom: 15px !important;
+}
+
+.addVideoText {
+    background-color: #e4e9ef;
+    margin: 0 0 15px 0 !important;
+    padding: 2px 10px 2px 10px !important;
+    width: 400px;
 }
 
 .bodyText {

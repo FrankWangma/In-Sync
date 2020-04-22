@@ -8,14 +8,11 @@ const CreateJoinRoomButton = () => {
   const [showCreateRoomModal, changeCreateModal] = useState(false);
   const [showJoinRoomModal, changeJoinModal] = useState(false);
 
-    <Grid item xs={12} className={styles.containedButton}>
-      <Button variant="contained" className={styles.button} onClick={() => { changeJoinModal(true); }}>
-    <Grid item xs={12} className={styles.containedButton}>
   return (
   <>
     <Grid container spacing={0}>
-    <Grid item xs={12} className="containedButton">
-      <Button variant="contained" className={"button"} onClick={() => { changeJoinModal(true); }}>
+    <Grid item xs={12} className={styles.containedButton}>
+      <Button variant="contained" className={styles.button} onClick={() => { changeJoinModal(true); }}>
       <Grid item xs={6}>
         <Typography variant={"h5"}>
         Join Room
@@ -28,8 +25,8 @@ const CreateJoinRoomButton = () => {
       </Grid>
       </Button>
     </Grid>
-    <Grid item xs={12} className="containedButton">
-      <Button variant="contained" className={"button"} onClick={() => { changeCreateModal(true); }}>
+    <Grid item xs={12} className={styles.containedButton}>
+      <Button variant="contained" className={styles.button} onClick={() => { changeCreateModal(true); }}>
       <Grid item xs={6}>
         <Typography variant={"h5"}>
         Create Room

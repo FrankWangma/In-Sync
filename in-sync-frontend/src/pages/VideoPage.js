@@ -1,7 +1,7 @@
 import React from "react";
+import { Typography, Grid } from '@material-ui/core';
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import "./VideoPage.css";
-import { Typography, Grid } from '@material-ui/core';
 import ChatUserSwitch from "../components/ChatUserSwitch";
 
 class VideoPage extends React.Component {

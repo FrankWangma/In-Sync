@@ -16,3 +16,8 @@
     color: white;
     margin-bottom: 80px;
 }
+
+.addVideoButton {
+    width: 150px;
+    height: 50px;
+}

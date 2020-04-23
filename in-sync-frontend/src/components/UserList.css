@@ -1,0 +1,14 @@
+.userInfo {
+    background-color: #253040;
+    height: 75px;
+    margin: 10px;
+}
+
+.userPic {
+    width: 70px;
+    float: left;
+}
+
+.userName {
+    padding-top: 10px;
+}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Typography, Grid, Button } from "@material-ui/core";
 import EmbeddedVideo from "../components/EmbeddedVideo";
-import ChatComponent from "../components/ChatComponent";
 import AddVideoModal from "../components/AddVideoModal";
-import styles from "./VideoPage.module.css";
+import "./VideoPage.css";
+import ChatUserSwitch from "../components/ChatUserSwitch";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
@@ -23,7 +23,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatComponent className={styles.chat} />
+            <ChatUserSwitch />
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

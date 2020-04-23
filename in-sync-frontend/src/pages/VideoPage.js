@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Grid, Button } from "@material-ui/core";
 import EmbeddedVideo from "../components/EmbeddedVideo";
-import ChatComponent from "../components/ChatComponent";
 import AddVideoModal from "../components/AddVideoModal";
 import "./VideoPage.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";

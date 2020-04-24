@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography, Grid, Button } from "@material-ui/core";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
-import "./VideoPage.css";
+import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 
 const VideoPage = () => {

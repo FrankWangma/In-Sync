@@ -6,20 +6,20 @@ import {
   Modal,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import "./Modal.css";
+import styles from "./Modal.module.css";
 
 const JoinRoomModal = ({ showModal, modalHandler }) => {
   const [roomID, setRoomID] = useState("");
 
   return (
   <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
-    <div className={"appModal"}>
-    <Typography variant="h2" className={"title"}>
+    <div className={styles.appModal}>
+    <Typography variant="h2" className={styles.title}>
       Join Room
     </Typography>
     <Typography>Enter Room ID or URL</Typography>
     <TextField
-      className={"bodyText"}
+      className={styles.bodyText}
       InputProps={{ disableUnderline: true }}
       margin="normal"
       name="ID"
@@ -27,12 +27,12 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
       placeholder="e.g. SD23F5G or insync.com/SD23F5G"
       onChange={(e) => { setRoomID(e.target.value); }}
     />
-    <div className={"modalButtons"}>
-      <Button className={"cancelButton"} onClick={() => { modalHandler(false); }}>
+    <div className={styles.modalButtons}>
+      <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
       Cancel
       </Button>
       <Link to={`/video`}>
-      <Button className={"createButton"}>
+      <Button className={styles.createButton}>
         Join
       </Button>
       </Link>

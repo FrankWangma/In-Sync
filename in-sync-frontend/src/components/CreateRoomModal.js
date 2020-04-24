@@ -6,7 +6,7 @@ import {
   Modal,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import "./Modal.css";
+import styles from "./Modal.module.css";
 
 const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [title, setRoomTitle] = useState("");
@@ -14,13 +14,13 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
 
   return (
     <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
-      <div className={"appModal"}>
-        <Typography variant="h2" className={"title"}>
+      <div className={styles.appModal}>
+        <Typography variant="h2" className={styles.title}>
           Create Room
         </Typography>
         <Typography>Room Title</Typography>
         <TextField
-          className={"bodyText"}
+          className={styles.bodyText}
           InputProps={{ disableUnderline: true }}
           margin="normal"
           name="title"
@@ -29,18 +29,18 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
         />
         <Typography>Video URL</Typography>
         <TextField
-          className={"bodyText"}
+          className={styles.bodyText}
           margin="normal"
           name="url"
           value={url}
           onChange={(e) => { setURL(e.target.value); }}
         />
-        <div className={"modalButtons"}>
-          <Button className={"cancelButton"} onClick={() => { modalHandler(false); }}>
+        <div className={styles.modalButtons}>
+          <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
             Cancel
           </Button>
           <Link to={`/video`}>
-            <Button className={"createButton"}>
+            <Button className={styles.createButton}>
               Create
             </Button>
           </Link>

@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
-import "./Modal.css";
+import styles from "./Modal.module.css";
 
 const AddVideoModal = ({ showModal, modalHandler }) => {
   const [url, setVideoURL] = useState("");
@@ -17,16 +17,16 @@ const AddVideoModal = ({ showModal, modalHandler }) => {
 
   return (
     <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
-      <div className={"addVideoModal"}>
+      <div className={styles.addVideoModal}>
         <Grid container spacing={0}>
           <Grid item xs={1} />
           <Grid item xs={5}>
-            <Typography variant="h2" className={"title"}>
+            <Typography variant="h2" className={styles.title}>
               Add a video
             </Typography>
             <Typography>Video URL</Typography>
             <TextField
-              className={"addVideoText"}
+              className={styles.addVideoText}
               InputProps={{ disableUnderline: true }}
               margin="normal"
               name="videoURL"
@@ -36,18 +36,18 @@ const AddVideoModal = ({ showModal, modalHandler }) => {
             />
             <Typography>Search for a video</Typography>
             <TextField
-              className={"addVideoText"}
+              className={styles.addVideoText}
               InputProps={{ disableUnderline: true }}
               margin="normal"
               name="videoSearch"
               value={search}
               onChange={(e) => { setSearchInput(e.target.value); }}
             />
-            <div className={"modalButtons"}>
-              <Button className={"cancelButton"} onClick={() => { modalHandler(false); }}>
+            <div className={styles.modalButtons}>
+              <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
                 Cancel
               </Button>
-              <Button className={"createButton"} onClick={() => { modalHandler(false); }}>
+              <Button className={styles.createButton} onClick={() => { modalHandler(false); }}>
                 Add
               </Button>
             </div>

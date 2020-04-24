@@ -6,3 +6,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.grid {
+    padding: 50px;
+}

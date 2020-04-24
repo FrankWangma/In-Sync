@@ -16,8 +16,7 @@ const users = [
 ];
 
 const UserList = () => {
-  const displayUser = (user) =>
-    (<div className="userInfo">
+  const displayUser = (user) => (<div className="userInfo">
       <img className="userPic" src={user.avatar} alt="User avatar" />
       <p className="userName">{user.name}</p>
     </div>);

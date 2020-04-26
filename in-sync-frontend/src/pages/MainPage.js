@@ -4,8 +4,7 @@ import { Button, Typography, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import CreateJoinRoomButton from "../components/CreateJoinRooms";
 
-class MainPage extends React.Component {
-  render() {
+const MainPage = () => {
     return (
         <div className={styles.MainPage}>
             <Grid container spacing={0}>
@@ -17,8 +16,8 @@ class MainPage extends React.Component {
                 <Grid item sm={12} m={4}>
                     <Link to={"/login"}>
                         <Button variant="contained"
-                        size="large" color="primary">
-                        Log In
+                            size="large" color="primary">
+                            Log In
                         </Button>
                     </Link>
                 </Grid>
@@ -28,7 +27,6 @@ class MainPage extends React.Component {
             </Grid>
         </div>
     );
-  }
 }
 
 export default MainPage;

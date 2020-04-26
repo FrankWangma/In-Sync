@@ -1,4 +1,4 @@
-import Room from '../models/roomModel';
+import Room from '../models/Room';
 
 exports.getRoom = (req, res) => {
   Room.findById(req.params.id, (err, foundRoom) => {

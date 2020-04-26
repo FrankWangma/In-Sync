@@ -33,7 +33,6 @@ const Login = () => {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 || e.which === 13) {
-      console.log(isButtonDisabled);
       if (!isButtonDisabled) {
         handleLogin();
       }

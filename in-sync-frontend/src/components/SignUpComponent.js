@@ -23,6 +23,12 @@ const SignUp = () => {
     }
   }, [email, username, password]);
 
+  const validateEmail = (email) => {
+    // Regex used to validate email
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
   const handleSignUp = () => {
     if (!validateEmail(email)) {
       setError(true);
@@ -38,73 +44,66 @@ const SignUp = () => {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 || e.which === 13) {
-      console.log(isButtonDisabled);
       if (!isButtonDisabled) {
         handleSignUp();
       }
     }
   };
 
-  const validateEmail = (email) => {
-    // Regex used to validate email
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
-
   return (
-        <form noValidate autoComplete="off">
-            <Card>
-                <CardHeader className={styles.signUpHeader} title="Sign Up"/>
-                <CardContent>
-                    <div>
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="email"
-                            type="email"
-                            label="E-mail"
-                            placeholder="E-mail"
-                            margin="normal"
-                            onChange={(e) => setEmail(e.target.value)}
-                            onKeyPress={(e) => handleKeyPress(e)}
-                        />
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="username"
-                            type="text"
-                            label="Username"
-                            placeholder="Username"
-                            margin="normal"
-                            onChange={(e) => setUsername(e.target.value)}
-                            onKeyPress={(e) => handleKeyPress(e)}
-                        />
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="password"
-                            type="password"
-                            label="Password"
-                            placeholder="Password"
-                            margin="normal"
-                            helperText={helperText}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyPress={(e) => handleKeyPress(e)}
-                        />
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                    variant="contained"
-                    size="large"
-                    color="Primary"
-                    onClick={() => handleSignUp()}
-                    disabled={isButtonDisabled}>
-                    Sign Up
+    <form noValidate autoComplete="off">
+      <Card>
+        <CardHeader className={styles.signUpHeader} title="Sign Up" />
+        <CardContent>
+          <div>
+            <TextField
+              error={error}
+              fullWidth
+              id="email"
+              type="email"
+              label="E-mail"
+              placeholder="E-mail"
+              margin="normal"
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+            />
+            <TextField
+              error={error}
+              fullWidth
+              id="username"
+              type="text"
+              label="Username"
+              placeholder="Username"
+              margin="normal"
+              onChange={(e) => setUsername(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+            />
+            <TextField
+              error={error}
+              fullWidth
+              id="password"
+              type="password"
+              label="Password"
+              placeholder="Password"
+              margin="normal"
+              helperText={helperText}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+            />
+          </div>
+        </CardContent>
+        <CardActions>
+          <Button
+            variant="contained"
+            size="large"
+            color="Primary"
+            onClick={() => handleSignUp()}
+            disabled={isButtonDisabled}>
+            Sign Up
                     </Button>
-                </CardActions>
-            </Card>
-        </form>
+        </CardActions>
+      </Card>
+    </form>
   );
 };
 

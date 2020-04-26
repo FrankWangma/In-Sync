@@ -1,5 +1,5 @@
 import React from "react";
-import styles from  "./UserList.module.css";
+import styles from "./UserList.module.css";
 
 // Users would populate from backend
 const users = [
@@ -17,10 +17,12 @@ const users = [
 
 const UserList = () => {
   const displayUser = (user) =>
-    (<div className={styles.userInfo}>
-      <img className={styles.userPic} src={user.avatar} alt="User avatar" />
-      <p className={styles.userName}>{user.name}</p>
-    </div>);
+    (
+      <div className={styles.userInfo}>
+        <img className={styles.userPic} src={user.avatar} alt="User avatar" />
+        <p className={styles.userName}>{user.name}</p>
+      </div>
+    );
 
   return (
     <div className={styles.container}>

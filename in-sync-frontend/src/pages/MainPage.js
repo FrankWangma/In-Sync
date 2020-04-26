@@ -11,14 +11,14 @@ const MainPage = () => {
         <Grid item xs={12}>
           <Typography variant='h1'>
             In-Sync
-                    </Typography>
+          </Typography>
         </Grid>
         <Grid item sm={12} m={4}>
           <Link to={"/login"}>
             <Button variant="contained"
               size="large" color="primary">
               Log In
-                        </Button>
+            </Button>
           </Link>
         </Grid>
         <Grid item xs={12}>

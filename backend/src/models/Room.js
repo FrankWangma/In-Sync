@@ -6,19 +6,19 @@ import mongoose, {
  * Create database scheme for notes
  */
 const RoomSchema = new Schema({
-  Host: {
+  host: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  Video: {
+  video: {
     type: String,
     default: '',
   },
-  Viewers: [{
+  viewers: [{
     type: Schema.Types.ObjectId,
     ref: 'User',
-  }]
+  }],
 });
 
 export default mongoose.model('Room', RoomSchema);

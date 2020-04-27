@@ -37,7 +37,7 @@ exports.updateRoom = (req, res) => {
   Room.findOneAndUpdate(
     { _id: req.params.roomId },
     req.body,
-    {new: true},
+    { new: true },
     (err, foundRoom) => {
       if (err) {
         res.send(err);
@@ -65,21 +65,19 @@ exports.joinRoom = (req, res) => {
     if (err) {
       res.send(err);
     }
-    console.log(req.body.userId);
-    console.log(req.body.id);
-    Room.findById(req.body.id, (err, foundRoom) => {
-      if (err) {
-        res.send(err);
+    Room.findById(req.body.id, (error, foundRoom) => {
+      if (error) {
+        res.send(error);
       }
 
       foundRoom.viewers.push(foundUser);
-      foundRoom.save((err) => {
-        if (err) {
-          res.json(err)
+      foundRoom.save((errorSave) => {
+        if (errorSave) {
+          res.json(errorSave);
         }
 
         res.json(foundRoom);
-      })
+      });
     });
   });
 };

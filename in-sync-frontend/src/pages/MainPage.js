@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./MainPage.module.css";
 import { Button, Typography, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.css";

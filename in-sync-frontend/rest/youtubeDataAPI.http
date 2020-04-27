@@ -1,0 +1,11 @@
+# Get Most Applicable Video By Keyword
+GET {{baseUrl}}/search?part=snippet&q=rick%20roll&maxResults=1&key={{key}}
+Accept: application/json
+
+###
+
+# Get 5 Most Applicable Videos By Keyword
+GET {{baseUrl}}/search?part=snippet&q=rick%20roll&maxResults=5&key={{key}}
+Accept: application/json
+
+###

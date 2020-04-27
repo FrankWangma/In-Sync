@@ -13,7 +13,6 @@ const Login = () => {
       username: '',
       password: ''
   });
-  const [submitted, setSubmitted] = useState(false);
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
   const { username, password } = inputs;
@@ -33,61 +32,64 @@ const Login = () => {
   function handleSubmit(e) {
       e.preventDefault();
 
-      setSubmitted(true);
       if (username && password) {
-          dispatch(userActions.login(username, password));
+        setError(false);
+        setHelperText("");
+        dispatch(userActions.login(username, password));
+      } else {
+        setError(true);
+        setHelperText("Fields cannot be empty");
       }
   }
 
   function handleAlert() {
-    if(alert.type == "alert-danger") {
+    if(alert.type === "alert-danger") {
       setError(true);
       setHelperText(alert.message);
     }
   }
 
   return (
-      <div className={styles.loginHeader}>
-          <form name="form">
-          <Card>
-                <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
-                <CardContent>
-                    <div>
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="username"
-                            type="text"
-                            label="Username"
-                            placeholder="Username"
-                            margin="normal"
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="password"
-                            type="password"
-                            label="Password"
-                            placeholder="Password"
-                            margin="normal"
-                            helperText={helperText}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                    variant="contained"
-                    size="large"
-                    color="secondary"
-                    onClick={handleSubmit}>
-                    Login
-                    </Button>
-                </CardActions>
-            </Card>
-          </form>
-      </div>
+    <form name="form">
+    <Card>
+          <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
+          <CardContent>
+              <div>
+                  <TextField
+                      error={error}
+                      fullWidth
+                      id="username"
+                      type="text"
+                      label="Username"
+                      placeholder="Username"
+                      margin="normal"
+                      onChange={handleChange}
+                  />
+                  <TextField
+                      error={error}
+                      fullWidth
+                      id="password"
+                      type="password"
+                      label="Password"
+                      placeholder="Password"
+                      margin="normal"
+                      helperText={helperText}
+                      onChange={handleChange}
+                  />
+              </div>
+          </CardContent>
+          <CardActions>
+              <Button
+              variant="contained"
+              size="large"
+              color="secondary"
+              onClick={handleSubmit}>
+              {loggingIn}
+              Login
+              </Button>
+          </CardActions>
+      </Card>
+    </form>
   );
 }
 

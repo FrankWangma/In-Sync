@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import MainPage from "../pages/MainPage";
 import VideoPage from "../pages/VideoPage";
@@ -16,6 +16,7 @@ const routes = (
     <Route exact path={paths.MAINPAGE} component={MainPage} />
     <Route exact path={paths.VIDEOPAGE} component={VideoPage} />
     <Route exact path={paths.LOGINPAGE} component={LoginPage} />
+    <Redirect from="*" to="/" />
   </Switch>
 );
 

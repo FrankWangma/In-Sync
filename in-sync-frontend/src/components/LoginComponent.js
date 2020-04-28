@@ -4,6 +4,7 @@ import styles from "./LoginComponent.module.css"
 import {
   Button, Card, CardHeader, CardContent,TextField, CardActions
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 import { userActions } from '../_actions';
 
@@ -18,6 +19,7 @@ const Login = () => {
   const { username, password } = inputs;
   const loggingIn = useSelector(state => state.authentication.loggingIn);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // reset login status
   useEffect(() => { 
@@ -46,12 +48,19 @@ const Login = () => {
     if(alert.type === "alert-danger") {
       setError(true);
       setHelperText(alert.message);
+    } 
+  }
+
+  function redirect() {
+    if( localStorage.getItem('user') ) {
+      history.push("/")
     }
   }
 
   return (
     <form name="form">
     <Card>
+        {redirect()}
           <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
           <CardContent>
               <div>

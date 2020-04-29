@@ -46,7 +46,7 @@ content-type: application/json
 {
     "host": "5ea8de31f4d4b92ac44db792",
     "video": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    "viewers": ["5ea8de31f4d4b92ac44db792"]
+    "viewers": []
 }
 
 ###

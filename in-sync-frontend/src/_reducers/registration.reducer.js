@@ -1,5 +1,6 @@
 import { userConstants } from "../_constants";
 
+// eslint-disable-next-line import/prefer-default-export
 export function registration(state = {}, action) {
   switch (action.type) {
     case userConstants.REGISTER_REQUEST:

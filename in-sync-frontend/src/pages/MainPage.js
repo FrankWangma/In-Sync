@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Typography, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import styles from "./MainPage.module.css";
 import CreateJoinRoomButton from "../components/CreateJoinRooms";
 import Header from "../common/Header";

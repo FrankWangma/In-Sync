@@ -5,6 +5,7 @@ import rootReducer from "../_reducers";
 
 const loggerMiddleware = createLogger();
 
+// eslint-disable-next-line import/prefer-default-export
 export const store = createStore(
   rootReducer,
   applyMiddleware(

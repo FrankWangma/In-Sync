@@ -1,5 +1,6 @@
 import { alertConstants } from "../_constants";
 
+// eslint-disable-next-line import/prefer-default-export
 export function alert(state = {}, action) {
   switch (action.type) {
     case alertConstants.SUCCESS:

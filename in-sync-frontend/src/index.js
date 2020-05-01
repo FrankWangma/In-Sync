@@ -4,11 +4,9 @@ import "./index.css";
 import { Provider } from "react-redux";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { store } from "./_helpers";
+import { store, configureFakeBackend } from "./_helpers";
 
 // setup fake backend
-import { configureFakeBackend } from "./_helpers";
-
 configureFakeBackend();
 
 ReactDOM.render(

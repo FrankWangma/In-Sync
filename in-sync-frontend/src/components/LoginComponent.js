@@ -28,7 +28,7 @@ const Login = () => {
 
   function handleChange(e) {
     const { id, value } = e.target;
-    setInputs((inputs) => ({ ...inputs, [id]: value }));
+    setInputs(() => ({ ...inputs, [id]: value }));
   }
 
   function handleSubmit(e) {

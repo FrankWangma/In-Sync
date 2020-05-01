@@ -1,59 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from "./LoginComponent.module.css"
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Button, Card, CardHeader, CardContent,TextField, CardActions
+  Button, Card, CardHeader, CardContent, TextField, CardActions,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import styles from "./LoginComponent.module.css";
 
-import { userActions } from '../_actions';
+import { userActions } from "../_actions";
 
 const Login = () => {
-  const alert = useSelector(state => state.alert);
+  const alert = useSelector((state) => state.alert);
   const [inputs, setInputs] = useState({
-      username: '',
-      password: ''
+    username: "",
+    password: "",
   });
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
   const { username, password } = inputs;
-  const loggingIn = useSelector(state => state.authentication.loggingIn);
+  const loggingIn = useSelector((state) => state.authentication.loggingIn);
   const dispatch = useDispatch();
   const history = useHistory();
 
   // reset login status
-  useEffect(() => { 
-      dispatch(userActions.logout());
+  useEffect(() => {
+    dispatch(userActions.logout());
   }, []);
 
   function handleChange(e) {
-      const { id, value } = e.target;
-      setInputs(inputs => ({ ...inputs, [id]: value }));
+    const { id, value } = e.target;
+    setInputs((inputs) => ({ ...inputs, [id]: value }));
   }
 
   function handleSubmit(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      if (username && password) {
-        setError(false);
-        setHelperText("");
-        dispatch(userActions.login(username, password));
-      } else {
-        setError(true);
-        setHelperText("Fields cannot be empty");
-      }
+    if (username && password) {
+      setError(false);
+      setHelperText("");
+      dispatch(userActions.login(username, password));
+    } else {
+      setError(true);
+      setHelperText("Fields cannot be empty");
+    }
   }
 
   function handleAlert() {
-    if(alert.type === "alert-danger") {
+    if (alert.type === "alert-danger") {
       setError(true);
       setHelperText(alert.message);
-    } 
+    }
   }
 
   function redirect() {
-    if( localStorage.getItem('user') ) {
-      history.push("/")
+    if (localStorage.getItem("user")) {
+      history.push("/");
     }
   }
 
@@ -100,6 +100,6 @@ const Login = () => {
       </Card>
     </form>
   );
-}
+};
 
 export default Login;

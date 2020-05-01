@@ -1,11 +1,10 @@
 import React from "react";
-import styles from "./MainPage.module.css";
 import { Button, Typography, Grid } from "@material-ui/core";
+import styles from "./MainPage.module.css";
 import CreateJoinRoomButton from "../components/CreateJoinRooms";
 import Header from "../common/Header";
 
-const MainPage = () => {
-  return (
+const MainPage = () => (
     <div>
       <Header />
       <div className={styles.MainPage}>
@@ -21,7 +20,6 @@ const MainPage = () => {
         </Grid>
       </div>
     </div>
-  );
-};
+);
 
 export default MainPage;

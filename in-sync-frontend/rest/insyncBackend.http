@@ -1,0 +1,93 @@
+# PLEASE NOTE
+# IDs in these requests must be changed as rooms/users are created/deleted
+
+# Create User
+POST http://localhost:3000/user
+Accept: application/json
+content-type: application/json
+
+{
+    "email": "test2@test.com",
+    "username": "TestMan2",
+    "password": "testPass2"
+}
+
+###
+
+# Get All Users
+GET http://localhost:3000/user
+Accept: application/json
+
+###
+
+# Get User By Id
+GET http://localhost:3000/user/5ea8de31f4d4b92ac44db792
+Accept: application/json
+
+###
+
+# Logging In
+GET http://localhost:3000/login
+Accept: application/json
+content-type: application/json
+
+{
+    "username": "TestMan",
+    "password": "testPass"
+}
+
+###
+
+# Create Room
+POST http://localhost:3000/room
+Accept: application/json
+content-type: application/json
+
+{
+    "host": "5ea8de31f4d4b92ac44db792",
+    "video": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "viewers": []
+}
+
+###
+
+# Get Room By Id
+GET http://localhost:3000/room/5ea8e0e8f4d4b92ac44db797
+Accept: application/json
+
+###
+
+# Get All Rooms
+GET http://localhost:3000/room
+Accept: application/json
+
+###
+
+# Join Room
+PUT http://localhost:3000/room
+Accept: application/json
+content-type: application/json
+
+{
+    "userId": "5ea8e204f4d4b92ac44db798",
+    "id": "5ea8e0e8f4d4b92ac44db797"
+}
+
+###
+
+# Update Room
+PUT http://localhost:3000/room/5ea8e0e8f4d4b92ac44db797
+Accept: application/json
+content-type: application/json
+
+{
+    "video": "https://www.youtube.com/watch?v=2Jvvz8n_hZ0"
+}
+
+###
+
+# Delete Room
+DELETE http://localhost:3000/room/5ea8e0e8f4d4b92ac44db797
+Accept: application/json
+
+###

@@ -16,6 +16,7 @@ const Login = () => {
   });
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const { username, password } = inputs;
   const loggingIn = useSelector((state) => state.authentication.loggingIn);
   const dispatch = useDispatch();
@@ -45,9 +46,12 @@ const Login = () => {
   }
 
   function handleAlert() {
-    if (alert.type === "alert-danger") {
-      setError(true);
-      setHelperText(alert.message);
+    if(alert.message !== alertMessage) {
+      setAlertMessage(alert.message);
+      if (alert.type === "alert-danger") {
+        setError(true);
+        setHelperText(alert.message);
+      }
     }
   }
 
@@ -85,6 +89,7 @@ const Login = () => {
                       helperText={helperText}
                       onChange={handleChange}
                   />
+                  {alert.message && handleAlert()};
               </div>
           </CardContent>
           <CardActions>

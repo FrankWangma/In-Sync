@@ -17,6 +17,7 @@ function SignUp() {
   });
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const registering = useSelector((state) => state.registration.registering);
   const dispatch = useDispatch();
 
@@ -44,9 +45,12 @@ function SignUp() {
   }
 
   function handleAlert() {
-    if (alert.type === "alert-danger") {
-      setError(true);
-      setHelperText(alert.message);
+    if(alert.message !== alertMessage) {
+      setAlertMessage(alert.message);
+      if (alert.type === "alert-danger") {
+        setError(true);
+        setHelperText(alert.message);
+      }
     }
   }
 
@@ -109,6 +113,7 @@ function SignUp() {
                 Register
                 </Button>
             </CardActions>
+            {alert.message && handleAlert()}
         </Card>
       </form>
   );

@@ -20,7 +20,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
       "host": "5ea8de31f4d4b92ac44db792",
       "video": url,
       "viewers": []
-    }).then(res => setRoomId(res.data._id));
+    }).then(res => setRoomId("/video?id=" + res.data._id));
   }
 
   return (
@@ -50,9 +50,9 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
           <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
             Cancel
           </Button>
-          <Link to={`/video`}>
-            <Button className={styles.createButton} onClick={() => { createRoom(title, url); }}>>
-            Create
+          <Link to={roomId} onClick={() => { createRoom(title, url); }}>
+            <Button className={styles.createButton}>
+              Create
             </Button>
           </Link>
         </div>

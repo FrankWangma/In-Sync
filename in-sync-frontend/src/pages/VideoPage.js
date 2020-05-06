@@ -4,9 +4,18 @@ import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
+import * as qs from 'query-string';
+import axios from 'axios';
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
+
+  const roomId = qs.parse(window.location.search).id
+  // Get Video ID
+  const url = "http://localhost:3000/room/" + roomId;
+  axios.get(url)
+  .then(response => setVideoUrl(response.data.video));
 
   return (
     <>
@@ -17,7 +26,7 @@ const VideoPage = () => {
         <Grid container spacing={0}>
           <Grid item sm={12} md={1} />
           <Grid item sm={12} md={6}>
-            <EmbeddedVideo url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' />
+            <EmbeddedVideo url={videoUrl} />
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
               Add Video
             </Button>

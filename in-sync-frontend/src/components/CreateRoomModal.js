@@ -7,13 +7,21 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "./Modal.module.css";
+import axios from 'axios';
 
 const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [title, setRoomTitle] = useState("");
   const [url, setURL] = useState("");
 
-  const createRoom = (title, url) =>
-      console.log(title, url);
+  const createRoom = (title, url) => {
+    console.log(title, url);
+    axios.post("http://localhost:3000/room", {
+      crossdomain: true,
+      "host": "5ea8de31f4d4b92ac44db792",
+      "video": url,
+      "viewers": []
+    });
+  }
 
   return (
     <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
@@ -44,7 +52,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
           </Button>
           <Link to={`/video`}>
             <Button className={styles.createButton} onClick={() => { createRoom(title, url); }}>>
-              Create
+            Create
             </Button>
           </Link>
         </div>

@@ -12,15 +12,15 @@ import axios from 'axios';
 const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [title, setRoomTitle] = useState("");
   const [url, setURL] = useState("");
+  const [roomId, setRoomId] = useState("");
 
   const createRoom = (title, url) => {
-    console.log(title, url);
     axios.post("http://localhost:3000/room", {
       crossdomain: true,
       "host": "5ea8de31f4d4b92ac44db792",
       "video": url,
       "viewers": []
-    });
+    }).then(res => setRoomId(res.data._id));
   }
 
   return (

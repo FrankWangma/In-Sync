@@ -17,7 +17,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
   const createRoom = (title, url) => {
     axios.post("http://localhost:3000/room", {
       crossdomain: true,
-      "host": "5ea8de31f4d4b92ac44db792",
+      "host": "5ea8de31f4d4b92ac44db792", //PLACEHOLDER
       "video": url,
       "viewers": []
     }).then(res => setRoomId("/video?id=" + res.data._id));

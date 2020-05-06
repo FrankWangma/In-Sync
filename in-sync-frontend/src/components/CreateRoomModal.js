@@ -12,6 +12,9 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [title, setRoomTitle] = useState("");
   const [url, setURL] = useState("");
 
+  const createRoom = (title, url) =>
+      console.log(title, url);
+
   return (
     <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
       <div className={styles.appModal}>
@@ -40,7 +43,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
             Cancel
           </Button>
           <Link to={`/video`}>
-            <Button className={styles.createButton}>
+            <Button className={styles.createButton} onClick={() => { createRoom(title, url); }}>>
               Create
             </Button>
           </Link>

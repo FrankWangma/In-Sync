@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Typography, Grid, Button } from "@material-ui/core";
+import * as qs from "query-string";
+import axios from "axios";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
-import * as qs from 'query-string';
-import axios from 'axios';
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
 
-  const roomId = qs.parse(window.location.search).id
+  const roomId = qs.parse(window.location.search).id;
   // Get Video ID
   const url = "http://localhost:3000/room/" + roomId;
   axios.get(url)
-  .then(response => setVideoUrl(response.data.video));
+  .then((response) => setVideoUrl(response.data.video));
 
   return (
     <>

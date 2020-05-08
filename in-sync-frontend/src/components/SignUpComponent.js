@@ -5,10 +5,10 @@ import {
 } from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
 
-
 import { userActions } from "../_actions";
 
 function SignUp() {
+  const alert = useSelector((state) => state.alert);
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -45,7 +45,8 @@ function SignUp() {
   }
 
   function handleAlert() {
-    if(alert.message !== alertMessage) {
+    if(alert.message !== alertMessage &&
+      alert.message === `Username  ${user.username} is already taken`) {
       setAlertMessage(alert.message);
       if (alert.type === "alert-danger") {
         setError(true);

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Button, Card, CardHeader, CardContent, TextField, CardActions,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import styles from "./LoginComponent.module.css";
 
 import { userActions } from "../_actions";
@@ -20,8 +19,6 @@ const Login = () => {
   const { username, password } = inputs;
   const loggingIn = useSelector((state) => state.authentication.loggingIn);
   const dispatch = useDispatch();
-  const history = useHistory();
-
   // reset login status
   useEffect(() => {
     dispatch(userActions.logout());
@@ -46,7 +43,8 @@ const Login = () => {
   }
 
   function handleAlert() {
-    if(alert.message !== alertMessage) {
+    if(alert.message !== alertMessage
+      && alert.message === "Username or password is incorrect") {
       setAlertMessage(alert.message);
       if (alert.type === "alert-danger") {
         setError(true);
@@ -55,16 +53,9 @@ const Login = () => {
     }
   }
 
-  function redirect() {
-    if (localStorage.getItem("user")) {
-      history.push("/");
-    }
-  }
-
   return (
     <form name="form">
     <Card>
-        {redirect()}
           <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
           <CardContent>
               <div>
@@ -89,7 +80,7 @@ const Login = () => {
                       helperText={helperText}
                       onChange={handleChange}
                   />
-                  {alert.message && handleAlert()};
+                  {alert.message && handleAlert()}
               </div>
           </CardContent>
           <CardActions>

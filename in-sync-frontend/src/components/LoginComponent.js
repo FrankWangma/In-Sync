@@ -43,7 +43,7 @@ const Login = () => {
   }
 
   function handleAlert() {
-    if(alert.message !== alertMessage
+    if (alert.message !== alertMessage
       && alert.message === "Username or password is incorrect") {
       setAlertMessage(alert.message);
       if (alert.type === "alert-danger") {

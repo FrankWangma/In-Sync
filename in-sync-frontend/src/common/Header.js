@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import { history } from "../_helpers"
 import { Link, useLocation } from "react-router-dom";
+import { history } from "../_helpers";
 import ProfileButton from "./ProfileButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
 
 const handleCancel = () => {
   history.goBack();
-}
+};
 
 const Header = () => {
   const classes = useStyles();
-  let location = useLocation();
+  const location = useLocation();
   const [isLoginPage] = useState(location.pathname === "/login");
   const loggedIn = useSelector((state) => state.authentication.loggedIn);
 
@@ -36,17 +36,15 @@ const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <div variant="h6" className={classes.title} />
-          {loggedIn? 
-            <ProfileButton />
-            :
-            isLoginPage? 
-              <Button variant="contained" onClick={handleCancel}>
+          {loggedIn
+            ? <ProfileButton />
+            : isLoginPage
+              ? <Button variant="contained" onClick={handleCancel}>
                 Cancel
               </Button>
-              :
-              <Link to={"/login"}>
+              : <Link to={"/login"}>
                 <Button variant="contained" color="secondary">Login</Button>
-              </Link> 
+              </Link>
           }
         </Toolbar>
       </AppBar>

@@ -3,7 +3,7 @@ import { Grid } from "@material-ui/core";
 import Login from "../components/LoginComponent";
 import SignUp from "../components/SignUpComponent";
 import styles from "./LoginPage.module.css";
-import Header from "../common/Header"
+import Header from "../common/Header";
 
 const LoginPage = () => (
     <div>

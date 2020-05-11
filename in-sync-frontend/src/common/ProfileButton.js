@@ -7,13 +7,15 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from "react-redux";
-import styles from "./ProfileButton.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { userActions } from "../_actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     color: "white",
+    marginRight: 10,
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -28,7 +30,7 @@ export default function ProfileButton() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const user = useSelector((state) => state.authentication.user);
-
+  const dispatch = useDispatch();
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -40,6 +42,10 @@ export default function ProfileButton() {
 
     setOpen(false);
   };
+
+  const handleLogout = () => {
+    dispatch(userActions.logout());
+  }
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -68,6 +74,7 @@ export default function ProfileButton() {
           onClick={handleToggle}
           className={classes.root}
         >
+            <AccountCircleIcon style={{marginRight: 10}}/>
             {user.username}
         </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
@@ -79,9 +86,8 @@ export default function ProfileButton() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { history } from "../_helpers"
 import { Link, useLocation } from "react-router-dom";
+import ProfileButton from "./ProfileButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,21 +28,26 @@ const handleCancel = () => {
 const Header = () => {
   const classes = useStyles();
   let location = useLocation();
-  const [isLoginPage, setisLoginPage] = useState(location.pathname === "/login");
+  const [isLoginPage] = useState(location.pathname === "/login");
+  const loggedIn = useSelector((state) => state.authentication.loggedIn);
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <div variant="h6" className={classes.title} />
-          {isLoginPage? 
-            <Button variant="contained" onClick={handleCancel}>
-              Cancel
-            </Button>
+          {loggedIn? 
+            <ProfileButton />
             :
-            <Link to={"/login"}>
-              <Button variant="contained" color="secondary">Login</Button>
-            </Link> }
+            isLoginPage? 
+              <Button variant="contained" onClick={handleCancel}>
+                Cancel
+              </Button>
+              :
+              <Link to={"/login"}>
+                <Button variant="contained" color="secondary">Login</Button>
+              </Link> 
+          }
         </Toolbar>
       </AppBar>
     </div>

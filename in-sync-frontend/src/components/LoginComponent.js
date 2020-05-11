@@ -1,87 +1,100 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Card, CardHeader, CardContent, CardActions, Button, TextField,
+  Button, Card, CardHeader, CardContent, TextField, CardActions,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import styles from "./LoginComponent.module.css";
 
+import { userActions } from "../_actions";
+
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const alert = useSelector((state) => state.alert);
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
-  const history = useHistory();
-
+  const [alertMessage, setAlertMessage] = useState("");
+  const { username, password } = inputs;
+  const loggingIn = useSelector((state) => state.authentication.loggingIn);
+  const dispatch = useDispatch();
+  // reset login status
   useEffect(() => {
-    if (username.trim() && password.trim()) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  }, [username, password]);
+    dispatch(userActions.logout());
+  }, []);
 
-  const handleLogin = () => {
-    if (username === "username" && password === "password") {
+  function handleChange(e) {
+    const { id, value } = e.target;
+    setInputs(() => ({ ...inputs, [id]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (username && password) {
       setError(false);
-      history.push("/");
+      setHelperText("");
+      dispatch(userActions.login(username, password));
     } else {
       setError(true);
-      setHelperText("Incorrect username or password");
+      setHelperText("Fields cannot be empty");
     }
-  };
+  }
 
-  const handleKeyPress = (e) => {
-    if (e.keyCode === 13 || e.which === 13) {
-      if (!isButtonDisabled) {
-        handleLogin();
+  function handleAlert() {
+    if (alert.message !== alertMessage
+      && alert.message === "Username or password is incorrect") {
+      setAlertMessage(alert.message);
+      if (alert.type === "alert-danger") {
+        setError(true);
+        setHelperText(alert.message);
       }
     }
-  };
+  }
 
   return (
-        <form noValidate autoComplete="off">
-            <Card>
-                <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
-                <CardContent>
-                    <div>
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="username"
-                            type="text"
-                            label="Username"
-                            placeholder="Username"
-                            margin="normal"
-                            onChange={(e) => setUsername(e.target.value)}
-                            onKeyPress={(e) => handleKeyPress(e)}
-                        />
-                        <TextField
-                            error={error}
-                            fullWidth
-                            id="password"
-                            type="password"
-                            label="Password"
-                            placeholder="Password"
-                            margin="normal"
-                            helperText={helperText}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyPress={(e) => handleKeyPress(e)}
-                        />
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                    variant="contained"
-                    size="large"
-                    color="secondary"
-                    onClick={() => handleLogin()}
-                    disabled={isButtonDisabled}>
-                    Login
-                    </Button>
-                </CardActions>
-            </Card>
-        </form>
+    <form name="form">
+    <Card>
+          <CardHeader className={styles.loginHeader} title="In-Sync Login"/>
+          <CardContent>
+              <div>
+                  <TextField
+                      error={error}
+                      fullWidth
+                      id="username"
+                      type="text"
+                      label="Username"
+                      placeholder="Username"
+                      margin="normal"
+                      onChange={handleChange}
+                  />
+                  <TextField
+                      error={error}
+                      fullWidth
+                      id="password"
+                      type="password"
+                      label="Password"
+                      placeholder="Password"
+                      margin="normal"
+                      helperText={helperText}
+                      onChange={handleChange}
+                  />
+                  {alert.message && handleAlert()}
+              </div>
+          </CardContent>
+          <CardActions>
+              <Button
+              variant="contained"
+              size="large"
+              color="secondary"
+              onClick={handleSubmit}>
+              {loggingIn}
+              Login
+              </Button>
+          </CardActions>
+      </Card>
+    </form>
   );
 };
 

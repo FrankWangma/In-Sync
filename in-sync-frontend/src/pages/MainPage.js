@@ -1,32 +1,25 @@
 import React from "react";
+import { Typography, Grid } from "@material-ui/core";
 import styles from "./MainPage.module.css";
-import { Button, Typography, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import CreateJoinRoomButton from "../components/CreateJoinRooms";
+import Header from "../common/Header";
 
-const MainPage = () => {
-  return (
-    <div className={styles.MainPage}>
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <Typography variant='h1'>
-            In-Sync
-          </Typography>
+const MainPage = () => (
+    <div>
+      <Header />
+      <div className={styles.MainPage}>
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
+            <Typography variant='h1'>
+              In-Sync
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <CreateJoinRoomButton />
+          </Grid>
         </Grid>
-        <Grid item sm={12} m={4}>
-          <Link to={"/login"}>
-            <Button variant="contained"
-              size="large" color="primary">
-              Log In
-            </Button>
-          </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <CreateJoinRoomButton />
-        </Grid>
-      </Grid>
+      </div>
     </div>
-  );
-};
+);
 
 export default MainPage;

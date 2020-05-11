@@ -6,6 +6,7 @@ import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
+import Header from "../common/Header";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
@@ -19,6 +20,7 @@ const VideoPage = () => {
 
   return (
     <>
+      <Header />
       <div className={styles.VideoPage}>
         <Typography variant='h1'>
           In-Sync

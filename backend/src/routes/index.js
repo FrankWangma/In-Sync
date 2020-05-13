@@ -13,12 +13,16 @@ export default (app) => {
     .delete(room.deleteRoom);
 
   app.route('/user')
-    .get(user.getAllUsers)
+    .get(user.getAllUsers);
+
+  app.route('/user/register')
     .post(user.createUser);
 
   app.route('/user/:userId')
-    .get(user.getUser);
+    .get(user.getUser)
+    .put(user.updateUser)
+    .post(user.deleteUser);
 
   app.route('/login')
-    .get(user.login);
+    .get(user.authenticate);
 };

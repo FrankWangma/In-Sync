@@ -1,7 +1,15 @@
 import User from '../models/User';
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../../config.json');
 
 exports.createUser = (req, res) => {
   const newUser = new User(req.body);
+
+  if (req.body.password) {
+    newUser.hash = bcrypt.hashSync(req.body.password, 10);
+  }
+  console.log(newUser.hash);
 
   newUser.save((err, createdUser) => {
     if (err) {
@@ -11,6 +19,30 @@ exports.createUser = (req, res) => {
     res.json(createdUser);
   });
 };
+
+exports.updateUser = (req, res) => {
+  const user = User.findById(req.params.userId);
+
+  if (!user) {
+    res.status(400).json({ message: 'User not found' })
+  } else if(user.username !== req.body.username && User.findOne({ username: req.body.username })) {
+    res.status(400).json({ message: 'Username "' + req.body.username + '" is already taken'});
+  } else {
+    if (req.body.password) {
+      req.body.hash = bcrypt.hashSync(req.body.password, 10);
+    }
+
+    Object.assign(user, req.body);
+
+    user.save((err, updatedUser) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json(updatedUser);
+    });
+  }
+}
 
 exports.getAllUsers = (req, res) => {
   User.find({}, (err, foundUsers) => {
@@ -32,17 +64,26 @@ exports.getUser = (req, res) => {
   });
 };
 
-// Login will be updated with auth stuff eventually for now just get
-//  user by id & password
-exports.login = (req, res) => {
-  User.findOne({
-    username: req.body.username,
-    password: req.body.password,
-  }, (err, foundUser) => {
+exports.deleteUser = (req, res) => {
+  User.findByIdAndRemove(req.params.userId, (err) => {
     if (err) {
       res.send(err);
     }
 
-    res.json(foundUser);
+    res.status(202).json({ message: 'User Successfully Deleted' });
+  })
+}
+
+exports.authenticate = (req, res) => {
+  User.findOne({ username: req.body.username }, (err, foundUser) => {
+    console.log(foundUser);
+    console.log(foundUser.hash);
+    console.log(req.body.password);
+    if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
+      const token = jwt.sign({ sub: foundUser.id }, config.secret);
+      res.send({ foundUser, token });
+    } else {
+      res.status(400).json({ message: 'Username or password is incorrect' })
+    }
   });
-};
+}

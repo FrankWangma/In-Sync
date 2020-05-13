@@ -8,15 +8,24 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
-  password: {
-    type: String,
-    required: true,
+  hash: { 
+    type: String, 
+    required: true 
   },
   email: {
     type: String,
     unique: true,
     default: '',
   },
+});
+
+UserSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+      delete ret._id;
+      delete ret.hash;
+  }
 });
 
 export default mongoose.model('User', UserSchema);

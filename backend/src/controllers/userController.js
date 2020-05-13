@@ -76,9 +76,6 @@ exports.deleteUser = (req, res) => {
 
 exports.authenticate = (req, res) => {
   User.findOne({ username: req.body.username }, (err, foundUser) => {
-    console.log(foundUser);
-    console.log(foundUser.hash);
-    console.log(req.body.password);
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
       const token = jwt.sign({ sub: foundUser.id }, config.secret);
       res.send({ foundUser, token });

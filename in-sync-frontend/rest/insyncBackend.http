@@ -87,7 +87,7 @@ content-type: application/json
 ###
 
 # Delete Room
-DELETE http://localhost:3000/room/5ea8e0e8f4d4b92ac44db797
+DELETE http://localhost:3000/room/5ea8e376f4d4b92ac44db799
 Accept: application/json
 
 ###

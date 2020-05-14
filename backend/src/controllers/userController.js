@@ -21,27 +21,37 @@ exports.createUser = (req, res) => {
 };
 
 exports.updateUser = (req, res) => {
-  const user = User.findById(req.params.userId);
-
-  if (!user) {
-    res.status(400).json({ message: 'User not found' })
-  } else if(user.username !== req.body.username && User.findOne({ username: req.body.username })) {
-    res.status(400).json({ message: 'Username "' + req.body.username + '" is already taken'});
-  } else {
-    if (req.body.password) {
-      req.body.hash = bcrypt.hashSync(req.body.password, 10);
-    }
-
-    Object.assign(user, req.body);
-
-    user.save((err, updatedUser) => {
-      if (err) {
-        res.send(err);
+  User.findById(req.params.userId, (err, foundUser) => {
+    if (!foundUser) {
+      res.status(400).json({ message: 'User not found' })
+    } else if(foundUser.username !== req.body.username && usernameExists(req.body.username)) {
+      res.status(400).json({ message: 'Username "' + req.body.username + '" is already taken'});
+    } else {
+      if (req.body.password) {
+        req.body.hash = bcrypt.hashSync(req.body.password, 10);
       }
+  
+      Object.assign(foundUser, req.body);
+  
+      foundUser.save((err, updatedUser) => {
+        if (err) {
+          res.send(err);
+        }
+  
+        res.json(updatedUser);
+      });
+    }
+  });
+}
 
-      res.json(updatedUser);
-    });
-  }
+function usernameExists(name) {
+  User.findOne({ username: name }, (err, foundUser) => {
+    if (foundUser) {
+      return true;
+    } else {
+      return false;
+    }
+  })
 }
 
 exports.getAllUsers = (req, res) => {

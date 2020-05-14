@@ -21,7 +21,7 @@ export default (app) => {
   app.route('/user/:userId')
     .get(user.getUser)
     .put(user.updateUser)
-    .post(user.deleteUser);
+    .delete(user.deleteUser);
 
   app.route('/login')
     .get(user.authenticate);

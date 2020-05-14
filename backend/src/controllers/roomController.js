@@ -1,5 +1,6 @@
 import Room from '../models/Room';
 import User from '../models/User';
+import io from '../../server';
 
 exports.getRoom = (req, res) => {
   Room.findById(req.params.roomId, (err, foundRoom) => {
@@ -75,7 +76,7 @@ exports.joinRoom = (req, res) => {
         if (errorSave) {
           res.json(errorSave);
         }
-
+        io.sockets.in(foundRoom.id).emit('userJoinedRoom', foundUser.username);  
         res.json(foundRoom);
       });
     });

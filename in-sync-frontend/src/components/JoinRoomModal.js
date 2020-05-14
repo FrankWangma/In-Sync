@@ -21,7 +21,6 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
       userId: "5ea8e204f4d4b92ac44db798", // PLACEHOLDER
       id: roomID,
     })
-      .then((res) => setRoomID("/video?id=" + res.data._id))
       .then(setShouldNavigate(true));
   };
 

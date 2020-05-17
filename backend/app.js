@@ -1,10 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import jwt from './src/_helpers/jwt'
 
 import routes from './src/routes/index.js';
 
 const app = express();
+const cors = require('cors');
 
 /**
   * Connect to the database
@@ -19,8 +21,10 @@ mongoose.set('useCreateIndex', true);
   * Middleware
   */
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
+app.use(jwt());
 
 // catch 400
 app.use((err, req, res, next) => {

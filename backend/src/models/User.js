@@ -3,13 +3,21 @@ import mongoose, {
 } from 'mongoose';
 
 const UserSchema = new Schema({
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     unique: true,
     required: true,
   },
-  password: {
-    type: String,
+  hash: { 
+    type: String, 
     required: true,
   },
   email: {
@@ -17,6 +25,15 @@ const UserSchema = new Schema({
     unique: true,
     default: '',
   },
+});
+
+UserSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+      delete ret._id;
+      delete ret.hash;
+  }
 });
 
 export default mongoose.model('User', UserSchema);

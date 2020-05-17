@@ -22,7 +22,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
       video: url,
       viewers: [],
     })
-      .then((res) => setRoomId("/video?id=" + res.data._id))
+      .then((res) => setRoomId(`/video?id=${res.data._id}`))
       .then(setShouldNavigate(true));
   };
 

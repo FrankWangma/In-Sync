@@ -27,11 +27,17 @@ function SignUp() {
     dispatch(userActions.logout());
   }, []);
 
+  function validateEmail(email) {
+    // eslint-disable-next-line no-useless-escape
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
   function handleChange(e) {
     const { id, value } = e.target;
-    if(id === "email") {
-      if(validateEmail(e.target.value)) { 
-        setError(false)
+    if (id === "email") {
+      if (validateEmail(e.target.value)) {
+        setError(false);
         setHelperText("");
       } else {
         setError(true);
@@ -39,15 +45,7 @@ function SignUp() {
       }
     }
     setUser((inputs) => ({ ...inputs, [id]: value }));
-    
   }
-
-  function validateEmail(email) {
-    // eslint-disable-next-line no-useless-escape
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -99,7 +97,7 @@ function SignUp() {
                         margin="normal"
                         onChange={handleChange}
                     />
-                    <TextField 
+                    <TextField
                       error={error}
                       fullWidth
                       id="email"

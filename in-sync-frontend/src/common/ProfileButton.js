@@ -52,7 +52,7 @@ export default function ProfileButton() {
 
   const handleViewProfile = () => {
     setViewProfile(true);
-  }
+  };
 
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
@@ -90,10 +90,9 @@ export default function ProfileButton() {
               {...TransitionProps}
               style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
             >
-              {viewProfile?
-                  <ViewProfile handleClose={handleClose}/>
-                :
-                <Paper>
+              {viewProfile
+                ? <ViewProfile handleClose={handleClose}/>
+                : <Paper>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                       <MenuItem onClick={handleViewProfile}>My account</MenuItem>

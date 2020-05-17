@@ -40,7 +40,7 @@ export function configureFakeBackend() {
           username: user.username,
           firstName: user.firstName,
           lastName: user.lastName,
-          email:user.email,
+          email: user.email,
           token: "fake-jwt-token",
         });
       }

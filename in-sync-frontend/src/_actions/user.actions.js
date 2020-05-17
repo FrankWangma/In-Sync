@@ -78,5 +78,5 @@ export const userActions = {
   login,
   logout,
   register,
-  edit
+  edit,
 };

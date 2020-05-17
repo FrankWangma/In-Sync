@@ -3,13 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Button,TextField, Card, CardContent, CardHeader, ClickAwayListener, IconButton
 } from "@material-ui/core";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
 import { userActions } from "../_actions";
+import styles from "./ViewProfile.module.css";
 
+const DarkerDisabledTextField = withStyles({
+  root: {
+    marginRight: 8,
+    "& .MuiInputBase-root.Mui-disabled": {
+      color: "rgba(0, 0, 0, 1)" // (default alpha is 0.38)
+    }
+  }
+})(TextField);
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      marginRight: 10,
+    }
+}));
 
 const ViewProfile = (props) => {
-    
+    const classes = useStyles();
     const currentUser = useSelector((state) => state.authentication.user);
     const [user, setUser] = useState({
         firstName: currentUser.firstName,
@@ -24,8 +39,8 @@ const ViewProfile = (props) => {
     const {handleClose} = props;
     const dispatch = useDispatch();
 
-    const handleEdit = () => {
-        setViewInfo(false);
+    const toggleEdit = () => {
+        setViewInfo(((prevEdit) => (!prevEdit)));
     }
 
     const handleSubmit = () => {
@@ -59,13 +74,14 @@ const ViewProfile = (props) => {
                 <CardHeader 
                     title="Profile" 
                     action={
-                        <IconButton onClick={handleEdit}>
-                            <EditIcon />
+                        <IconButton onClick={toggleEdit}>
+                            <EditIcon style={{fill: "white"}}/>
                         </IconButton>
                     }
+                    className={styles.profileHeader}
                 />
                 <CardContent>
-                    <TextField
+                    <DarkerDisabledTextField
                         error={error}
                         disabled={viewInfo}
                         fullWidth
@@ -77,7 +93,7 @@ const ViewProfile = (props) => {
                         defaultValue={currentUser.firstName}
                         onChange={handleChange}
                     />
-                    <TextField
+                    <DarkerDisabledTextField
                         error={error}
                         disabled={viewInfo}
                         fullWidth
@@ -89,7 +105,7 @@ const ViewProfile = (props) => {
                         defaultValue={currentUser.lastName}
                         onChange={handleChange}
                     />
-                    <TextField 
+                    <DarkerDisabledTextField 
                         error={error}
                         disabled={viewInfo}
                         fullWidth
@@ -101,7 +117,7 @@ const ViewProfile = (props) => {
                         defaultValue={currentUser.username}
                         onChange={handleChange}
                     />  
-                    <TextField 
+                    <DarkerDisabledTextField 
                         error={error}
                         disabled={viewInfo}
                         fullWidth
@@ -117,7 +133,7 @@ const ViewProfile = (props) => {
                         null
                         :
                         <div>
-                        <TextField
+                        <DarkerDisabledTextField
                             error={error}
                             fullWidth
                             id="password"
@@ -128,10 +144,10 @@ const ViewProfile = (props) => {
                             helperText={helperText}
                             onChange={handleChange}
                         />
-                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                        <Button className={classes.root} variant="contained" color="primary" onClick={handleSubmit}>
                             Submit
                         </Button>
-                        <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                        <Button variant="outlined" onClick={toggleEdit}>Cancel</Button>
                         </div>
                     }
                 </CardContent>

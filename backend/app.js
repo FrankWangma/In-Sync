@@ -23,7 +23,18 @@ mongoose.set('useCreateIndex', true);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+const whitelist = ['http://localhost:3000', 'http://localhost:3001'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin))
+      return callback(null, true)
+
+      callback(new Error('Not allowed by CORS'));
+  }
+}
+
+app.use(cors(corsOptions));
 app.use(jwt());
 
 // catch 400

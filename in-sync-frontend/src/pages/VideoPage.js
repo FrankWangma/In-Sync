@@ -7,12 +7,28 @@ import AddVideoModal from "../components/AddVideoModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 import Header from "../common/Header";
+import socketIOClient from "socket.io-client"
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const ENDPOINT = "localhost:3000";
 
+  const socket = socketIOClient(ENDPOINT);
   const roomId = qs.parse(window.location.search).id;
+
+  socket.on('connect', () => {
+    const joinData = {
+      roomId: roomId,
+      username: "Tubby"
+    }
+    socket.emit('join', joinData)
+  })
+
+  socket.on('userJoinedRoom', (data) => {
+    console.log(data);
+  })
+
   // Get Video ID
   const url = "http://localhost:3000/room/" + roomId;
   axios.get(url)

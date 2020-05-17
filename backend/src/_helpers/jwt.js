@@ -11,6 +11,7 @@ function jwt() {
         path: [
             // public routes (no authentication needed)
             // Currently all
+            /\//,
             /\/login/,
             /\/user/,
             /\/user\/.*/,

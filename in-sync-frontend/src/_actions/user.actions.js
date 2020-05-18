@@ -52,9 +52,31 @@ function register(user) {
   };
 }
 
+function edit(user) {
+  function request(user) { return { type: userConstants.EDIT_REQUEST, user }; }
+  function success(user) { return { type: userConstants.EDIT_SUCCESS, user }; }
+  function failure(error) { return { type: userConstants.EDIT_FAILURE, error }; }
+
+  return (dispatch) => {
+    dispatch(request(user));
+
+    userService.update(user)
+      .then(
+        (user) => {
+          dispatch(success(user));
+        },
+        (error) => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        },
+      );
+  };
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export const userActions = {
   login,
   logout,
   register,
+  edit,
 };

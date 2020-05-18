@@ -8,6 +8,8 @@ import { Link, useLocation } from "react-router-dom";
 import { history } from "../_helpers";
 import ProfileButton from "./ProfileButton";
 
+/* eslint no-nested-ternary: 0 */
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

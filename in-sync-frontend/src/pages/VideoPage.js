@@ -72,10 +72,9 @@ const VideoPage = () => {
   }
 
   // Get Video ID
-  const url = "http://localhost:3000/room/" + roomId;
+  const url = `http://localhost:3000/room/${roomId}`;
   axios.get(url)
-  .then((response) => setVideoUrl(response.data.video));
-  console.log(videoUrl);
+    .then((response) => setVideoUrl(response.data.video));
 
   return (
     <>

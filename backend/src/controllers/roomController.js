@@ -74,7 +74,7 @@ exports.joinRoom = (req, res) => {
       foundRoom.save((errorSave) => {
         if (errorSave) {
           res.json(errorSave);
-        }  
+        }
         res.json(foundRoom);
       });
     });

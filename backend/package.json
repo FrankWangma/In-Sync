@@ -19,10 +19,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-<<<<<<< HEAD
     "socket.io": "^2.3.0",
-=======
->>>>>>> master
     "express-jwt": "^5.3.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7",

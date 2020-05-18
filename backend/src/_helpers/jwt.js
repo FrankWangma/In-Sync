@@ -4,15 +4,6 @@ const expressJwt = require('express-jwt');
 const config = require('../../config.json');
 
 async function isRevoked(req, payload, done) {
-<<<<<<< HEAD
-  const user = await User.findById(payload.sub);
-
-  if (!user) {
-    return done(null, true);
-  }
-
-  done();
-=======
     const user = await User.findById(payload.sub);
   
     if (!user) {
@@ -20,7 +11,6 @@ async function isRevoked(req, payload, done) {
     }
   
     done();
->>>>>>> master
 }
 
 function jwt() {

@@ -35,11 +35,11 @@ const VideoPage = () => {
       console.log(data);
     });
 
-    socket.on('play', (data) => {
+    socket.on('playVideo', (data) => {
       console.log(data);
     })
 
-    socket.on('pause', (data) => {
+    socket.on('pauseVideo', (data) => {
       console.log(data);
     })
   }, [roomId, user.username]);
@@ -49,14 +49,33 @@ const VideoPage = () => {
       roomId: roomId,
       message: message,
       username: user.username
-    }
-    socket.emit('message', data)
+    };
+    socket.emit('message', data);
+  }
+
+  const pauseVideo = (time) => {
+    const data = {
+      roomId: roomId,
+      time: time,
+      username: user.username
+    };
+    socket.emit('pause', data);
+  }
+
+  const playVideo = (time) => {
+    const data = {
+      roomId: roomId,
+      time: time,
+      username: user.username
+    };
+    socket.emit('play', data);
   }
 
   // Get Video ID
   const url = "http://localhost:3000/room/" + roomId;
   axios.get(url)
   .then((response) => setVideoUrl(response.data.video));
+  console.log(videoUrl);
 
   return (
     <>
@@ -68,7 +87,7 @@ const VideoPage = () => {
         <Grid container spacing={0}>
           <Grid item sm={12} md={1} />
           <Grid item sm={12} md={6}>
-            <EmbeddedVideo url={videoUrl} />
+            <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
               Add Video
             </Button>

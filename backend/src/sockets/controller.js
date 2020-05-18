@@ -15,31 +15,37 @@ const setupSocketListeners = (socket) => {
     })
 
     socket.on('pause', (data) => {
-        Room.findById(data.roomId, (err, foundRoom) => {
-            if (foundRoom) {
-                User.findOne({ username: data.username }, (err, foundUser) => {
-                    if (foundUser) {
-                        if (foundRoom.host === foundUser) {
-                            socket.to(data.roomId).emit('pauseVideo', data.time);
-                        }
-                    }
-                })
-            }
-        })
+        console.log('pausing');
+        socket.to(data.roomId).emit('pauseVideo', data.time);
+        // Ignoring validating by user till login stuff set up
+        // Room.findById(data.roomId, (err, foundRoom) => {
+        //     if (foundRoom) {
+        //         User.findOne({ username: data.username }, (err, foundUser) => {
+        //             if (foundUser) {
+        //                 if (foundRoom.host === foundUser) {
+        //                     socket.to(data.roomId).emit('pauseVideo', data.time);
+        //                 }
+        //             }
+        //         })
+        //     }
+        // })
     })
 
     socket.on('play', (data) => {
-        Room.findById(data.roomId, (err, foundRoom) => {
-            if (foundRoom) {
-                User.findOne({ username: data.username }, (err, foundUser) => {
-                    if (foundUser) {
-                        if (foundRoom.host === foundUser) {
-                            socket.to(data.roomId).emit('playVideo', data.time);
-                        }
-                    }
-                })
-            }
-        })
+        console.log('playing');
+        socket.to(data.roomId).emit('playVideo', data.time);
+        // Ignoring validating by user till the login stuff is set up
+        // Room.findById(data.roomId, (err, foundRoom) => {
+        //     if (foundRoom) {
+        //         User.findOne({ username: data.username }, (err, foundUser) => {
+        //             if (foundUser) {
+        //                 if (foundRoom.host === foundUser) {
+        //                     socket.to(data.roomId).emit('playVideo', data.time);
+        //                 }
+        //             }
+        //         })
+        //     }
+        // })
     })
 
     socket.on('message', (data) => {

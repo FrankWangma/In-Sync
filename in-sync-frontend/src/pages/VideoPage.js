@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Grid, Button } from "@material-ui/core";
+import { useSelector } from "react-redux";
 import * as qs from "query-string";
 import axios from "axios";
 import EmbeddedVideo from "../components/EmbeddedVideo";
@@ -7,27 +8,50 @@ import AddVideoModal from "../components/AddVideoModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 import Header from "../common/Header";
-import socketIOClient from "socket.io-client"
+import socket from "../socket/socket"
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const ENDPOINT = "localhost:3000";
 
-  const socket = socketIOClient(ENDPOINT);
   const roomId = qs.parse(window.location.search).id;
+  const user = useSelector((state) => state.authentication.user);
 
-  socket.on('connect', () => {
-    const joinData = {
+  useEffect(() => {
+
+    socket.on('connect', () => {
+      const joinData = {
+        roomId: roomId,
+        username: user.username
+      }
+      socket.emit('join', joinData)
+    });
+  
+    socket.on('userJoinedRoom', (data) => {
+      console.log(data);
+    });
+  
+    socket.on('newMessage', (data) => {
+      console.log(data);
+    });
+
+    socket.on('play', (data) => {
+      console.log(data);
+    })
+
+    socket.on('pause', (data) => {
+      console.log(data);
+    })
+  }, [roomId, user.username]);
+
+  const sendMessage = (message) => {
+    const data = {
       roomId: roomId,
-      username: "Tubby"
+      message: message,
+      username: user.username
     }
-    socket.emit('join', joinData)
-  })
-
-  socket.on('userJoinedRoom', (data) => {
-    console.log(data);
-  })
+    socket.emit('message', data)
+  }
 
   // Get Video ID
   const url = "http://localhost:3000/room/" + roomId;
@@ -50,7 +74,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch />
+            <ChatUserSwitch sendMessage={sendMessage}/>
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

@@ -30,7 +30,7 @@ const user = {
   avatar: "https://data.cometchat.com/assets/images/avatars/ironman.png",
 };
 
-const ChatComponent = () => {
+const ChatComponent = ({ sendMessage }) => {
   const handleSubmit = (message) => {
     // Template of sent message by this client
     const userMessage = {
@@ -41,6 +41,8 @@ const ChatComponent = () => {
 
     // New message would also be pushed out to other clients at this point
     messages.push(userMessage);
+
+    sendMessage(message);
   };
 
   return (

@@ -3,15 +3,15 @@ import Room from '../models/Room';
 import User from '../models/User';
 const io = require('socket.io')(server);
 
-setupSocketListeners = (socket) => {
+const setupSocketListeners = (socket) => {
     socket.on('join', (data) => {
+        console.log('user connected')
         socket.join(data.roomId);
-        io.sockets.in(data.roomId).emit('userJoinedRoom', data.username);
+        socket.to(data.roomId).emit('userJoinedRoom', data.username);
     })
 
     socket.on('leave', (data) => {
-        socket.leave(data.roomId)
-        io.sockets.in(data.roomId).emit('userLeftRoom', data.username);
+        socket.to(data.roomId).emit('userLeftRoom', data.username);
     })
 
     socket.on('pause', (data) => {
@@ -20,7 +20,7 @@ setupSocketListeners = (socket) => {
                 User.findOne({ username: data.username }, (err, foundUser) => {
                     if (foundUser) {
                         if (foundRoom.host === foundUser) {
-                            io.sockets.in(data.roomId).emit('pauseVideo', data.time);
+                            socket.to(data.roomId).emit('pauseVideo', data.time);
                         }
                     }
                 })
@@ -34,7 +34,7 @@ setupSocketListeners = (socket) => {
                 User.findOne({ username: data.username }, (err, foundUser) => {
                     if (foundUser) {
                         if (foundRoom.host === foundUser) {
-                            io.sockets.in(data.roomId).emit('playVideo', data.time);
+                            socket.to(data.roomId).emit('playVideo', data.time);
                         }
                     }
                 })
@@ -43,7 +43,7 @@ setupSocketListeners = (socket) => {
     })
 
     socket.on('message', (data) => {
-        io.sockets.in(data.roomId).emit('newMessage', data);
+        socket.to(data.roomId).emit('newMessage', data);
     })
 }
 

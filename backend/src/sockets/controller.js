@@ -3,9 +3,7 @@ import Room from '../models/Room';
 import User from '../models/User';
 const io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
-    console.log('New user connected')
-    
+setupSocketListeners = (socket) => {
     socket.on('join', (data) => {
         socket.join(data.roomId);
         io.sockets.in(data.roomId).emit('userJoinedRoom', data.username);
@@ -43,4 +41,10 @@ io.on('connection', (socket) => {
             }
         })
     })
-})
+
+    socket.on('message', (data) => {
+        io.sockets.in(data.roomId).emit('newMessage', data);
+    })
+}
+
+export default setupSocketListeners;

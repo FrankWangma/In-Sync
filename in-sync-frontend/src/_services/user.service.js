@@ -9,17 +9,6 @@ function logout() {
 }
 
 function handleResponse(response) {
-  console.log(response);
-  if(!response.statusText === "OK") {
-    if (response.status === 401) {
-      // auto logout if 401 response returned from api
-      logout();
-      window.location.reload(true);
-    }
-    const error = response.statusText;
-    return Promise.reject(error);
-  }
-
   return response.data;
 }
 
@@ -35,6 +24,14 @@ function login(username, password) {
       localStorage.setItem("user", JSON.stringify(user));
 
       return user;
+    }).catch(error => {
+        if (error.response.status === 401) {
+          // auto logout if 401 response returned from api
+          logout();
+          window.location.reload(true);
+        }
+        const newError = (error.response.data && error.response.data.message) || error.response.statusText
+        return Promise.reject(newError);
     })
 }
 
@@ -45,7 +42,15 @@ function register(user) {
     password: user.password,
     firstName: user.firstName,
     lastName:user.lastName
-  }).then(handleResponse);
+  }).then(handleResponse).catch(error => {
+    if (error.response.status === 401) {
+      // auto logout if 401 response returned from api
+      logout();
+      window.location.reload(true);
+    }
+    const newError = (error.response.data && error.response.data.message) || error.response.statusText
+    return Promise.reject(newError);
+});
 }
 
 function update(user) {

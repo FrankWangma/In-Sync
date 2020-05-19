@@ -26,7 +26,6 @@ const useStyles = makeStyles(() => ({
 const ViewProfile = (props) => {
   const classes = useStyles();
   const currentUser = useSelector((state) => state.authentication.user).foundUser;
-  console.log(currentUser);
   const [user, setUser] = useState({
     firstName: currentUser.firstName,
     lastName: currentUser.lastName,

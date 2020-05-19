@@ -1,9 +1,9 @@
 import mongoose, {
   Schema,
 } from 'mongoose';
-import {} from mongo
+import { customAlphabet } from 'nanoid'
 
-const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
+const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 7)
 
 /**
  * Create database scheme for notes

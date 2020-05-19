@@ -5,6 +5,7 @@ import * as qs from "query-string";
 import axios from "axios";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
+import InviteModal from "../components/InviteModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 import Header from "../common/Header";
@@ -12,6 +13,7 @@ import socket from "../socket/socket"
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
+  const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
 
   const roomId = qs.parse(window.location.search).id;
@@ -90,6 +92,9 @@ const VideoPage = () => {
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
               Add Video
             </Button>
+            <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeInviteModal(true); }}>
+              Invite Users
+            </Button>
           </Grid>
           <Grid item sm={12} md={4}>
             <ChatUserSwitch sendMessage={sendMessage}/>
@@ -97,6 +102,7 @@ const VideoPage = () => {
           <Grid item sm={12} md={1} />
         </Grid>
         <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} />
+        <InviteModal showModal={showInviteModal} modalHandler={changeInviteModal} roomId={roomId} />
       </div>
     </>
   );

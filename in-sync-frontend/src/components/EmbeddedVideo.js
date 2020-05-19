@@ -59,10 +59,12 @@ class EmbeddedVideo extends React.Component {
     }
 
     handlePlay = () => {
+        this.props.playVideo(this.state.played);
         this.setState({ playing: true })
     }
 
     handlePause = () => {
+        this.props.pauseVideo(this.state.played);
         this.setState({ playing: false })
     }
 

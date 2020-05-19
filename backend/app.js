@@ -26,6 +26,9 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(jwt());
 
+app.use(cors());
+app.use(jwt());
+
 // catch 400
 app.use((err, req, res, next) => {
   console.log(err.stack);

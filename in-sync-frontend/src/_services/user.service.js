@@ -9,6 +9,7 @@ function logout() {
 }
 
 function handleResponse(response) {
+  console.log(response);
   if(!response.statusText === "OK") {
     if (response.status === 401) {
       // auto logout if 401 response returned from api
@@ -24,9 +25,10 @@ function handleResponse(response) {
 
 function login(username, password) {
     return axios.post(`${apiURL}/login`, {
-      username: username,
-      password: password,
-    }).then(handleResponse)
+        username: username,
+        password: password,
+    }
+    ).then(handleResponse)
     .then((user) => {
       /* store user details and jwt token in local storage
       to keep user logged in between page refreshes */

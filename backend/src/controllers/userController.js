@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config.json');
 
 exports.createUser = (req, res) => {
-  if (!req.body.firstName || !req.body.lastName|| !req.body.username || !req.body.password) {
-    res.status(400).json({ message: 'Invalid input: All fields must be filled' })
+  if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
+    res.status(400).json({ message: 'Invalid input: All fields must be filled' });
   } else {
     const newUser = new User(req.body);
 
@@ -14,7 +14,7 @@ exports.createUser = (req, res) => {
 
     newUser.save((err, createdUser) => {
       if (err) {
-        res.status(409).json({ message: 'Username or email already taken' })
+        res.status(409).json({ message: 'Username or email already taken' });
       } else {
         res.json(createdUser);
       }
@@ -47,10 +47,10 @@ exports.updateUser = (req, res) => {
       foundUser.save((error, updatedUser) => {
         if (error) {
           if (error.keyValue) {
-            res.status(409).json({ message: `Username or email already exist` });
+            res.status(409).json({ message: 'Username or email already exist' });
           } else {
-            res.status(500).json({ message: `Server failed to update user` });
-          }        
+            res.status(500).json({ message: 'Server failed to update user' });
+          }
         } else {
           res.json(updatedUser);
         }
@@ -62,7 +62,7 @@ exports.updateUser = (req, res) => {
 exports.getAllUsers = (req, res) => {
   User.find({}, (err, foundUsers) => {
     if (err) {
-      res.status(500).json({ message: `Server failed to get users` });
+      res.status(500).json({ message: 'Server failed to get users' });
     } else {
       res.json(foundUsers);
     }
@@ -72,7 +72,7 @@ exports.getAllUsers = (req, res) => {
 exports.getUser = (req, res) => {
   User.findById(req.params.userId, (err, foundUser) => {
     if (err) {
-      res.status(404).json({ message: `User not found` });
+      res.status(404).json({ message: 'User not found' });
     } else {
       res.json(foundUser);
     }
@@ -82,7 +82,7 @@ exports.getUser = (req, res) => {
 exports.deleteUser = (req, res) => {
   User.findByIdAndRemove(req.params.userId, (err) => {
     if (err) {
-      res.status(404).json({ message: `User not found` });
+      res.status(404).json({ message: 'User not found' });
     } else {
       res.status(202).json({ message: 'User Successfully Deleted' });
     }

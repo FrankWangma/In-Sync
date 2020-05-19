@@ -31,13 +31,12 @@ export default function ProfileButton() {
   const [open, setOpen] = useState(false);
   const [viewProfile, setViewProfile] = useState(false);
   const anchorRef = useRef(null);
-  const user = useSelector((state) => state.authentication.user);
+  const user = useSelector((state) => state.authentication.user).foundUser;
   const dispatch = useDispatch();
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
     setViewProfile(false);
   };
-
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;

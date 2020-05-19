@@ -62,7 +62,8 @@ function SignUp() {
 
   function handleAlert() {
     if (alert.message !== alertMessage
-      && alert.message === `Username or email already taken`) {
+      && (alert.message === `Username ${user.username} is already taken` 
+      || alert.message === `Email ${user.email} is already taken`) ) {
       setAlertMessage(alert.message);
       if (alert.type === "alert-danger") {
         setError(true);

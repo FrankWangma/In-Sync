@@ -1,5 +1,17 @@
 import app from './app';
+import setupSocketListeners from './src/sockets/controller';
 
-const port = process.env.PORT || '3000'; app.listen(port); 
+const port = process.env.PORT || '3000';
+const server = require('http').createServer(app);
 
-console.log(`Listening on port ${port}`);
+import Room from './src/models/Room';
+import User from './src/models/User';
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+    setupSocketListeners(socket);
+})
+
+server.listen(port);
+
+export default server;

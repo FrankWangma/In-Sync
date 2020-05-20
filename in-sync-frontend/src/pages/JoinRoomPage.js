@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import Login from "../components/LoginComponent";
 import * as qs from "query-string";
 import SignUp from "../components/SignUpComponent";
@@ -36,7 +36,9 @@ const JoinRoomPage = () => {
     <div>
       <Header />
       <div className={styles.LoginPage}>
-        Please log in to navigate to the room
+        <Typography className={styles.HeaderText}>
+          Please log in to navigate to the room
+        </Typography>
         <Grid container spacing={0}>
           <Grid item xs={2} />
           <Grid classes={{ root: styles.grid }} item sm={12} md={4}>

@@ -14,8 +14,7 @@ const RoomSchema = new Schema({
     default: () => nanoid()
   },
   host: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true,
   },
   video: {
@@ -23,8 +22,7 @@ const RoomSchema = new Schema({
     default: '',
   },
   viewers: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
   }],
 });
 

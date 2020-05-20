@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config.json');
 
 exports.createUser = (req, res) => {
-  if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
+  if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password || !req.body.email) {
     res.status(400).json({ message: 'Invalid input: All fields must be filled' });
   } else {
     const newUser = new User(req.body);
@@ -13,9 +13,14 @@ exports.createUser = (req, res) => {
     newUser.hash = bcrypt.hashSync(req.body.password, 10);
 
     newUser.save((err, createdUser) => {
-      if (err) {
-        res.status(409).json({ message: 'Username or email already taken' });
-      } else {
+      if(err) {
+        if (err.keyValue.username) {
+          res.status(409).json({ message: `Username ${req.body.username} is already taken` });
+        } else if (err.keyValue.email) {
+          res.status(409).json({ message: `Email ${req.body.email} is already taken` });
+        }
+      }
+      else {
         res.json(createdUser);
       }
     });

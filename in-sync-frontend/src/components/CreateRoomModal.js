@@ -6,6 +6,7 @@ import {
   Modal,
 } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./Modal.module.css";
 
@@ -14,11 +15,13 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [url, setURL] = useState("");
   const [roomId, setRoomId] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
+  const user =  useSelector((state) => state.authentication.user);
+  const token = useSelector((state) => state.authentication.token);
 
   const createRoom = () => {
     axios.post("http://localhost:3000/room", {
       crossdomain: true,
-      host: "5ea8de31f4d4b92ac44db792", // PLACEHOLDER
+      host: user.username,
       video: url,
       viewers: [],
     })

@@ -12,7 +12,7 @@ const LoginPage = () => (
             <Grid container spacing={0}>
                 <Grid item xs={2} />
                 <Grid classes={{ root: styles.grid }} item sm={12} md={4}>
-                    <Login />
+                    <Login joiningRoom={false} />
                 </Grid>
                 <Grid classes={{ root: styles.grid }} item sm={12} md={4}>
                     <SignUp />

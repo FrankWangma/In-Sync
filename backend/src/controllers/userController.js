@@ -5,19 +5,21 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config.json');
 
 exports.createUser = (req, res) => {
-  const newUser = new User(req.body);
+  if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
+    res.status(400).json({ message: 'Invalid input: All fields must be filled' });
+  } else {
+    const newUser = new User(req.body);
 
-  if (req.body.password) {
     newUser.hash = bcrypt.hashSync(req.body.password, 10);
+
+    newUser.save((err, createdUser) => {
+      if (err) {
+        res.status(409).json({ message: 'Username or email already taken' });
+      } else {
+        res.json(createdUser);
+      }
+    });
   }
-
-  newUser.save((err, createdUser) => {
-    if (err) {
-      res.send(err);
-    }
-
-    res.json(createdUser);
-  });
 };
 
 function usernameExists(name) {
@@ -34,7 +36,7 @@ exports.updateUser = (req, res) => {
     if (!foundUser) {
       res.status(400).json({ message: 'User not found' });
     } else if (foundUser.username !== req.body.username && usernameExists(req.body.username)) {
-      res.status(400).json({ message: `Username "${req.body.username}" is already taken` });
+      res.status(409).json({ message: `Username "${req.body.username}" is already taken` });
     } else {
       if (req.body.password) {
         req.body.hash = bcrypt.hashSync(req.body.password, 10);
@@ -44,10 +46,14 @@ exports.updateUser = (req, res) => {
 
       foundUser.save((error, updatedUser) => {
         if (error) {
-          res.send(error);
+          if (error.keyValue) {
+            res.status(409).json({ message: 'Username or email already exist' });
+          } else {
+            res.status(500).json({ message: 'Server failed to update user' });
+          }
+        } else {
+          res.json(updatedUser);
         }
-
-        res.json(updatedUser);
       });
     }
   });
@@ -56,30 +62,30 @@ exports.updateUser = (req, res) => {
 exports.getAllUsers = (req, res) => {
   User.find({}, (err, foundUsers) => {
     if (err) {
-      res.send(err);
+      res.status(500).json({ message: 'Server failed to get users' });
+    } else {
+      res.json(foundUsers);
     }
-
-    res.json(foundUsers);
   });
 };
 
 exports.getUser = (req, res) => {
   User.findById(req.params.userId, (err, foundUser) => {
     if (err) {
-      res.send(err);
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.json(foundUser);
     }
-
-    res.json(foundUser);
   });
 };
 
 exports.deleteUser = (req, res) => {
   User.findByIdAndRemove(req.params.userId, (err) => {
     if (err) {
-      res.send(err);
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.status(202).json({ message: 'User Successfully Deleted' });
     }
-
-    res.status(202).json({ message: 'User Successfully Deleted' });
   });
 };
 

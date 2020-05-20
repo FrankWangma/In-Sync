@@ -3,34 +3,38 @@ import User from '../models/User';
 
 exports.getRoom = (req, res) => {
   Room.findById(req.params.roomId, (err, foundRoom) => {
-    if (err) {
-      res.send(err);
+    if (foundRoom) {
+      res.json(foundRoom);
+    } else {
+      res.status(404).json({ message: 'Room not found' });
     }
-
-    res.json(foundRoom);
   });
 };
 
 exports.getAllRooms = (req, res) => {
   Room.find({}, (err, foundRooms) => {
-    if (err) {
-      res.send(err);
+    if (foundRooms) {
+      res.json(foundRooms);
+    } else {
+      res.status(404).json({ message: 'Could not find rooms' });
     }
-
-    res.json(foundRooms);
   });
 };
 
 exports.createRoom = (req, res) => {
   const newRoom = new Room(req.body);
 
-  newRoom.save((err, createdRoom) => {
-    if (err) {
-      res.send(err);
-    }
-
-    res.json(createdRoom);
-  });
+  if (!req.body.host) {
+    res.status(400).json({ message: 'Host required to create a room' });
+  } else {
+    newRoom.save((err, createdRoom) => {
+      if (createdRoom) {
+        res.json(createdRoom);
+      } else {
+        res.status(500).json({ message: 'There was an error creating the room' });
+      }
+    });
+  }
 };
 
 exports.updateRoom = (req, res) => {
@@ -39,11 +43,11 @@ exports.updateRoom = (req, res) => {
     req.body,
     { new: true },
     (err, foundRoom) => {
-      if (err) {
-        res.send(err);
+      if (foundRoom) {
+        res.json(foundRoom);
+      } else {
+        res.status(404).json({ message: 'Could not find room' });
       }
-
-      res.json(foundRoom);
     },
   );
 };
@@ -51,32 +55,34 @@ exports.updateRoom = (req, res) => {
 exports.deleteRoom = (req, res) => {
   Room.deleteOne({ _id: req.params.roomId }, (err) => {
     if (err) {
-      res.send(err);
+      res.status(404).json({ message: 'Could not find room' });
+    } else {
+      res.json({
+        message: 'Room successfully deleted',
+      });
     }
-
-    res.json({
-      message: `Room ${req.params.id} successfully deleted`,
-    });
   });
 };
 
 exports.joinRoom = (req, res) => {
   User.findById(req.body.userId, (err, foundUser) => {
     if (err) {
-      res.send(err);
-    }
-    Room.findById(req.body.id, (error, foundRoom) => {
-      if (error) {
-        res.send(error);
-      }
-
-      foundRoom.viewers.push(foundUser);
-      foundRoom.save((errorSave) => {
-        if (errorSave) {
-          res.json(errorSave);
+      res.status(404).json({ message: 'Could not find user' });
+    } else {
+      Room.findById(req.body.id, (error, foundRoom) => {
+        if (error) {
+          res.status(404).json({ message: 'Could not find room' });
+        } else {
+          foundRoom.viewers.push(foundUser);
+          foundRoom.save((errorSave) => {
+            if (errorSave) {
+              res.status(500).json({ message: 'Server failed to add user to room' });
+            } else {
+              res.json(foundRoom);
+            }
+          });
         }
-        res.json(foundRoom);
       });
-    });
+    }
   });
 };

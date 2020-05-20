@@ -15,7 +15,8 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
   const [roomUrl, setRoomUrl] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
 
-  const user = useSelector((state) => state.authentication.user).foundUser;
+  const state =  useSelector((state) => state.authentication.user)
+  const user = state ? state.foundUser: null;
 
   const joinRoom = () => {
     setRoomUrl(`/video?id=${roomID}`);

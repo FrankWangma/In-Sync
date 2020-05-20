@@ -15,9 +15,8 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [url, setURL] = useState("");
   const [roomId, setRoomId] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
-
-  const user = useSelector((state) => state.authentication.user).foundUser;
-  console.log(user.id)
+  const state =  useSelector((state) => state.authentication.user)
+  const user = state ? state.foundUser: null;
 
   const createRoom = () => {
     axios.post("http://localhost:3000/room", {

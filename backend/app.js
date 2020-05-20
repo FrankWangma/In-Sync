@@ -11,7 +11,8 @@ const cors = require('cors');
 /**
   * Connect to the database
   */
-
+console.log(process.env.MONGODB_URI);
+console.log(process.env.PORT);
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);

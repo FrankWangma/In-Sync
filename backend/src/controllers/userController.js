@@ -13,14 +13,13 @@ exports.createUser = (req, res) => {
     newUser.hash = bcrypt.hashSync(req.body.password, 10);
 
     newUser.save((err, createdUser) => {
-      if(err) {
+      if (err) {
         if (err.keyValue.username) {
           res.status(409).json({ message: `Username ${req.body.username} is already taken` });
         } else if (err.keyValue.email) {
           res.status(409).json({ message: `Email ${req.body.email} is already taken` });
         }
-      }
-      else {
+      } else {
         res.json(createdUser);
       }
     });

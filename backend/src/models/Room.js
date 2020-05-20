@@ -1,9 +1,9 @@
 import mongoose, {
   Schema,
 } from 'mongoose';
-import { customAlphabet } from 'nanoid'
+import { customAlphabet } from 'nanoid';
 
-const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 7)
+const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 7);
 
 /**
  * Create database scheme for notes
@@ -11,7 +11,7 @@ const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 7)
 const RoomSchema = new Schema({
   _id: {
     type: String,
-    default: () => nanoid()
+    default: () => nanoid(),
   },
   host: {
     type: String,

@@ -12,7 +12,7 @@ const cors = require('cors');
   * Connect to the database
   */
 
-mongoose.connect('mongodb://localhost');
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);

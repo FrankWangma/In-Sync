@@ -3,100 +3,101 @@ import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import Grid from '@material-ui/core/Grid';
 import screenfull from 'screenfull';
+import Button from '@material-ui/core/Button';
+import { Fullscreen, VolumeUp, PlayArrow, Pause } from '@material-ui/icons';
+import Slider from '@material-ui/core/Slider';
 
-class EmbeddedVideo extends React.Component {
-    state = {
-        playing: false,
-        volume: 0.5,
-        played: 0
+const EmbeddedVideo = (props) => {
+
+    const [playing, setPlaying] = React.useState(false);
+    const [volume, setVolume] = React.useState(0.5);
+    const [played, setPlayed] = React.useState(0);
+
+    // const ref = player => {
+    //     this.player = player
+    // }
+
+    const handlePlay = () => {
+        setPlaying(true);
     }
 
-    ref = player => {
-        this.player = player
+    const handlePause = () => {
+        setPlaying(false);
     }
 
-    render() {
-        return (
-            <div className="App EmbeddedVideo">
-                <ReactPlayer
-                    url={this.props.url}
-                    ref={this.ref}
-                    playing={this.state.playing}
-                    volume={this.state.volume}
-                    onPlay={this.handlePlay}
-                    onPause={this.handlePause}
-                    onEnded={this.handlePause}
-                    onProgress={this.handleProgress}
-                />
-
-                {/* Video Player Controls */}
-                <Grid container spacing={0}>
-                    <Grid item xs={1}>
-                        <button onClick={this.handlePlayPause}>{this.state.playing ? '\u23F8' : '\u25B6'}</button>
-                    </Grid>
-                    <Grid item xs={10}>
-                        <input
-                            type='range' min={0} max={0.999999} step='any'
-                            className='seek'
-                            value={this.state.played}
-                            onMouseDown={this.handleSeekMouseDown}
-                            onChange={this.handleSeekChange}
-                            onMouseUp={this.handleSeekMouseUp}
-                        />
-                    </Grid>
-                    <Grid item xs={1}>
-                        <button onClick={this.handleClickFullscreen}>{'\u26F6'}</button>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <p className='volume'>{'\u{1F50A}'}</p>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.handleVolumeChange} />
-                    </Grid>
-                </Grid>
-            </div>
-        );
+    const handlePlayPause = () => {
+        setPlaying(!playing);
     }
 
-    handlePlay = () => {
-        this.setState({ playing: true })
-    }
-
-    handlePause = () => {
-        this.setState({ playing: false })
-    }
-
-    handlePlayPause = () => {
-        this.setState({ playing: !this.state.playing })
-    }
-
-    handleSeekMouseDown = e => {
+    const handleSeekMouseDown = e => {
         this.setState({ seeking: true })
     }
 
-    handleSeekChange = e => {
+    const handleSeekChange = e => {
         this.setState({ played: parseFloat(e.target.value) })
     }
 
-    handleSeekMouseUp = e => {
+    const handleSeekMouseUp = e => {
         this.setState({ seeking: false })
         this.player.seekTo(parseFloat(e.target.value))
     }
 
-    handleVolumeChange = e => {
+    const handleVolumeChange = e => {
         this.setState({ volume: parseFloat(e.target.value) })
     }
 
-    handleProgress = state => {
+    const handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
         if (!this.state.seeking) {
             this.setState(state)
         }
     }
 
-    handleClickFullscreen = () => {
+    const handleClickFullscreen = () => {
         screenfull.request(findDOMNode(this.player))
     }
+
+    return (
+        <div className="App EmbeddedVideo">
+            <ReactPlayer
+                url={props.url}
+                // ref={ref}
+                playing={playing}
+                volume={volume}
+                onPlay={handlePlay}
+                onPause={handlePause}
+                onEnded={handlePause}
+                onProgress={handleProgress}
+            />
+
+            {/* Video Player Controls */}
+            <Grid container spacing={0}>
+                <Grid item xs={1}>
+                    <Button variant="contained" onClick={handlePlayPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
+                </Grid>
+                <Grid item xs={10}>
+                    <input
+                        type='range' min={0} max={0.999999} step='any'
+                        className='seek'
+                        value={played}
+                        onMouseDown={handleSeekMouseDown}
+                        onChange={handleSeekChange}
+                        onMouseUp={handleSeekMouseUp}
+                    />
+                </Grid>
+                <Grid item xs={1}>
+                    <Button variant="contained" onClick={handleClickFullscreen}><Fullscreen /></Button>
+                </Grid>
+                <Grid item xs={1}>
+                    <p className='volume'><VolumeUp /></p>
+                </Grid>
+                <Grid item xs={3}>
+                    <Slider min={0} max={1} step='any' value={volume} onChange={handleVolumeChange} aria-labelledby="continuous-slider" />
+                    {/* <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.handleVolumeChange} /> */}
+                </Grid>
+            </Grid>
+        </div>
+    );
 }
 
 export default EmbeddedVideo;

@@ -72,6 +72,13 @@ function SignUp() {
     }
   }
 
+  function keyPress(e){
+    if(e.keyCode === 13){
+       console.log('Signup', e.target.value);
+       // put the login here
+    }
+  }
+
   return (
       <form name="form">
         <Card>
@@ -87,6 +94,7 @@ function SignUp() {
                         placeholder="First Name"
                         margin="normal"
                         onChange={handleChange}
+                        onKeyDown={keyPress}
                     />
                     <TextField
                         error={error}
@@ -97,6 +105,7 @@ function SignUp() {
                         placeholder="Last Name"
                         margin="normal"
                         onChange={handleChange}
+                        onKeyDown={keyPress}
                     />
                     <TextField
                       error={error}
@@ -107,6 +116,7 @@ function SignUp() {
                       placeholder="Email"
                       margin="Email"
                       onBlur={handleChange}
+                      onKeyDown={keyPress}
                     />
                     <TextField
                         error={error}
@@ -117,6 +127,7 @@ function SignUp() {
                         placeholder="Username"
                         margin="normal"
                         onChange={handleChange}
+                        onKeyDown={keyPress}
                     />
                     <TextField
                         error={error}
@@ -128,6 +139,7 @@ function SignUp() {
                         margin="normal"
                         helperText={helperText}
                         onChange={handleChange}
+                        onKeyDown={keyPress}
                     />
                 </div>
             </CardContent>

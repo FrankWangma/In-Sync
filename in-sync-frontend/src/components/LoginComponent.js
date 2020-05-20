@@ -53,6 +53,13 @@ const Login = () => {
     }
   }
 
+  function keyPress(e){
+    if(e.keyCode === 13){
+       console.log('Login', e.target.value);
+       // put the login here
+    }
+ }
+
   return (
     <form name="form">
     <Card>
@@ -68,6 +75,7 @@ const Login = () => {
                       placeholder="Username"
                       margin="normal"
                       onChange={handleChange}
+                      onKeyDown={keyPress}
                   />
                   <TextField
                       error={error}
@@ -79,6 +87,7 @@ const Login = () => {
                       margin="normal"
                       helperText={helperText}
                       onChange={handleChange}
+                      onKeyDown={keyPress}
                   />
                   {alert.message && handleAlert()}
               </div>

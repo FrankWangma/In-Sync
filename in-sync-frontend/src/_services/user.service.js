@@ -9,6 +9,7 @@ function logout() {
 }
 
 function handleResponse(response) {
+  console.log(response.data);
   return response.data;
 }
 
@@ -21,8 +22,8 @@ function login(username, password) {
     .then((user) => {
       /* store user details and jwt token in local storage
       to keep user logged in between page refreshes */
-      localStorage.setItem("user", JSON.stringify(user));
-
+      localStorage.setItem("user", JSON.stringify(user.foundUser));
+      localStorage.setItem("token",JSON.stringify(user.token) )
       return user;
     }).catch(error => {
         if (error.response.status === 401) {

@@ -15,9 +15,10 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
   const [url, setURL] = useState("");
   const [roomId, setRoomId] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
-  const state =  useSelector((state) => state.authentication.user)
-  const user = state ? state.foundUser: null;
+  const user =  useSelector((state) => state.authentication.user);
+  const token = useSelector((state) => state.authentication.token);
 
+  console.log("token:", token);
   const createRoom = () => {
     axios.post("http://localhost:3000/room", {
       crossdomain: true,

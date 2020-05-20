@@ -90,9 +90,10 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.authenticate = (req, res) => {
+  const secret = process.env.INSYNC_API_SECRET;
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
-      const token = jwt.sign({ sub: foundUser.id }, config.secret);
+      const token = jwt.sign({ sub: foundUser.id }, secret);
       res.send({ foundUser, token });
     } else {
       res.status(400).json({ message: 'Username or password is incorrect' });

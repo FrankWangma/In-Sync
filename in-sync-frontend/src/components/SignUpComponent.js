@@ -74,8 +74,7 @@ function SignUp() {
 
   function keyPress(e){
     if(e.keyCode === 13){
-       console.log('Signup', e.target.value);
-       // put the login here
+      handleSubmit(e);
     }
   }
 

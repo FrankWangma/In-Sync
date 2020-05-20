@@ -55,10 +55,9 @@ const Login = () => {
 
   function keyPress(e){
     if(e.keyCode === 13){
-       console.log('Login', e.target.value);
-       // put the login here
+       handleSubmit(e);
     }
- }
+  }
 
   return (
     <form name="form">

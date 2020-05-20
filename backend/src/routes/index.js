@@ -31,5 +31,5 @@ export default (app) => {
     .delete(user.deleteUser);
 
   app.route('/login')
-    .get(user.authenticate);
+    .post(user.authenticate);
 };

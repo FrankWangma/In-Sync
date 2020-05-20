@@ -73,7 +73,7 @@ exports.joinRoom = (req, res) => {
         if (error) {
           res.status(404).json({ message: 'Could not find room' });
         } else {
-          foundRoom.viewers.push(foundUser);
+          foundRoom.viewers.push(foundUser.username);
           foundRoom.save((errorSave) => {
             if (errorSave) {
               res.status(500).json({ message: 'Server failed to add user to room' });

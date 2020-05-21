@@ -46,9 +46,18 @@ const VideoPage = () => {
     // Get Video ID
     const url = `http://localhost:3000/room/${roomId}`;
     axios.get(url)
-      .then((response) => setVideoUrl(response.data.video));
-      
+      .then((response) => {
+        setVideoUrl(response.data.video)});
   }, [roomId, user.username]);
+
+  useEffect(() => {
+    // Get Video ID
+    const url = `http://localhost:3000/room/${roomId}`;
+    axios.get(url)
+      .then((response) => {
+        console.log(response.data);
+      });
+  }, [videoUrl]);
 
   const sendMessage = (message) => {
     const data = {
@@ -79,10 +88,11 @@ const VideoPage = () => {
 
   const changeVideo = (newUrl) => {
       const url = `http://localhost:3000/room/${roomId}`;
-      setVideoUrl(newUrl);
       axios.put(url, {
-        video: videoUrl
-      })
+        video: newUrl
+      }).then((response) => {
+        setVideoUrl(response.data.video);
+      });
   }
 
   return (

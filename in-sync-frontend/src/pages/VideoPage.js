@@ -37,11 +37,16 @@ const VideoPage = () => {
 
     socket.on('playVideo', (data) => {
       console.log(data);
-    })
+    });
 
     socket.on('pauseVideo', (data) => {
       console.log(data);
-    })
+    });
+
+    socket.on('changeVideo', (data) => {
+      console.log(data);
+      setVideoUrl(data.video);
+    });
 
     // Get Video ID
     const url = `http://localhost:3000/room/${roomId}`;
@@ -55,7 +60,7 @@ const VideoPage = () => {
     const url = `http://localhost:3000/room/${roomId}`;
     axios.get(url)
       .then((response) => {
-        console.log(response.data);
+        setVideoUrl(response.data.video);
       });
   }, [videoUrl]);
 
@@ -92,6 +97,12 @@ const VideoPage = () => {
         video: newUrl
       }).then((response) => {
         setVideoUrl(response.data.video);
+        const data = {
+          roomId: roomId,
+          url: newUrl,
+          username: user.username
+        };
+        socket.emit('change', data);
       });
   }
 

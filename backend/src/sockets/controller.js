@@ -46,6 +46,10 @@ const setupSocketListeners = (socket) => {
   socket.on('message', (data) => {
     socket.to(data.roomId).emit('newMessage', data);
   });
+
+  socket.on('change', (data) => {
+    socket.to(data.roomId).emit('changeVideo', data);
+  })
 };
 
 export default setupSocketListeners;

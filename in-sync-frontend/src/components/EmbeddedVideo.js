@@ -28,7 +28,7 @@ const EmbeddedVideo = (props) => {
         setPlaying(!playing);
     }
 
-    const handleSeekMouseDown = e => {
+    const handleSeekMouseDown = _e => {
         setSeeking(true);
     }
 
@@ -36,9 +36,9 @@ const EmbeddedVideo = (props) => {
         setPlayed(v);
     }
 
-    const handleSeekMouseUp = e => {
+    const handleSeekMouseUp = (_e, v) => {
         setSeeking(false);
-        this.player.seekTo(parseFloat(e.target.value));
+        ref.current.seekTo(v);
     }
 
     const handleVolumeChange = (_e, v) => {
@@ -48,7 +48,7 @@ const EmbeddedVideo = (props) => {
     const handleProgress = state => {
         // We only want to update time slider if we are not currently seeking
         if (!seeking) {
-            this.setState(state)
+            setPlayed(state.played);
         }
     }
 
@@ -62,7 +62,7 @@ const EmbeddedVideo = (props) => {
                 url={props.url}
                 ref={ref}
                 playing={playing}
-                volume={volume/100}
+                volume={volume / 100}
                 onPlay={handlePlay}
                 onPause={handlePause}
                 onEnded={handlePause}
@@ -83,9 +83,12 @@ const EmbeddedVideo = (props) => {
                         onChange={handleSeekChange}
                         onMouseUp={handleSeekMouseUp}
                     /> */}
-                    <Slider value={played} onMouseDown={handleSeekMouseDown}
+                    <Slider
+                        value={played * 100}
+                        onMouseDown={handleSeekMouseDown}
                         onChange={handleSeekChange}
-                        onMouseUp={handleSeekMouseUp} aria-labelledby="continuous-slider" />
+                        onMouseUp={handleSeekMouseUp}
+                        aria-labelledby="continuous-slider" />
                 </Grid>
                 <Grid item xs={1}>
                     <Button variant="contained" onClick={handleClickFullscreen}><Fullscreen /></Button>

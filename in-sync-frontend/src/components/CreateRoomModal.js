@@ -10,7 +10,6 @@ import axios from "axios";
 import styles from "./Modal.module.css";
 
 const CreateRoomModal = ({ showModal, modalHandler }) => {
-  const [title, setRoomTitle] = useState("");
   const [url, setURL] = useState("");
   const [roomId, setRoomId] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
@@ -36,15 +35,6 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
         <Typography variant="h2" className={styles.title}>
           Create Room
         </Typography>
-        <Typography>Room Title</Typography>
-        <TextField
-          className={styles.bodyText}
-          InputProps={{ disableUnderline: true }}
-          margin="normal"
-          name="title"
-          value={title}
-          onChange={(e) => { setRoomTitle(e.target.value); }}
-        />
         <Typography>Video URL</Typography>
         <TextField
           className={styles.bodyText}

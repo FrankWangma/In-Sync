@@ -34,14 +34,14 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
         <Typography variant="h2" className={styles.title}>
           Join Room
     </Typography>
-        <Typography>Enter Room ID or URL</Typography>
+        <Typography>Enter Room ID</Typography>
         <TextField
           className={styles.bodyText}
           InputProps={{ disableUnderline: true }}
           margin="normal"
           name="ID"
           value={roomID}
-          placeholder="e.g. SD23F5G or insync.com/SD23F5G"
+          placeholder="e.g. SD23F5G"
           onChange={(e) => { setRoomID(e.target.value); }}
         />
         <div className={styles.modalButtons}>

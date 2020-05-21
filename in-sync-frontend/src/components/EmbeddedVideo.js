@@ -75,14 +75,6 @@ const EmbeddedVideo = (props) => {
                     <Button variant="contained" onClick={handlePlayPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
                 </Grid>
                 <Grid item xs={8}>
-                    {/* <input
-                        type='range' min={0} max={0.999999} step='any'
-                        className='seek'
-                        value={played}
-                        onMouseDown={handleSeekMouseDown}
-                        onChange={handleSeekChange}
-                        onMouseUp={handleSeekMouseUp}
-                    /> */}
                     <Slider
                         value={played * 100}
                         onMouseDown={handleSeekMouseDown}

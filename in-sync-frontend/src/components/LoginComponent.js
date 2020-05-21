@@ -97,7 +97,7 @@ const Login = () => {
               size="large"
               color="secondary"
               onClick={handleSubmit}>
-              {loggingIn}
+              {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
               Login
               </Button>
           </CardActions>

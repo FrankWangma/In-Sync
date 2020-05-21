@@ -35,16 +35,17 @@ function SignUp() {
 
   function handleChange(e) {
     const { id, value } = e.target;
-    if (id === "email") {
-      if (validateEmail(e.target.value)) {
-        setError(false);
-        setHelperText("");
-      } else {
-        setError(true);
-        setHelperText("Please enter a valid email");
-      }
-    }
     setUser((inputs) => ({ ...inputs, [id]: value }));
+  }
+
+  function checkEmail(e) {
+    if (validateEmail(e.target.value)) {
+      setError(false);
+      setHelperText("");
+    } else {
+      setError(true);
+      setHelperText("Please enter a valid email");
+    }
   }
 
   function handleSubmit(e) {
@@ -69,6 +70,15 @@ function SignUp() {
         setError(true);
         setHelperText(alert.message);
       }
+    } else if (alert.type === "alert-success" && alert.message !== alertMessage) {
+      setAlertMessage(alert.message);
+      setUser({
+        firstName: "",
+        lastName: "",
+        email: "",
+        username: "",
+        password: "",
+      })
     }
   }
 
@@ -92,6 +102,7 @@ function SignUp() {
                         label="First Name"
                         placeholder="First Name"
                         margin="normal"
+                        value={user.firstName}
                         onChange={handleChange}
                         onKeyDown={keyPress}
                     />
@@ -103,6 +114,7 @@ function SignUp() {
                         label="Last Name"
                         placeholder="Last Name"
                         margin="normal"
+                        value={user.lastName}
                         onChange={handleChange}
                         onKeyDown={keyPress}
                     />
@@ -110,11 +122,13 @@ function SignUp() {
                       error={error}
                       fullWidth
                       id="email"
-                      type="email"
+                      type="text"
                       label="Email"
                       placeholder="Email"
-                      margin="Email"
-                      onBlur={handleChange}
+                      margin="normal"
+                      value={user.email}
+                      onChange={handleChange}
+                      onBlur={checkEmail}
                       onKeyDown={keyPress}
                     />
                     <TextField
@@ -125,6 +139,7 @@ function SignUp() {
                         label="Username"
                         placeholder="Username"
                         margin="normal"
+                        value={user.username}
                         onChange={handleChange}
                         onKeyDown={keyPress}
                     />
@@ -136,6 +151,7 @@ function SignUp() {
                         label="Password"
                         placeholder="Password"
                         margin="normal"
+                        value={user.password}
                         helperText={helperText}
                         onChange={handleChange}
                         onKeyDown={keyPress}

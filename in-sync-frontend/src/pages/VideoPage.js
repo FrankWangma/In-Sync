@@ -62,7 +62,7 @@ const VideoPage = () => {
       .then((response) => {
         setVideoUrl(response.data.video);
       });
-  }, [videoUrl]);
+  }, [roomId, videoUrl]);
 
   const sendMessage = (message) => {
     const data = {

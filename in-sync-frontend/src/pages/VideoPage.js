@@ -42,6 +42,12 @@ const VideoPage = () => {
     socket.on('pauseVideo', (data) => {
       console.log(data);
     })
+
+    // Get Video ID
+    const url = `http://localhost:3000/room/${roomId}`;
+    axios.get(url)
+      .then((response) => setVideoUrl(response.data.video));
+      
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {
@@ -71,10 +77,13 @@ const VideoPage = () => {
     socket.emit('play', data);
   }
 
-  // Get Video ID
-  const url = `http://localhost:3000/room/${roomId}`;
-  axios.get(url)
-    .then((response) => setVideoUrl(response.data.video));
+  const changeVideo = (newUrl) => {
+      const url = `http://localhost:3000/room/${roomId}`;
+      setVideoUrl(newUrl);
+      axios.put(url, {
+        video: videoUrl
+      })
+  }
 
   return (
     <>
@@ -96,7 +105,7 @@ const VideoPage = () => {
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>
-        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} />
+        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} handleVideoChange={changeVideo}/>
       </div>
     </>
   );

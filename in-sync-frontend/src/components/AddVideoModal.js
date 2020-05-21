@@ -11,9 +11,10 @@ import {
 } from "@material-ui/core";
 import styles from "./Modal.module.css";
 
-const AddVideoModal = ({ showModal, modalHandler }) => {
+const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [url, setVideoURL] = useState("");
   const [search, setSearchInput] = useState("");
+
 
   return (
     <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
@@ -47,7 +48,7 @@ const AddVideoModal = ({ showModal, modalHandler }) => {
               <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
                 Cancel
               </Button>
-              <Button className={styles.createButton} onClick={() => { modalHandler(false); }}>
+              <Button className={styles.createButton} onClick={() => { handleVideoChange(url); modalHandler(false); }}>
                 Add
               </Button>
             </div>

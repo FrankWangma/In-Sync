@@ -71,10 +71,10 @@ const EmbeddedVideo = (props) => {
 
             {/* Video Player Controls */}
             <Grid container spacing={0}>
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                     <Button variant="contained" onClick={handlePlayPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                     {/* <input
                         type='range' min={0} max={0.999999} step='any'
                         className='seek'
@@ -90,10 +90,10 @@ const EmbeddedVideo = (props) => {
                         onMouseUp={handleSeekMouseUp}
                         aria-labelledby="continuous-slider" />
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                     <Button variant="contained" onClick={handleClickFullscreen}><Fullscreen /></Button>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                     <p className='volume'><VolumeUp /></p>
                 </Grid>
                 <Grid item xs={3}>

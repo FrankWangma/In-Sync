@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import Grid from '@material-ui/core/Grid';
@@ -14,9 +14,7 @@ const EmbeddedVideo = (props) => {
     const [played, setPlayed] = React.useState(0);
     const [seeking, setSeeking] = React.useState(false);
 
-    // const ref = player => {
-    //     this.player = player
-    // }
+    const ref = useRef();
 
     const handlePlay = () => {
         setPlaying(true);
@@ -40,7 +38,7 @@ const EmbeddedVideo = (props) => {
 
     const handleSeekMouseUp = e => {
         setSeeking(false);
-        this.player.seekTo(parseFloat(e.target.value))
+        this.player.seekTo(parseFloat(e.target.value));
     }
 
     const handleVolumeChange = (_e, v) => {
@@ -55,14 +53,14 @@ const EmbeddedVideo = (props) => {
     }
 
     const handleClickFullscreen = () => {
-        screenfull.request(findDOMNode(this.player))
+        screenfull.request(findDOMNode(ref.current));
     }
 
     return (
         <div className="App EmbeddedVideo">
             <ReactPlayer
                 url={props.url}
-                // ref={ref}
+                ref={ref}
                 playing={playing}
                 volume={volume/100}
                 onPlay={handlePlay}

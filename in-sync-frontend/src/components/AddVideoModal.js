@@ -25,6 +25,7 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
     }
   })
 
+
   const handleSearchSubmit = () => {
     youtube.get('/search', {
       params: {
@@ -48,8 +49,8 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
         <Grid container spacing={0}>
           <Grid item xs={1} />
           <Grid item xs={5}>
-            <Typography variant="h2" className={styles.title}>
-              Add a video
+            <Typography variant="h3" className={styles.title}>
+              Change the video
             </Typography>
             <Typography>Video URL</Typography>
             <TextField
@@ -75,15 +76,18 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
                 Cancel
               </Button>
               <Button className={styles.createButton} onClick={() => { handleVideoChange(url); modalHandler(false); }}>
-                Add
+                Change
               </Button>
-              <Button className={styles.createButton} onClick={handleSearchSubmit}>
+              <Button variant="contained" disabled={!search} onClick={handleSearchSubmit}>
                 Search
               </Button>
             </div>
           </Grid>
           <Grid item xs={1}/>
           <Grid item xs={4}>
+            <Typography variant="h6">
+              Top 5 Videos Found
+            </Typography>
             <VideoList handleVideoSelect={handleVideoSelect} videos={videos}/>
           </Grid>
           <Grid item xs={1}/>

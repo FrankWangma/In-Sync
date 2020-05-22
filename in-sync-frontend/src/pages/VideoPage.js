@@ -118,7 +118,7 @@ const VideoPage = () => {
           <Grid item sm={12} md={6}>
             <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
-              Add Video
+              Change Video
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>

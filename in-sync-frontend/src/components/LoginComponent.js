@@ -53,6 +53,12 @@ const Login = ({ joiningRoom }) => {
     }
   }
 
+  function keyPress(e){
+    if(e.keyCode === 13){
+       handleSubmit(e);
+    }
+  }
+
   return (
     <form name="form">
     <Card>
@@ -68,6 +74,7 @@ const Login = ({ joiningRoom }) => {
                       placeholder="Username"
                       margin="normal"
                       onChange={handleChange}
+                      onKeyDown={keyPress}
                   />
                   <TextField
                       error={error}
@@ -79,6 +86,7 @@ const Login = ({ joiningRoom }) => {
                       margin="normal"
                       helperText={helperText}
                       onChange={handleChange}
+                      onKeyDown={keyPress}
                   />
                   {alert.message && handleAlert()}
               </div>
@@ -89,7 +97,7 @@ const Login = ({ joiningRoom }) => {
               size="large"
               color="secondary"
               onClick={handleSubmit}>
-              {loggingIn}
+              {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
               Login
               </Button>
           </CardActions>

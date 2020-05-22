@@ -7,7 +7,7 @@ import styles from "./LoginComponent.module.css";
 
 import { userActions } from "../_actions";
 
-const Login = () => {
+const Login = ({ joiningRoom }) => {
   const alert = useSelector((state) => state.alert);
   const [inputs, setInputs] = useState({
     username: "",
@@ -35,7 +35,7 @@ const Login = () => {
     if (username && password) {
       setError(false);
       setHelperText("");
-      dispatch(userActions.login(username, password));
+      dispatch(userActions.login(username, password, joiningRoom));
     } else {
       setError(true);
       setHelperText("Fields cannot be empty");
@@ -50,6 +50,12 @@ const Login = () => {
         setError(true);
         setHelperText(alert.message);
       }
+    }
+  }
+
+  function keyPress(e){
+    if(e.keyCode === 13){
+       handleSubmit(e);
     }
   }
 
@@ -68,6 +74,7 @@ const Login = () => {
                       placeholder="Username"
                       margin="normal"
                       onChange={handleChange}
+                      onKeyDown={keyPress}
                   />
                   <TextField
                       error={error}
@@ -79,6 +86,7 @@ const Login = () => {
                       margin="normal"
                       helperText={helperText}
                       onChange={handleChange}
+                      onKeyDown={keyPress}
                   />
                   {alert.message && handleAlert()}
               </div>
@@ -89,7 +97,7 @@ const Login = () => {
               size="large"
               color="secondary"
               onClick={handleSubmit}>
-              {loggingIn}
+              {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
               Login
               </Button>
           </CardActions>

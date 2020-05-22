@@ -7,7 +7,7 @@ import styles from "./LoginComponent.module.css";
 
 import { userActions } from "../_actions";
 
-const Login = () => {
+const Login = ({ joiningRoom }) => {
   const alert = useSelector((state) => state.alert);
   const [inputs, setInputs] = useState({
     username: "",
@@ -35,7 +35,7 @@ const Login = () => {
     if (username && password) {
       setError(false);
       setHelperText("");
-      dispatch(userActions.login(username, password));
+      dispatch(userActions.login(username, password, joiningRoom));
     } else {
       setError(true);
       setHelperText("Fields cannot be empty");

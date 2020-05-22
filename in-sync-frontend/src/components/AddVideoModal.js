@@ -1,20 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
   Typography,
   Grid,
   Modal,
-  List,
-  ListItem,
-  ListItemText,
 } from "@material-ui/core";
 import styles from "./Modal.module.css";
+import VideoList from './VideoList'
+import axios from 'axios';
 
 const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [url, setVideoURL] = useState("");
   const [search, setSearchInput] = useState("");
+  const [videos, setVideos] = useState([]);
+  const KEY = 'AIzaSyD962bLlUbUCSBNbbwudKk1Ha0NwWSORoY';
 
+  const youtube = axios.create({
+    baseURL: 'https://www.googleapis.com/youtube/v3',
+    params: {
+      part: 'snippet',
+      maxResults: 5,
+      key: KEY,
+    }
+  })
+
+  const handleSearchSubmit = () => {
+    youtube.get('/search', {
+      params: {
+        part: 'snippet',
+        maxResults: 5,
+        key: KEY,
+        q: search
+      }
+    }).then((response) => setVideos(response.data.items))
+  }
+
+  const handleVideoSelect = (video) => {
+    const url = `https://www.youtube.com/watch?v=${video.id.videoId}`;
+    handleVideoChange(url);
+    modalHandler(false);
+  }
 
   return (
     <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
@@ -51,18 +77,14 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
               <Button className={styles.createButton} onClick={() => { handleVideoChange(url); modalHandler(false); }}>
                 Add
               </Button>
+              <Button className={styles.createButton} onClick={handleSearchSubmit}>
+                Search
+              </Button>
             </div>
           </Grid>
           <Grid item xs={1}/>
           <Grid item xs={4}>
-            <List component="nav">
-              <ListItem button>
-                <ListItemText primary="Search for a video" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="Searched/found videos will show up in a list here" />
-              </ListItem>
-            </List>
+            <VideoList handleVideoSelect={handleVideoSelect} videos={videos}/>
           </Grid>
           <Grid item xs={1}/>
         </Grid>

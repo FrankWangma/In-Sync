@@ -37,14 +37,14 @@ export function updateUser(req, res) {
   User.findById(req.params.userId, (err, foundUser) => {
     if (!foundUser) {
       res.status(400).json({ message: 'User not found' });
-    } else if (foundUser.username !== req.body.username && usernameExists(req.body.username)) {
-      res.status(409).json({ message: `Username "${req.body.username}" is already taken` });
+    } else if (foundUser.username !== req.body.updatedUser.username && usernameExists(req.body.updatedUser.username)) {
+      res.status(409).json({ message: `Username "${req.body.updatedUser.username}" is already taken` });
     } else {
-      if (req.body.password) {
-        req.body.hash = bcrypt.hashSync(req.body.password, 10);
+      if (req.body.updatedUser.password) {
+        req.body.hash = bcrypt.hashSync(req.body.updatedUser.password, 10);
       }
 
-      Object.assign(foundUser, req.body);
+      Object.assign(foundUser, req.body.updatedUser);
 
       foundUser.save((error, updatedUser) => {
         if (error) {

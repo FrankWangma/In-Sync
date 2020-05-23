@@ -15,6 +15,7 @@ const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [userJoined, setUserJoined] = useState(false);
   const [users, setUsers] = useState({
     host: "",
     viewers: []
@@ -26,6 +27,7 @@ const VideoPage = () => {
   const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
+    let mounted = true;
     const joinData = {
       roomId: roomId,
       username: user.username
@@ -33,7 +35,7 @@ const VideoPage = () => {
     socket.emit('join', joinData)
   
     socket.on('userJoinedRoom', (data) => {
-      handleUserJoined();
+      setUserJoined(true);
     });
   
     socket.on('newMessage', (data) => {
@@ -61,12 +63,16 @@ const VideoPage = () => {
     }, {
       headers: { Authorization: `Bearer ${token}`}
     }).then((response) => {
-        setVideoUrl(response.data.video)
-          setUsers({
-            host: response.data.host,
-            viewers: response.data.viewers,
-          })
+      if(mounted) {
+          setVideoUrl(response.data.video)
+            setUsers({
+              host: response.data.host,
+              viewers: response.data.viewers,
+            })
+        }
       })
+
+      return () => mounted = false;
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {
@@ -146,6 +152,17 @@ const VideoPage = () => {
     })
       
   }
+
+  useEffect(() => {
+    let mounted = true;
+    if(mounted && userJoined) {
+      handleUserJoined();
+    }
+    return () => {
+      mounted = false;
+      setUserJoined(false);
+    }
+  }, [userJoined])
   
   return (
     <>

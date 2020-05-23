@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import config from '../../config.json';
 
 export function createUser(req, res) {
   if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
@@ -93,7 +92,9 @@ export function deleteUser(req, res) {
 }
 
 export function authenticate(req, res) {
-  const secret = process.env.INSYNC_API_SECRET || config;
+  // Previously a config file was used to provide the secret locally, however that caused issues with
+  // nodemon, so a hardcoded string is used instead.
+  const secret = process.env.INSYNC_API_SECRET || "local so can use any string";
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
       const token = jwt.sign({ sub: foundUser.id }, secret);

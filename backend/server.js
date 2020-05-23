@@ -1,5 +1,5 @@
 import app from './app.js';
-import setupSocketListeners from './src/sockets/controller';
+import setupSocketListeners from './src/sockets/controller.js';
 
 const port = process.env.PORT || '3000';
 const server = require('http').createServer(app);

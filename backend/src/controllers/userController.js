@@ -1,8 +1,8 @@
 import User from '../models/User';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import config from '../../config.json'
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('../../config.json');
 
 exports.createUser = (req, res) => {
   if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {

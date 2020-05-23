@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "react-chatbox-component/dist/style.css";
 import { ChatBox } from "react-chatbox-component";
 
@@ -30,7 +30,8 @@ const user = {
   avatar: "https://data.cometchat.com/assets/images/avatars/ironman.png",
 };
 
-const ChatComponent = ({ sendMessage }) => {
+const ChatComponent = ({ sendMessage, receivedMessage }) => {
+  const [messageData, setMessageData] = useState([]);
   const handleSubmit = (message) => {
     // Template of sent message by this client
     const userMessage = {
@@ -44,6 +45,24 @@ const ChatComponent = ({ sendMessage }) => {
 
     sendMessage(message);
   };
+
+  useEffect(() => {
+    setMessageData(receivedMessage);
+    const {message, username} = receivedMessage;
+    if(message) {
+      const user = {
+        name: username,
+        uid: username,
+        avatar: "https://data.cometchat.com/assets/images/avatars/ironman.png",
+      }; 
+      const userMessage = {
+        text: message,
+        id: messages.length + 1,
+        sender: user,
+      };
+      messages.push(userMessage);
+    }
+  },[receivedMessage])
 
   return (
     <div className='container'>

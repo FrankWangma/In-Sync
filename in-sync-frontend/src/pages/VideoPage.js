@@ -15,6 +15,7 @@ const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [receivedMessage, setReceivedMessage] = useState("")
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
@@ -34,7 +35,7 @@ const VideoPage = () => {
     });
   
     socket.on('newMessage', (data) => {
-      console.log(data);
+      setReceivedMessage(data);
     });
 
     socket.on('playVideo', (data) => {
@@ -97,7 +98,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch sendMessage={sendMessage}/>
+            <ChatUserSwitch sendMessage={sendMessage} receivedMessage={receivedMessage}/>
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

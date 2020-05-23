@@ -15,26 +15,25 @@ const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [receivedMessage, setReceivedMessage] = useState([]);
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
+  const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
-
-    socket.on('connect', () => {
-      const joinData = {
-        roomId: roomId,
-        username: user.username
-      }
-      socket.emit('join', joinData)
-    });
+    const joinData = {
+      roomId: roomId,
+      username: user.username
+    }
+    socket.emit('join', joinData)
   
     socket.on('userJoinedRoom', (data) => {
       console.log(data);
     });
   
     socket.on('newMessage', (data) => {
-      console.log(data);
+      setReceivedMessage(data);
     });
 
     socket.on('playVideo', (data) => {
@@ -42,6 +41,10 @@ const VideoPage = () => {
     })
 
     socket.on('pauseVideo', (data) => {
+      console.log(data);
+    })
+
+    socket.on('userLeft', (data) => {
       console.log(data);
     })
   }, [roomId, user.username]);
@@ -75,8 +78,9 @@ const VideoPage = () => {
 
   // Get Video ID
   const url = `http://localhost:3000/room/${roomId}`;
-  axios.get(url)
-    .then((response) => setVideoUrl(response.data.video));
+  axios.get(url, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => setVideoUrl(response.data.video));
 
   return (
     <>
@@ -97,7 +101,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch sendMessage={sendMessage}/>
+            <ChatUserSwitch sendMessage={sendMessage} receivedMessage={receivedMessage} currentUser={user.username}/>
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

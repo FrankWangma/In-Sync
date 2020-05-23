@@ -10,7 +10,6 @@ import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 import Header from "../common/Header";
 import socket from "../socket/socket"
-import { Redirect } from "react-router-dom";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
@@ -20,7 +19,7 @@ const VideoPage = () => {
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
-  const loggedIn = useSelector((state) => state.authentication.user);
+  const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -52,13 +51,6 @@ const VideoPage = () => {
     })
   }, [roomId, user.username]);
 
-  if (!loggedIn) {
-    socket.disconnect()
-    return (
-      <Redirect to="/"/>
-    )
-  }
-
   const sendMessage = (message) => {
     const data = {
       roomId: roomId,
@@ -88,8 +80,9 @@ const VideoPage = () => {
 
   // Get Video ID
   const url = `http://localhost:3000/room/${roomId}`;
-  axios.get(url)
-    .then((response) => setVideoUrl(response.data.video));
+  axios.get(url, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => setVideoUrl(response.data.video));
 
   return (
     <>

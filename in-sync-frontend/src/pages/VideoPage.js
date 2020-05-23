@@ -19,10 +19,12 @@ const VideoPage = () => {
     host: "",
     viewers: []
   });
+  const [receivedMessage, setReceivedMessage] = useState([]);
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
-  
+  const token = useSelector((state) => state.authentication.token);
+
   useEffect(() => {
     socket.on('connect', () => {
       const joinData = {
@@ -36,7 +38,7 @@ const VideoPage = () => {
     });
   
     socket.on('newMessage', (data) => {
-      console.log(data);
+      setReceivedMessage(data);
     });
 
     socket.on('playVideo', (data) => {
@@ -107,7 +109,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch sendMessage={sendMessage} users={users} />
+            <ChatUserSwitch sendMessage={sendMessage} users={users} receivedMessage={receivedMessage} currentUser={user.username}/>
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

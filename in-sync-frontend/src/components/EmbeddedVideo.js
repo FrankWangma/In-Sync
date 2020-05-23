@@ -18,12 +18,12 @@ const EmbeddedVideo = (props) => {
 
     const handlePlay = () => {
         setPlaying(true);
-        props.playVideo(this.state.played);
+        props.playVideo(played);
     }
 
     const handlePause = () => {
         setPlaying(false);
-        props.pauseVideo(this.state.played);
+        props.pauseVideo(played);
     }
 
     const handlePlayPause = () => {

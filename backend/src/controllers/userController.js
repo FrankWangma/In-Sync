@@ -13,7 +13,11 @@ export function createUser(req, res) {
 
     newUser.save((err, createdUser) => {
       if (err) {
-        res.status(409).json({ message: 'Username or email already taken' });
+        if (err.keyValue.username) {
+          res.status(409).json({ message: `Username ${req.body.username} is already taken` });
+        } else if (err.keyValue.email) {
+          res.status(409).json({ message: `Email ${req.body.email} is already taken` });
+        }
       } else {
         res.json(createdUser);
       }

@@ -37,7 +37,6 @@ export default function ProfileButton() {
     setOpen((prevOpen) => !prevOpen);
     setViewProfile(false);
   };
-
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;

@@ -33,9 +33,12 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
         part: 'snippet',
         maxResults: 5,
         key: KEY,
+        type: 'video',
         q: search
       }
-    }).then((response) => setVideos(response.data.items))
+    }).then((response) => {
+      console.log(response);
+      setVideos(response.data.items);})
   }
 
   const handleVideoSelect = (video) => {

@@ -4,12 +4,12 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ChatComponent from "./ChatComponent";
 import UserList from "./UserList";
 
-const ChatUserSwitch = ({ sendMessage, receivedMessage }) => {
+const ChatUserSwitch = ({ sendMessage, receivedMessage, currentUser }) => {
     const [currentToggle, setCurrentToggle] = useState("chat");
 
     const chatOrUsers = () => {
         if (currentToggle === "chat") {
-            return <ChatComponent className="chat" sendMessage={sendMessage} receivedMessage={receivedMessage} />
+            return <ChatComponent className="chat" sendMessage={sendMessage} receivedMessage={receivedMessage} currentUser={currentUser} />
         } else {
             return <UserList />
         }

@@ -18,14 +18,8 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
   const user =  useSelector((state) => state.authentication.user)
 
   const joinRoom = () => {
-    setRoomUrl(`/video?id=${roomID}`);
-    axios.put("http://localhost:3000/room", {
-      crossdomain: true,
-      userId: user.id,
-      username: user.username,
-      id: roomID,
-    })
-      .then(setShouldNavigate(true));
+    setRoomUrl(`/video?id=${roomID}`)
+    .then(setShouldNavigate(true));;
   };
 
   if (shouldNavigate) {

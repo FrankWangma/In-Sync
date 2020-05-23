@@ -47,7 +47,18 @@ const VideoPage = () => {
       console.log(data);
     })
 
-    getRoomInfo();
+    axios.put("http://localhost:3000/room", {
+      crossdomain: true,
+      userId: user.id,
+      username: user.username,
+      id: roomId,
+    }).then((response) => {
+      setVideoUrl(response.data.video)
+        setUsers({
+          host: response.data.host,
+          viewers: response.data.viewers,
+        })
+    })
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {
@@ -75,19 +86,6 @@ const VideoPage = () => {
       username: user.username
     };
     socket.emit('play', data);
-  }
-
-  const getRoomInfo = () => {
-     // Get Video ID
-    const url = `http://localhost:3000/room/${roomId}`;
-    axios.get(url)
-      .then((response) => {
-        setVideoUrl(response.data.video)
-        setUsers({
-          host: response.data.host,
-          viewers: response.data.viewers,
-        })
-      });
   }
   
   return (

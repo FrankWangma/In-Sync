@@ -36,4 +36,6 @@ UserSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
+
+export default User;

@@ -1,5 +1,5 @@
-import room from '../controllers/roomController.js';
-import user from '../controllers/userController.js';
+import roomController from '../controllers/roomController.js';
+import userController from '../controllers/userController.js';
 
 export default (app) => {
   app.use((req, res, next) => {
@@ -10,26 +10,26 @@ export default (app) => {
   });
 
   app.route('/room')
-    .get(room.getAllRooms)
-    .put(room.joinRoom)
-    .post(room.createRoom);
+    .get(roomController.getAllRooms)
+    .put(roomController.joinRoom)
+    .post(roomController.createRoom);
 
   app.route('/room/:roomId')
-    .get(room.getRoom)
-    .put(room.updateRoom)
-    .delete(room.deleteRoom);
+    .get(roomController.getRoom)
+    .put(roomController.updateRoom)
+    .delete(roomController.deleteRoom);
 
   app.route('/user')
-    .get(user.getAllUsers);
+    .get(userController.getAllUsers);
 
   app.route('/user/register')
-    .post(user.createUser);
+    .post(userController.createUser);
 
   app.route('/user/:userId')
-    .get(user.getUser)
-    .put(user.updateUser)
-    .delete(user.deleteUser);
+    .get(userController.getUser)
+    .put(userController.updateUser)
+    .delete(userController.deleteUser);
 
   app.route('/login')
-    .get(user.authenticate);
+    .get(userController.authenticate);
 };

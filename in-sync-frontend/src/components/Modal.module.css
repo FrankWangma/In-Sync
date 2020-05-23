@@ -58,3 +58,13 @@
     color: white !important;
     height: 35px;
 }
+
+.createButton:disabled {
+    background-color: lightgray !important;
+    color: gray;
+}
+
+.warningText {
+    color: red;
+    padding-bottom: 10px;
+}

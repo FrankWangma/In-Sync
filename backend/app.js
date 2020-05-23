@@ -1,10 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import jwt from './src/_helpers/jwt.js';
+import jwt from './src/authentication/jwt.js';
 import cors from 'cors';
 
 import routes from './src/routes/index.js';
+import errorHandler from './src/authentication/errorHandler.js';
 
 const app = express();
 
@@ -23,11 +24,10 @@ mongoose.set('useCreateIndex', true);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
-app.use(jwt());
 
 app.use(cors());
 app.use(jwt());
+app.use(errorHandler)
 
 // catch 400
 app.use((err, req, res, next) => {

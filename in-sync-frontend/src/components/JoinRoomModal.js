@@ -5,7 +5,7 @@ import {
   Typography,
   Modal,
 } from "@material-ui/core";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./Modal.module.css";
@@ -13,23 +13,36 @@ import styles from "./Modal.module.css";
 const JoinRoomModal = ({ showModal, modalHandler }) => {
   const [roomID, setRoomID] = useState("");
   const [roomUrl, setRoomUrl] = useState("");
-  const [shouldNavigate, setShouldNavigate] = useState(false);
+  const [shouldNavigateToRoom, setShouldNavigateToRoom] = useState(false);
+  const [shouldNavigateToLogin, setShouldNavigateToLogin] = useState(false);
 
   const user =  useSelector((state) => state.authentication.user)
+  const token = useSelector((state) => state.authentication.token);
+  const loggedIn = useSelector((state) => state.authentication.loggedIn);
 
   const joinRoom = () => {
-    setRoomUrl(`/video?id=${roomID}`);
-    axios.put("http://localhost:3000/room", {
-      crossdomain: true,
-      userId: user.id,
-      username: user.username,
-      id: roomID,
-    })
-      .then(setShouldNavigate(true));
+    if (loggedIn) {
+      setRoomUrl(`/video?id=${roomID}`);
+      axios.put("http://localhost:3000/room", {
+          crossdomain: true,
+          userId: user.id,
+          username: user.username,
+          id: roomID,
+        }, {
+          headers: { Authorization: `Bearer ${token}`}
+        }
+      ).then(setShouldNavigateToRoom(true));
+    } else {
+      setShouldNavigateToLogin(true);
+    }
   };
 
-  if (shouldNavigate) {
+  if (shouldNavigateToRoom) {
     return <Redirect to={roomUrl} />;
+  }
+
+  if (shouldNavigateToLogin) {
+    return <Redirect to={`/joinRoom?id=${roomID}`} />;
   }
 
   return (
@@ -51,12 +64,10 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
         <div className={styles.modalButtons}>
           <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
             Cancel
-      </Button>
-          <Link onClick={() => { joinRoom(); }}>
-            <Button className={styles.createButton}>
-              Join
-      </Button>
-          </Link>
+          </Button>
+          <Button onClick={() => { joinRoom() }} className={styles.createButton}>
+            Join
+          </Button>
         </div>
       </div>
     </Modal>

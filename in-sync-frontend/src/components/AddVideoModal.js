@@ -9,12 +9,13 @@ import {
 import styles from "./Modal.module.css";
 import VideoList from './VideoList'
 import axios from 'axios';
+import config from '../config.json'
 
 const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [url, setVideoURL] = useState("");
   const [search, setSearchInput] = useState("");
   const [videos, setVideos] = useState([]);
-  const KEY = 'AIzaSyD962bLlUbUCSBNbbwudKk1Ha0NwWSORoY';
+  const KEY = process.env.YOUTUBE_KEY || config.YoutubeAPIKey;
 
   const youtube = axios.create({
     baseURL: 'https://www.googleapis.com/youtube/v3',

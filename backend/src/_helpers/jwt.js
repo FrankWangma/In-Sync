@@ -30,4 +30,4 @@ function jwt() {
   });
 }
 
-module.exports = jwt;
+export default jwt;

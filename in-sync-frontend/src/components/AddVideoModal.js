@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
   Typography,
   Grid,
   Modal,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogActions
 } from "@material-ui/core";
 import styles from "./Modal.module.css";
 import VideoList from './VideoList'
@@ -48,14 +52,18 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   }
 
   return (
-    <Modal open={showModal} onBackdropClick={() => { modalHandler(false); }}>
-      <div className={styles.addVideoModal}>
+    <Dialog 
+    open={showModal} 
+    onBackdropClick={() => { modalHandler(false); }} 
+    scroll='paper'
+    fullWidth={true}
+    maxWidth={'lg'}
+    >
+      <DialogTitle>Change the video</DialogTitle>
+      <DialogContent dividers={true}>
         <Grid container spacing={0}>
           <Grid item xs={1} />
           <Grid item xs={5}>
-            <Typography variant="h3" className={styles.title}>
-              Change the video
-            </Typography>
             <Typography>Video URL</Typography>
             <TextField
               className={styles.addVideoText}
@@ -75,17 +83,6 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
               value={search}
               onChange={(e) => { setSearchInput(e.target.value); }}
             />
-            <div className={styles.modalButtons}>
-              <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
-                Cancel
-              </Button>
-              <Button className={styles.createButton} onClick={() => { handleVideoChange(url); modalHandler(false); }}>
-                Change
-              </Button>
-              <Button variant="contained" disabled={!search} onClick={handleSearchSubmit}>
-                Search
-              </Button>
-            </div>
           </Grid>
           <Grid item xs={1}/>
           <Grid item xs={4}>
@@ -96,8 +93,19 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
           </Grid>
           <Grid item xs={1}/>
         </Grid>
-      </div>
-    </Modal>
+      </DialogContent>
+      <DialogActions>
+        <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
+          Cancel
+        </Button>
+        <Button variant="contained" className={styles.changeButton} disabled={!url} onClick={() => { handleVideoChange(url); modalHandler(false); }}>
+          Change
+        </Button>
+        <Button variant="contained" disabled={!search} onClick={handleSearchSubmit}>
+          Search
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

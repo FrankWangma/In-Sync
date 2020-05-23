@@ -47,11 +47,16 @@ const VideoPage = () => {
       console.log(data);
     })
 
+    
+    socket.on('userLeft', (data) => {
+      console.log(data);
+    })
+
     axios.put("http://localhost:3000/room", {
       crossdomain: true,
       userId: user.id,
       username: user.username,
-      id: roomID,
+      id: roomId,
     }, {
       headers: { Authorization: `Bearer ${token}`}
     }).then((response) => {
@@ -61,10 +66,6 @@ const VideoPage = () => {
             viewers: response.data.viewers,
           })
       })
-
-    socket.on('userLeft', (data) => {
-      console.log(data);
-    })
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {

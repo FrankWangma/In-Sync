@@ -7,7 +7,6 @@ import {
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import styles from "./Modal.module.css";
 
 const JoinRoomModal = ({ showModal, modalHandler }) => {
@@ -15,15 +14,12 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
   const [roomUrl, setRoomUrl] = useState("");
   const [shouldNavigateToRoom, setShouldNavigateToRoom] = useState(false);
   const [shouldNavigateToLogin, setShouldNavigateToLogin] = useState(false);
-
-  const user =  useSelector((state) => state.authentication.user)
-  const token = useSelector((state) => state.authentication.token);
   const loggedIn = useSelector((state) => state.authentication.loggedIn);
 
   const joinRoom = () => {
     if (loggedIn) {
-    setRoomUrl(`/video?id=${roomID}`)
-    .then(setShouldNavigate(true));;
+      setRoomUrl(`/video?id=${roomID}`);
+      setShouldNavigateToRoom(true);
     } else {
       setShouldNavigateToLogin(true);
     }

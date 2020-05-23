@@ -53,14 +53,16 @@ const VideoPage = () => {
       crossdomain: true,
       userId: user.id,
       username: user.username,
-      id: roomId,
+      id: roomID,
+    }, {
+      headers: { Authorization: `Bearer ${token}`}
     }).then((response) => {
-      setVideoUrl(response.data.video)
-        setUsers({
-          host: response.data.host,
-          viewers: response.data.viewers,
-        })
-    })
+        setVideoUrl(response.data.video)
+          setUsers({
+            host: response.data.host,
+            viewers: response.data.viewers,
+          })
+      })
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {

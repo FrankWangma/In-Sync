@@ -47,7 +47,6 @@ const VideoPage = () => {
       console.log(data);
     })
 
-    
     socket.on('userLeft', (data) => {
       console.log(data);
     })
@@ -93,6 +92,10 @@ const VideoPage = () => {
       username: user.username
     };
     socket.emit('play', data);
+  }
+
+  const handleUserLeaving = () => {
+    
   }
   
   return (

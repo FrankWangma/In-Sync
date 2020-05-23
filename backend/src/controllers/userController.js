@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import User from '../models/User';
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -90,7 +90,7 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.authenticate = (req, res) => {
-  const secret = process.env.INSYNC_API_SECRET;
+  const secret = process.env.INSYNC_API_SECRET || config;
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
       const token = jwt.sign({ sub: foundUser.id }, secret);

@@ -1,12 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import jwt from './src/_helpers/jwt.js'
+import jwt from './src/_helpers/jwt.js';
+import cors from 'cors';
 
 import routes from './src/routes/index.js';
 
 const app = express();
-const cors = require('cors');
 
 /**
   * Connect to the database

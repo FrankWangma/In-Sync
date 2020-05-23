@@ -1,7 +1,6 @@
 import User from '../models/User.js';
-
-const expressJwt = require('express-jwt');
-const config = require('../../config.json');
+import expressJwt from 'express-jwt';
+import config from '../../config.json';
 
 async function isRevoked(req, payload, done) {
   const user = await User.findById(payload.sub);

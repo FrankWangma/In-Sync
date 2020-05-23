@@ -14,7 +14,7 @@ async function isRevoked(req, payload, done) {
 }
 
 function jwt() {
-  const secret = process.env.INSYNC_API_SECRET;
+  const secret = process.env.INSYNC_API_SECRET || config;
   return expressJwt({ secret, isRevoked }).unless({
     path: [
       // public routes (no authentication needed)

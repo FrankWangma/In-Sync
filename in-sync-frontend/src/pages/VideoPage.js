@@ -33,6 +33,7 @@ const VideoPage = () => {
     socket.emit('join', joinData)
   
     socket.on('userJoinedRoom', (data) => {
+      handleUserJoined();
     });
   
     socket.on('newMessage', (data) => {
@@ -96,6 +97,19 @@ const VideoPage = () => {
 
   const handleUserLeaving = () => {
     
+  }
+
+  const handleUserJoined = () => {
+    const url = `http://localhost:3000/room/${roomId}`
+    axios.get(url, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => {
+      setUsers({
+        host: response.data.host,
+        viewers: response.data.viewers
+      })
+    })
+      
   }
   
   return (

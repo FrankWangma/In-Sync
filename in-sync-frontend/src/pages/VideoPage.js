@@ -15,12 +15,15 @@ const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [users, setUsers] = useState({
+    host: "",
+    viewers: []
+  });
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
-
+  
   useEffect(() => {
-
     socket.on('connect', () => {
       const joinData = {
         roomId: roomId,
@@ -30,7 +33,6 @@ const VideoPage = () => {
     });
   
     socket.on('userJoinedRoom', (data) => {
-      console.log(data);
     });
   
     socket.on('newMessage', (data) => {
@@ -44,6 +46,8 @@ const VideoPage = () => {
     socket.on('pauseVideo', (data) => {
       console.log(data);
     })
+
+    getRoomInfo();
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {
@@ -73,11 +77,19 @@ const VideoPage = () => {
     socket.emit('play', data);
   }
 
-  // Get Video ID
-  const url = `http://localhost:3000/room/${roomId}`;
-  axios.get(url)
-    .then((response) => setVideoUrl(response.data.video));
-
+  const getRoomInfo = () => {
+     // Get Video ID
+    const url = `http://localhost:3000/room/${roomId}`;
+    axios.get(url)
+      .then((response) => {
+        setVideoUrl(response.data.video)
+        setUsers({
+          host: response.data.host,
+          viewers: response.data.viewers,
+        })
+      });
+  }
+  
   return (
     <>
       <Header />
@@ -97,7 +109,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch sendMessage={sendMessage}/>
+            <ChatUserSwitch sendMessage={sendMessage} users={users} />
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

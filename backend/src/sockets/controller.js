@@ -71,7 +71,6 @@ const setupSocketListeners = (socket) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
           socket.to(client.roomId).emit('userLeft', client.username);
-          console.log("we doing it");
           removeFromRoom(client);
         }
         clients.splice(i, 1);
@@ -86,7 +85,6 @@ const setupSocketListeners = (socket) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
           socket.to(client.roomId).emit('userLeft', client.username);
-          console.log("we doing it");
           removeFromRoom(client);
         }
         clients.splice(i, 1);
@@ -96,12 +94,7 @@ const setupSocketListeners = (socket) => {
 };
 
 const removeFromRoom = (client) => {
-  console.log(client.roomId);
-  Room.findOneAndUpdate({ _id: client.roomId }, { $pullAll: {viewers: [client.username] }}, (err, foundRoom) => {
-    if (!foundRoom) {
-      console.log("cant do it");
-    }
-  });
+  Room.findOneAndUpdate({ _id: client.roomId }, { $pullAll: {viewers: [client.username] }});
 }
 
 export default setupSocketListeners;

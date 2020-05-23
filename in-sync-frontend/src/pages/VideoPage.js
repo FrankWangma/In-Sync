@@ -18,6 +18,7 @@ const VideoPage = () => {
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
+  const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
 
@@ -75,8 +76,9 @@ const VideoPage = () => {
 
   // Get Video ID
   const url = `http://localhost:3000/room/${roomId}`;
-  axios.get(url)
-    .then((response) => setVideoUrl(response.data.video));
+  axios.get(url, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => setVideoUrl(response.data.video));
 
   return (
     <>

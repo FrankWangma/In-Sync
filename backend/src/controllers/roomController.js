@@ -69,7 +69,7 @@ export function joinRoom(req, res) {
       res.status(404).json({ message: 'Could not find user' });
     } else {
       Room.findById(req.body.id, (error, foundRoom) => {
-        if (error) {
+        if (!foundRoom) {
           res.status(404).json({ message: 'Could not find room' });
         } else {
           foundRoom.viewers.push(foundUser.username);

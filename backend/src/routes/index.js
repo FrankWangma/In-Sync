@@ -6,13 +6,6 @@ import {
 } from '../controllers/userController.js';
 
 export default (app) => {
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE');
-    next();
-  });
-
   app.route('/room')
     .get(getAllRooms)
     .put(joinRoom)
@@ -26,7 +19,7 @@ export default (app) => {
   app.route('/user')
     .get(getAllUsers);
 
-  app.route('/user/register')
+  app.route('/register')
     .post(createUser);
 
   app.route('/user/:userId')

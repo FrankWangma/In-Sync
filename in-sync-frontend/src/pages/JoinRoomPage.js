@@ -15,7 +15,6 @@ const JoinRoomPage = () => {
   const roomId = qs.parse(window.location.search).id;
   const roomUrl = "/video?id=" + roomId;
   const [navigateToRoom, setNavigateToRoom] = useState(false);
-  console.log(roomUrl);
 
   const user =  useSelector((state) => state.authentication.user)
   const token = useSelector((state) => state.authentication.token);

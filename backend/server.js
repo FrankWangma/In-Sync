@@ -1,12 +1,11 @@
-import app from './app';
-import setupSocketListeners from './src/sockets/controller';
+import app from './app.js';
+import setupSocketListeners from './src/sockets/controller.js';
+import http from 'http';
+import SocketIO from 'socket.io';
 
 const port = process.env.PORT || '3000';
-const server = require('http').createServer(app);
-
-import Room from './src/models/Room';
-import User from './src/models/User';
-const io = require('socket.io')(server);
+const server = http.createServer(app);
+const io = new SocketIO(server);
 
 io.on('connection', (socket) => {
     setupSocketListeners(socket);

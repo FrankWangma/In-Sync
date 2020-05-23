@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Backend server for the in-sync SOFTENG 750 project at the uoa",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets env",
+    "start": "node --experimental-modules --experimental-json-modules server.js",
+    "start-dev": "nodemon --exec babel-node --presets env --experimental-json-modules server.js",
     "release": "npm run clean && npm run build && npm run serve",
     "clean": "rm -rf dist && mkdir dist",
     "build": "babel . -s -D -d dist --presets env --ignore node_modules",
@@ -15,17 +17,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@std/esm": "^0.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "socket.io": "^2.3.0",
     "express-jwt": "^5.3.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.7",
-    "nanoid": "^3.1.9",
-    "rootpath": "^0.1.2"
+    "rootpath": "^0.1.2",
+    "socket.io": "^2.3.0",
+    "nanoid": "^3.1.9"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -37,5 +40,8 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "nodemon": "^2.0.2"
+  },
+  "engines": {
+    "node": "14.3.0"
   }
 }

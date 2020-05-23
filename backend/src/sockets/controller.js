@@ -1,5 +1,5 @@
-import Room from '../models/Room';
-import User from '../models/User';
+import Room from '../models/Room.js';
+import User from '../models/User.js';
 
 const setupSocketListeners = (socket) => {
   socket.on('join', (data) => {

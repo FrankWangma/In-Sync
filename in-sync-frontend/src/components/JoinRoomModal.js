@@ -6,6 +6,7 @@ import {
   Modal,
 } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import styles from "./Modal.module.css";
 
@@ -14,11 +15,14 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
   const [roomUrl, setRoomUrl] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
 
+  const user =  useSelector((state) => state.authentication.user)
+
   const joinRoom = () => {
     setRoomUrl(`/video?id=${roomID}`);
     axios.put("http://localhost:3000/room", {
       crossdomain: true,
-      userId: "5ea8e204f4d4b92ac44db798", // PLACEHOLDER
+      userId: user.id,
+      username: user.username,
       id: roomID,
     })
       .then(setShouldNavigate(true));

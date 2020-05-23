@@ -12,6 +12,8 @@ async function isRevoked(req, payload, done) {
 }
 
 function jwt() {
+  // Previously a config file was used to provide the secret locally, however that caused issues with
+  // nodemon, so a hardcoded string is used instead.
   const secret = process.env.INSYNC_API_SECRET || "local so can use any string";
   return expressJwt({ secret, isRevoked }).unless({
     path: [

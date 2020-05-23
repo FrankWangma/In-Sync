@@ -92,6 +92,8 @@ export function deleteUser(req, res) {
 }
 
 export function authenticate(req, res) {
+  // Previously a config file was used to provide the secret locally, however that caused issues with
+  // nodemon, so a hardcoded string is used instead.
   const secret = process.env.INSYNC_API_SECRET || "local so can use any string";
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {

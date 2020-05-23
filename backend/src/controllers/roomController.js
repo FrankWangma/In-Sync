@@ -1,7 +1,7 @@
 import Room from '../models/Room.js';
 import User from '../models/User.js';
 
-exports.getRoom = (req, res) => {
+export function getRoom(req, res) {
   Room.findById(req.params.roomId, (err, foundRoom) => {
     if (foundRoom) {
       res.json(foundRoom);
@@ -10,8 +10,7 @@ exports.getRoom = (req, res) => {
     }
   });
 };
-
-exports.getAllRooms = (req, res) => {
+export function getAllRooms(req, res) {
   Room.find({}, (err, foundRooms) => {
     if (foundRooms) {
       res.json(foundRooms);
@@ -21,7 +20,7 @@ exports.getAllRooms = (req, res) => {
   });
 };
 
-exports.createRoom = (req, res) => {
+export function createRoom(req, res) {
   const newRoom = new Room(req.body);
 
   if (!req.body.host) {
@@ -37,7 +36,7 @@ exports.createRoom = (req, res) => {
   }
 };
 
-exports.updateRoom = (req, res) => {
+export function updateRoom(req, res) {
   Room.findOneAndUpdate(
     { _id: req.params.roomId },
     req.body,
@@ -52,7 +51,7 @@ exports.updateRoom = (req, res) => {
   );
 };
 
-exports.deleteRoom = (req, res) => {
+export function deleteRoom(req, res) {
   Room.deleteOne({ _id: req.params.roomId }, (err) => {
     if (err) {
       res.status(404).json({ message: 'Could not find room' });
@@ -64,7 +63,7 @@ exports.deleteRoom = (req, res) => {
   });
 };
 
-exports.joinRoom = (req, res) => {
+export function joinRoom(req, res) {
   User.findById(req.body.userId, (err, foundUser) => {
     if (err) {
       res.status(404).json({ message: 'Could not find user' });

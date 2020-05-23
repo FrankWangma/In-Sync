@@ -1,5 +1,5 @@
-import roomController from '../controllers/roomController.js';
-import userController from '../controllers/userController.js';
+import { getAllRooms, joinRoom, createRoom, getRoom, updateRoom, deleteRoom } from '../controllers/roomController.js';
+import { getAllUsers, createUser, getUser, updateUser, deleteUser, authenticate } from '../controllers/userController.js';
 
 export default (app) => {
   app.use((req, res, next) => {
@@ -10,26 +10,26 @@ export default (app) => {
   });
 
   app.route('/room')
-    .get(roomController.getAllRooms)
-    .put(roomController.joinRoom)
-    .post(roomController.createRoom);
+    .get(getAllRooms)
+    .put(joinRoom)
+    .post(createRoom);
 
   app.route('/room/:roomId')
-    .get(roomController.getRoom)
-    .put(roomController.updateRoom)
-    .delete(roomController.deleteRoom);
+    .get(getRoom)
+    .put(updateRoom)
+    .delete(deleteRoom);
 
   app.route('/user')
-    .get(userController.getAllUsers);
+    .get(getAllUsers);
 
   app.route('/user/register')
-    .post(userController.createUser);
+    .post(createUser);
 
   app.route('/user/:userId')
-    .get(userController.getUser)
-    .put(userController.updateUser)
-    .delete(userController.deleteUser);
+    .get(getUser)
+    .put(updateUser)
+    .delete(deleteUser);
 
   app.route('/login')
-    .get(userController.authenticate);
+    .get(authenticate);
 };

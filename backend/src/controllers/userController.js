@@ -1,11 +1,9 @@
-import User from '../models/User';
+import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../../config.json'
 
-var userController;
-
-userController.createUser = (req, res) => {
+export function createUser(req, res) {
   if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
     res.status(400).json({ message: 'Invalid input: All fields must be filled' });
   } else {
@@ -32,7 +30,7 @@ function usernameExists(name) {
   });
 }
 
-userController.updateUser = (req, res) => {
+export function updateUser(req, res) {
   User.findById(req.params.userId, (err, foundUser) => {
     if (!foundUser) {
       res.status(400).json({ message: 'User not found' });
@@ -60,7 +58,7 @@ userController.updateUser = (req, res) => {
   });
 };
 
-userController.getAllUsers = (req, res) => {
+export function getAllUsers(req, res) {
   User.find({}, (err, foundUsers) => {
     if (err) {
       res.status(500).json({ message: 'Server failed to get users' });
@@ -70,7 +68,7 @@ userController.getAllUsers = (req, res) => {
   });
 };
 
-userController.getUser = (req, res) => {
+export function getUser(req, res) {
   User.findById(req.params.userId, (err, foundUser) => {
     if (err) {
       res.status(404).json({ message: 'User not found' });
@@ -80,7 +78,7 @@ userController.getUser = (req, res) => {
   });
 };
 
-userController.deleteUser = (req, res) => {
+export function deleteUser(req, res) {
   User.findByIdAndRemove(req.params.userId, (err) => {
     if (err) {
       res.status(404).json({ message: 'User not found' });
@@ -90,7 +88,7 @@ userController.deleteUser = (req, res) => {
   });
 };
 
-userController.authenticate = (req, res) => {
+export function authenticate(req, res) {
   const secret = process.env.INSYNC_API_SECRET || config;
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
@@ -101,5 +99,3 @@ userController.authenticate = (req, res) => {
     }
   });
 };
-
-export default userController;

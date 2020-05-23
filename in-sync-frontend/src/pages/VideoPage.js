@@ -22,13 +22,11 @@ const VideoPage = () => {
   const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
-    socket.on('connect', () => {
-      const joinData = {
-        roomId: roomId,
-        username: user.username
-      }
-      socket.emit('join', joinData)
-    });
+    const joinData = {
+      roomId: roomId,
+      username: user.username
+    }
+    socket.emit('join', joinData)
   
     socket.on('userJoinedRoom', (data) => {
       console.log(data);

@@ -4,16 +4,26 @@ import User from '../models/User.js';
 var clients = [];
 
 const setupSocketListeners = (socket) => {
+
   socket.on('join', (data) => {
-    var clientInfo = new Object();
-    clientInfo.clientId = socket.id;
-    clientInfo.username = data.username;
-    clientInfo.roomId = data.roomId;
-    clients.push(clientInfo);
-    console.log('user connected');
-    socket.join(data.roomId, () => {
-      console.log(socket.rooms)
-    });
+    var alreadyExists = false;
+    const len = clients.length
+    for (var i = 0; i < len; i++) {
+      var client = clients[i];
+      if (client.clientId === socket.id) {
+        socket.leave(client.roomId)
+        socket.join(data.roomId);
+        alreadyExists = true;
+      }
+    }
+    if (!alreadyExists) {
+      var clientInfo = new Object();
+      clientInfo.clientId = socket.id;
+      clientInfo.username = data.username;
+      clientInfo.roomId = data.roomId;
+      clients.push(clientInfo);
+      socket.join(data.roomId);
+    }
     socket.to(data.roomId).emit('userJoinedRoom', data.username);
   });
 
@@ -53,18 +63,45 @@ const setupSocketListeners = (socket) => {
     socket.to(data.roomId).emit('newMessage', data);
   });
 
+  socket.on('leaveRoom', () => {
+
+    const len = clients.length
+    for (var i = 0; i < len; i++) {
+      var client = clients[i];
+      if (client.clientId === socket.id ) {
+        if (client.roomId) {
+          socket.to(client.roomId).emit('userLeft', client.username);
+          console.log("we doing it");
+          removeFromRoom(client);
+        }
+        clients.splice(i, 1);
+      }
+    }
+  })
+
   socket.on('disconnect', () => {
     const len = clients.length
     for (var i = 0; i < len; i++) {
       var client = clients[i];
-      console.log(socket.id);
       if (client.clientId === socket.id ) {
-        console.log(client.roomId);
-        socket.to(client.roomId).emit('userLeft', client.username);
+        if (client.roomId) {
+          socket.to(client.roomId).emit('userLeft', client.username);
+          console.log("we doing it");
+          removeFromRoom(client);
+        }
         clients.splice(i, 1);
       }
     }
   });
 };
+
+const removeFromRoom = (client) => {
+  console.log(client.roomId);
+  Room.findOneAndUpdate({ _id: client.roomId }, { $pullAll: {viewers: [client.username] }}, (err, foundRoom) => {
+    if (!foundRoom) {
+      console.log("cant do it");
+    }
+  });
+}
 
 export default setupSocketListeners;

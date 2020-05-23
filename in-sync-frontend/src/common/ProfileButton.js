@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ViewProfile from "./ViewProfile";
 import { userActions } from "../_actions";
+import socket from "../socket/socket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +47,9 @@ export default function ProfileButton() {
   };
 
   const handleLogout = () => {
+    if (socket.connected) {
+      socket.emit('leaveRoom');
+    }
     dispatch(userActions.logout());
   };
 

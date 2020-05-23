@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import jwt from './src/_helpers/jwt'
+import jwt from './src/_helpers/jwt.js'
 
 import routes from './src/routes/index.js';
 

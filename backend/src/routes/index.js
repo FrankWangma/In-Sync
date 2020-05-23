@@ -1,5 +1,5 @@
-import room from '../controllers/roomController';
-import user from '../controllers/userController';
+import room from '../controllers/roomController.js';
+import user from '../controllers/userController.js';
 
 export default (app) => {
   app.use((req, res, next) => {

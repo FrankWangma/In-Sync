@@ -1,4 +1,4 @@
-import User from '../models/User';
+import User from '../models/User.js';
 
 const expressJwt = require('express-jwt');
 const config = require('../../config.json');

@@ -4,7 +4,6 @@ import {
   TextField,
   Typography,
   Grid,
-  Modal,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -19,6 +18,8 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [url, setVideoURL] = useState("");
   const [search, setSearchInput] = useState("");
   const [videos, setVideos] = useState([]);
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState("");
   const KEY = process.env.YOUTUBE_KEY || config.YoutubeAPIKey;
 
   const youtube = axios.create({
@@ -30,19 +31,24 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
     }
   })
 
+  const checkYoutubeUrl = (input) => {
+    // eslint-disable-next-line no-useless-escape
+    const re = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
+    return re.test(input);
+  }
 
   const handleSearchSubmit = () => {
-    youtube.get('/search', {
-      params: {
-        part: 'snippet',
-        maxResults: 5,
-        key: KEY,
-        type: 'video',
-        q: search
-      }
-    }).then((response) => {
-      console.log(response);
-      setVideos(response.data.items);})
+      youtube.get('/search', {
+        params: {
+          part: 'snippet',
+          maxResults: 5,
+          key: KEY,
+          type: 'video',
+          q: search
+        }
+      }).then((response) => {
+        console.log(response);
+        setVideos(response.data.items);})
   }
 
   const handleVideoSelect = (video) => {
@@ -51,10 +57,47 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
     modalHandler(false);
   }
 
+  const handleChangeKey = (e) => {
+    if (keyPress(e) && url) {
+        changeVideos();
+    }
+  }
+
+  const handleSearchKey = (e) => {
+    if(keyPress(e) && search) {
+      handleSearchSubmit();
+    }
+  }
+
+  const changeVideos = () => {
+    if(checkYoutubeUrl(url)) {
+      handleVideoChange(url);
+      setError(false);
+      setHelperText('');
+      setVideoURL('');
+      modalHandler(false);
+    } else {
+        setError(true);
+        setHelperText('Please enter a valid YouTube URL');
+    }
+  }
+
+  const keyPress = (e) => {
+    if(e.keyCode === 13){
+       return true;
+    }
+    return false;
+  }
+
   return (
     <Dialog 
     open={showModal} 
-    onBackdropClick={() => { modalHandler(false); }} 
+    onBackdropClick={() => { 
+      modalHandler(false); 
+      setError(false);
+      setHelperText(''); 
+      setVideoURL('');
+    }} 
     scroll='paper'
     fullWidth={true}
     maxWidth={'lg'}
@@ -66,6 +109,8 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
           <Grid item xs={5}>
             <Typography>Video URL</Typography>
             <TextField
+              error={error}
+              helperText={helperText}
               className={styles.addVideoText}
               InputProps={{ disableUnderline: true }}
               margin="normal"
@@ -73,6 +118,7 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
               value={url}
               placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
               onChange={(e) => { setVideoURL(e.target.value); }}
+              onKeyDown={handleChangeKey}
             />
             <Typography>Search for a video</Typography>
             <TextField
@@ -82,6 +128,7 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
               name="videoSearch"
               value={search}
               onChange={(e) => { setSearchInput(e.target.value); }}
+              onKeyDown={handleSearchKey}
             />
           </Grid>
           <Grid item xs={1}/>
@@ -98,7 +145,7 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
         <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
           Cancel
         </Button>
-        <Button variant="contained" className={styles.changeButton} disabled={!url} onClick={() => { handleVideoChange(url); modalHandler(false); }}>
+        <Button variant="contained" className={styles.changeButton} disabled={!url} onClick={changeVideos}>
           Change
         </Button>
         <Button variant="contained" disabled={!search} onClick={handleSearchSubmit}>

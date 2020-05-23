@@ -4,7 +4,7 @@
   "description": "Backend server for the in-sync SOFTENG 750 project at the uoa",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js --exec babel-node --presets env",
+    "start": "node server.js",
     "start-dev":"nodemon server.js --exec babel-node --presets env",
     "release": "npm run clean && npm run build && npm run serve",
     "clean": "rm -rf dist && mkdir dist",
@@ -37,5 +37,8 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "nodemon": "^2.0.2"
+  },
+  "engines": {
+    "node": "12.12.0"
   }
 }

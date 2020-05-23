@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node --experimental-modules --experimental-json-modules server.js",
-    "start-dev": "nodemon --exec babel-node --presets env --experimental-json-modules server.js",
+    "start-dev": "nodemon --exec babel-node --presets env server.js",
     "release": "npm run clean && npm run build && npm run serve",
     "clean": "rm -rf dist && mkdir dist",
     "build": "babel . -s -D -d dist --presets env --ignore node_modules",

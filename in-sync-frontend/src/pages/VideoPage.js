@@ -49,7 +49,7 @@ const VideoPage = () => {
     })
 
     socket.on('userLeft', (data) => {
-      console.log(data);
+      handleUserLeaving(data);
     })
 
     axios.put("http://localhost:3000/room", {
@@ -95,8 +95,21 @@ const VideoPage = () => {
     socket.emit('play', data);
   }
 
-  const handleUserLeaving = () => {
-    
+  const handleUserLeaving = (data) => {
+    const url = `http://localhost:3000/room/${roomId}`
+    axios.get(url, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => {
+      const newViewersList = response.data.viewers.filter((value) => {
+        if(value !== data) {
+          return value;
+        }
+      })
+      setUsers({
+        ...users,
+        viewers: newViewersList
+      })
+    })
   }
 
   const handleUserJoined = () => {

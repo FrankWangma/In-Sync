@@ -10,6 +10,7 @@ import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 import Header from "../common/Header";
 import socket from "../socket/socket"
+import { Redirect } from "react-router-dom";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
@@ -19,6 +20,8 @@ const VideoPage = () => {
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
+  const loggedIn = useSelector((state) => state.authentication.user);
+
   useEffect(() => {
     socket.on('connect', () => {
       const joinData = {
@@ -43,7 +46,18 @@ const VideoPage = () => {
     socket.on('pauseVideo', (data) => {
       console.log(data);
     })
+
+    socket.on('userLeft', (data) => {
+      console.log(data);
+    })
   }, [roomId, user.username]);
+
+  if (!loggedIn) {
+    socket.disconnect()
+    return (
+      <Redirect to="/"/>
+    )
+  }
 
   const sendMessage = (message) => {
     const data = {

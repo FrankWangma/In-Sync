@@ -1,14 +1,20 @@
 import Room from '../models/Room.js';
 import User from '../models/User.js';
 
+var clients = [];
+
 const setupSocketListeners = (socket) => {
   socket.on('join', (data) => {
-    socket.join(data.roomId);
+    var clientInfo = new Object();
+    clientInfo.clientId = socket.id;
+    clientInfo.username = data.username;
+    clientInfo.roomId = data.roomId;
+    clients.push(clientInfo);
+    console.log('user connected');
+    socket.join(data.roomId, () => {
+      console.log(socket.rooms)
+    });
     socket.to(data.roomId).emit('userJoinedRoom', data.username);
-  });
-
-  socket.on('leave', (data) => {
-    socket.to(data.roomId).emit('userLeftRoom', data.username);
   });
 
   socket.on('pause', (data) => {
@@ -45,6 +51,19 @@ const setupSocketListeners = (socket) => {
 
   socket.on('message', (data) => {
     socket.to(data.roomId).emit('newMessage', data);
+  });
+
+  socket.on('disconnect', () => {
+    const len = clients.length
+    for (var i = 0; i < len; i++) {
+      var client = clients[i];
+      console.log(socket.id);
+      if (client.clientId === socket.id ) {
+        console.log(client.roomId);
+        socket.to(client.roomId).emit('userLeft', client.username);
+        clients.splice(i, 1);
+      }
+    }
   });
 };
 

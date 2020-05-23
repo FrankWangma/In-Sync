@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Backend server for the in-sync SOFTENG 750 project at the uoa",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "start-dev":"nodemon server.js --exec babel-node --presets env",

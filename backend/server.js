@@ -1,4 +1,4 @@
-import app from './app';
+import app from './app.js';
 import setupSocketListeners from './src/sockets/controller';
 
 const port = process.env.PORT || '3000';

@@ -1,5 +1,5 @@
-import User from '../models/User.js';
 import expressJwt from 'express-jwt';
+import User from '../models/User.js';
 import config from '../../config.json';
 
 async function isRevoked(req, payload, done) {

@@ -9,7 +9,7 @@ export function getRoom(req, res) {
       res.status(404).json({ message: 'Room not found' });
     }
   });
-};
+}
 export function getAllRooms(req, res) {
   Room.find({}, (err, foundRooms) => {
     if (foundRooms) {
@@ -18,7 +18,7 @@ export function getAllRooms(req, res) {
       res.status(404).json({ message: 'Could not find rooms' });
     }
   });
-};
+}
 
 export function createRoom(req, res) {
   const newRoom = new Room(req.body);
@@ -34,7 +34,7 @@ export function createRoom(req, res) {
       }
     });
   }
-};
+}
 
 export function updateRoom(req, res) {
   Room.findOneAndUpdate(
@@ -49,7 +49,7 @@ export function updateRoom(req, res) {
       }
     },
   );
-};
+}
 
 export function deleteRoom(req, res) {
   Room.deleteOne({ _id: req.params.roomId }, (err) => {
@@ -61,7 +61,7 @@ export function deleteRoom(req, res) {
       });
     }
   });
-};
+}
 
 export function joinRoom(req, res) {
   User.findById(req.body.userId, (err, foundUser) => {
@@ -84,5 +84,4 @@ export function joinRoom(req, res) {
       });
     }
   });
-};
-
+}

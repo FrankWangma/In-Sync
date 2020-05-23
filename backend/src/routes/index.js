@@ -1,5 +1,9 @@
-import { getAllRooms, joinRoom, createRoom, getRoom, updateRoom, deleteRoom } from '../controllers/roomController.js';
-import { getAllUsers, createUser, getUser, updateUser, deleteUser, authenticate } from '../controllers/userController.js';
+import {
+  getAllRooms, joinRoom, createRoom, getRoom, updateRoom, deleteRoom,
+} from '../controllers/roomController.js';
+import {
+  getAllUsers, createUser, getUser, updateUser, deleteUser, authenticate,
+} from '../controllers/userController.js';
 
 export default (app) => {
   app.use((req, res, next) => {

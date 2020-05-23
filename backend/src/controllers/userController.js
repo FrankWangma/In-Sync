@@ -1,7 +1,7 @@
-import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from '../../config.json'
+import User from '../models/User.js';
+import config from '../../config.json';
 
 export function createUser(req, res) {
   if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
@@ -23,7 +23,7 @@ export function createUser(req, res) {
       }
     });
   }
-};
+}
 
 function usernameExists(name) {
   User.findOne({ username: name }, (err, foundUser) => {
@@ -60,7 +60,7 @@ export function updateUser(req, res) {
       });
     }
   });
-};
+}
 
 export function getAllUsers(req, res) {
   User.find({}, (err, foundUsers) => {
@@ -70,7 +70,7 @@ export function getAllUsers(req, res) {
       res.json(foundUsers);
     }
   });
-};
+}
 
 export function getUser(req, res) {
   User.findById(req.params.userId, (err, foundUser) => {
@@ -80,7 +80,7 @@ export function getUser(req, res) {
       res.json(foundUser);
     }
   });
-};
+}
 
 export function deleteUser(req, res) {
   User.findByIdAndRemove(req.params.userId, (err) => {
@@ -90,7 +90,7 @@ export function deleteUser(req, res) {
       res.status(202).json({ message: 'User Successfully Deleted' });
     }
   });
-};
+}
 
 export function authenticate(req, res) {
   const secret = process.env.INSYNC_API_SECRET || config;
@@ -102,4 +102,4 @@ export function authenticate(req, res) {
       res.status(400).json({ message: 'Username or password is incorrect' });
     }
   });
-};
+}

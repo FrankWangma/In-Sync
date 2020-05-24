@@ -31,7 +31,9 @@ UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform(doc, ret) {
+    // eslint-disable-next-line no-param-reassign
     delete ret._id;
+    // eslint-disable-next-line no-param-reassign
     delete ret.hash;
   },
 });

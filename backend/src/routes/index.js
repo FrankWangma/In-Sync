@@ -1,8 +1,10 @@
 import {
   getAllRooms, joinRoom, createRoom, getRoom, updateRoom, deleteRoom,
+  // eslint-disable-next-line import/extensions
 } from '../controllers/roomController.js';
 import {
   getAllUsers, createUser, getUser, updateUser, deleteUser, authenticate,
+  // eslint-disable-next-line import/extensions
 } from '../controllers/userController.js';
 
 export default (app) => {

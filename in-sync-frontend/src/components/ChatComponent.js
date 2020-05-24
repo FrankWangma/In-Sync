@@ -28,10 +28,26 @@ const ChatComponent = ({ sendMessage, receivedMessage, currentUser }) => {
   };
 
   useEffect(() => {
-    setMessageData(receivedMessage);
-    const { message, username } = receivedMessage;
-    if (message) {
-      const newUser = {
+    setMessageData(receivedMessage)
+    const {message, username} = receivedMessage;
+
+    const filteredMessages = messages.filter((message) => {
+      if (message.sender.name === username) { return message }
+    });
+
+    let spam;
+    if (filteredMessages.length > 0) {
+      if (message !== filteredMessages.pop().text) {
+        spam = false;
+      } else {
+        spam = true;
+      }
+    } else {
+      spam = false;
+    }
+
+    if(message && !spam) {
+      const user = {
         name: username,
         uid: username,
         avatar: "http://getdrawings.com/free-icon-bw/free-avatars-icons-6.png",

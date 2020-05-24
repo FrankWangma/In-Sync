@@ -2,27 +2,34 @@
     background-color: #253040;
     display: flex;
     flex-direction: row;
-    height: 75px;
+    height: 50px;
     margin: 10px;
+    border-radius: 10px;
 }
 
 .userPic {
-    width: 70px;
+    width: 40px;
+    height: 40px;
     float: left;
+    margin: 5px 0 0 5px;
 }
 
 .userName {
-    padding-top: 10px;
+    margin-left: 10px;
 }
 
 .hostStar {
     color: yellow;
+    margin: 12px 0 0 10px;
 }
 
 .container {
     background-color: #F8F9FB;
     margin: 0 15px;
     width: calc(100% - 30px);
-    max-height: 590px;
+    max-height: 595px;
+    min-height: 595px;
     overflow-y: auto;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }

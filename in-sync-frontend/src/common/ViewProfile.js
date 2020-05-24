@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button, TextField, Card, CardContent, CardHeader, ClickAwayListener, IconButton,
@@ -47,7 +47,7 @@ const ViewProfile = (props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(userActions.edit(user));
+    dispatch(userActions.edit(user))
   };
 
   function validateEmail(email) {
@@ -80,24 +80,11 @@ const ViewProfile = (props) => {
         setHelperText(alert.message);
       }
     }  else if (alert.type === "alert-success" && alert.message !== alertMessage) {
-      if(currentUser.username !== user.username || user.password) {
-        dispatch(userActions.logout());
-        window.location.reload(true);
-      }
+      dispatch(userActions.logout());
       dispatch(alertActions.clear());
+      window.location.reload(true);
     }
   }
-
-  useEffect(() => {
-    setUser({
-      id: currentUser.id,
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      email: currentUser.email,
-      username: currentUser.username,
-      password: "",
-    })
-  }, [currentUser])
 
   return (
         <ClickAwayListener onClickAway={handleClose}>
@@ -121,7 +108,7 @@ const ViewProfile = (props) => {
                         label="First Name"
                         placeholder="First Name"
                         margin="normal"
-                        defaultValue={currentUser.firstName}
+                        defaultValue={user.firstName}
                         onChange={handleChange}
                     />
                     <DarkerDisabledTextField
@@ -133,7 +120,7 @@ const ViewProfile = (props) => {
                         label="Last Name"
                         placeholder="Last Name"
                         margin="normal"
-                        defaultValue={currentUser.lastName}
+                        defaultValue={user.lastName}
                         onChange={handleChange}
                     />
                     <DarkerDisabledTextField
@@ -145,7 +132,7 @@ const ViewProfile = (props) => {
                         label="Username"
                         placeholder="Username"
                         margin="normal"
-                        defaultValue={currentUser.username}
+                        defaultValue={user.username}
                         onChange={handleChange}
                     />
                     <DarkerDisabledTextField
@@ -157,7 +144,7 @@ const ViewProfile = (props) => {
                         label="Email"
                         placeholder="Email"
                         margin="Email"
-                        defaultValue={currentUser.email}
+                        defaultValue={user.email}
                         onChange={handleChange}
                     />
                     { viewInfo

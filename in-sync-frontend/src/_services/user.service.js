@@ -74,8 +74,8 @@ function update(user) {
   return axios.put(`${apiURL}/user/${user.id}`, {updatedUser}, {
     headers: { Authorization: `Bearer ${token}`}
   }).then((user) => {
-    localStorage.setItem("user", JSON.stringify(user));
-    return user;
+    localStorage.setItem("user", JSON.stringify(user.data));
+    return user.data;
   }).then((response) => handleResponse(response)).catch(error => {
     if (error.response.status === 401) {
       // auto logout if 401 response returned from api

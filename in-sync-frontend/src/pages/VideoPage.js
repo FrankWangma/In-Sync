@@ -169,7 +169,7 @@ const VideoPage = () => {
       <Header />
       <div className={styles.VideoPage}>
         <Grid container spacing={0}>
-          <Grid item sm={12} md={6}>
+          <Grid item sm={12} md={8}>
             <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
               Add Video
@@ -178,7 +178,7 @@ const VideoPage = () => {
               Invite Users
             </Button>
           </Grid>
-          <Grid item sm={12} md={6}>
+          <Grid item sm={12} md={4}>
             <ChatUserSwitch sendMessage={sendMessage} users={users} receivedMessage={receivedMessage} currentUser={user.username}/>
           </Grid>
         </Grid>

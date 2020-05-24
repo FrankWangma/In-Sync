@@ -1,0 +1,8 @@
+.switch {
+    width: calc(100% - 30px);
+    margin: 0 15px;
+}
+
+.oneSwitch {
+    width: 50%;
+}

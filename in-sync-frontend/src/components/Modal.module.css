@@ -23,6 +23,11 @@
     overflow-y: auto;
 }
 
+.changeVideoModal {
+    min-height: 700px;
+    max-height: 700px;
+}
+
 .title {
     margin-bottom: 15px !important;
 }

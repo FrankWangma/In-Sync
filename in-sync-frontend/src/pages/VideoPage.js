@@ -216,9 +216,8 @@ const VideoPage = () => {
         <Grid container spacing={0}>
           <Grid item sm={12} md={8}>
             <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
-            <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
-              Change Video
-            </Button>
+            { user.username === users.host ? <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>Change Video</Button> : <div />}
+              
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeInviteModal(true); }}>
               Invite Users
             </Button>

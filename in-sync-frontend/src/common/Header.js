@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import { Link, useLocation } from "react-router-dom";
-import { history } from "../_helpers";
+import { Link } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import socket from "../socket/socket";
 
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const location = useLocation();
   const loggedIn = useSelector((state) => state.authentication.loggedIn);
   const path = window.location.pathname;
 

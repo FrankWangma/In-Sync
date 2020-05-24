@@ -34,7 +34,6 @@ const ViewProfile = (props) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
-  const { handleClose } = props;
   const dispatch = useDispatch();
 
   const toggleEdit = () => {

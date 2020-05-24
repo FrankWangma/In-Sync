@@ -18,3 +18,11 @@
 .hostStar {
     color: yellow;
 }
+
+.container {
+    background-color: #F8F9FB;
+    margin: 0 15px;
+    width: calc(100% - 30px);
+    max-height: 590px;
+    overflow-y: auto;
+}

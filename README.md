@@ -1,4 +1,4 @@
-Group-4-Pink-Polar-Bear
+# Group-4-Pink-Polar-Bear
 
 # In-Sync
 In-Sync is a synchronised video watching web application, where you can enjoy YouTube videos with your friends!
@@ -6,6 +6,8 @@ In-Sync is a synchronised video watching web application, where you can enjoy Yo
 The In-Sync web application is currently up and running, hosted using [Heroku](https://www.heroku.com/). 
 
 You can visit the website at [https://in-sync-app.herokuapp.com/](https://in-sync-app.herokuapp.com/)
+
+You can also hit the backend endpoints at [https://in-sync-app-backend.herokuapp.com/](https://in-sync-app-backend.herokuapp.com/)
 
 # Getting Started
 

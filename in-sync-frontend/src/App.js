@@ -3,8 +3,8 @@ import "./App.css";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./routes/routes";
-import { history } from "./_helpers";
-import { alertActions } from "./_actions";
+import { history } from "./redux/_helpers";
+import { alertActions } from "./redux/_actions";
 
 
 function App() {

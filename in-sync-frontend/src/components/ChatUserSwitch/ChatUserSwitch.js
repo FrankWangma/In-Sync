@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import ChatComponent from "./ChatComponent";
-import UserList from "./UserList";
+import ChatComponent from "../ChatComponent";
+import UserList from "../UserList/UserList";
 import styles from "./ChatUserSwitch.module.css";
 
 const ChatUserSwitch = ({

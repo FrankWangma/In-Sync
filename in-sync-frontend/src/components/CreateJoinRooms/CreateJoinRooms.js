@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
 import styles from "./CreateJoinRooms.module.css";
-import CreateRoomModal from "./CreateRoomModal";
-import JoinRoomModal from "./JoinRoomModal";
+import CreateRoomModal from "../Modals/CreateRoomModal";
+import JoinRoomModal from "../Modals/JoinRoomModal";
 
 const CreateJoinRoomButton = () => {
   const [showCreateRoomModal, changeCreateModal] = useState(false);

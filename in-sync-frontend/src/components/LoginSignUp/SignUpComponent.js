@@ -5,7 +5,7 @@ import {
 } from "@material-ui/core";
 import styles from "./LoginComponent.module.css";
 
-import { userActions } from "../_actions";
+import { userActions } from "../../redux/_actions";
 
 function SignUp() {
   const alert = useSelector((state) => state.alert);

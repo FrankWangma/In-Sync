@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ViewProfile from "./ViewProfile";
-import { userActions } from "../_actions";
+import { userActions } from "../redux/_actions";
 import socket from "../socket/socket";
 
 const useStyles = makeStyles((theme) => ({

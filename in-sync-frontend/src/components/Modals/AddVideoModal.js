@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import styles from "./Modal.module.css";
-import VideoList from "./VideoList";
+import VideoList from "../VideoList/VideoList";
 
 const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [url, setVideoURL] = useState("");

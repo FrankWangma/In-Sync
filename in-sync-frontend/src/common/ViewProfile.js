@@ -5,7 +5,7 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import { userActions, alertActions } from "../_actions";
+import { userActions, alertActions } from "../redux/_actions";
 import styles from "./ViewProfile.module.css";
 
 const DarkerDisabledTextField = withStyles({

@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import * as qs from "query-string";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import EmbeddedVideo from "../components/EmbeddedVideo";
-import AddVideoModal from "../components/AddVideoModal";
-import HostLeftModal from "../components/HostLeftModal";
-import InviteModal from "../components/InviteModal";
+import EmbeddedVideo from "../../components/EmbeddedVideo/EmbeddedVideo";
+import AddVideoModal from "../../components/Modals/AddVideoModal";
+import HostLeftModal from "../../components/Modals/HostLeftModal";
+import InviteModal from "../../components/Modals/InviteModal";
 import styles from "./VideoPage.module.css";
-import ChatUserSwitch from "../components/ChatUserSwitch";
-import Header from "../common/Header";
-import socket from "../socket/socket";
+import ChatUserSwitch from "../../components/ChatUserSwitch/ChatUserSwitch";
+import Header from "../../common/Header";
+import socket from "../../socket/socket";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);

@@ -4,10 +4,10 @@ import { Redirect } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 import * as qs from "query-string";
 import axios from "axios";
-import Login from "../components/LoginComponent";
-import SignUp from "../components/SignUpComponent";
+import Login from "../../components/LoginSignUp/LoginComponent";
+import SignUp from "../../components/LoginSignUp/SignUpComponent";
 import styles from "./JoinRoomPage.module.css";
-import Header from "../common/Header";
+import Header from "../../common/Header";
 
 const JoinRoomPage = () => {
   const loggedIn = useSelector((state) => state.authentication.loggedIn);

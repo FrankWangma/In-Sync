@@ -1,10 +1,10 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import Login from "../components/LoginComponent";
-import SignUp from "../components/SignUpComponent";
+import Login from "../../components/LoginSignUp/LoginComponent";
+import SignUp from "../../components/LoginSignUp/SignUpComponent";
 import styles from "./LoginPage.module.css";
-import Header from "../common/Header";
+import Header from "../../common/Header";
 
 const LoginPage = () => {
   const alert = useSelector((state) => state.alert);

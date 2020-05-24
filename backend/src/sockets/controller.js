@@ -66,7 +66,6 @@ const setupSocketListeners = (socket) => {
   socket.on('leaveRoom', () => {
 
     clients.forEach((client,index) => {
-      var client = clients[i];
       if (client.clientId === socket.id ) {
         if (client.roomId) {
           socket.to(client.roomId).emit('userLeft', client.username);

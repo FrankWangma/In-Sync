@@ -65,31 +65,27 @@ const setupSocketListeners = (socket) => {
 
   socket.on('leaveRoom', () => {
 
-    const len = clients.length
-    for (var i = 0; i < len; i++) {
-      var client = clients[i];
+    clients.forEach((client,index) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
           socket.to(client.roomId).emit('userLeft', client.username);
           removeFromRoom(client);
         }
-        clients.splice(i, 1);
+        clients.splice(index, 1);
       }
-    }
+    });
   })
 
   socket.on('disconnect', () => {
-    const len = clients.length
-    for (var i = 0; i < len; i++) {
-      var client = clients[i];
+    clients.forEach((client,index) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
           socket.to(client.roomId).emit('userLeft', client.username);
           removeFromRoom(client);
         }
-        clients.splice(i, 1);
+        clients.splice(index, 1);
       }
-    }
+    });
   });
 };
 

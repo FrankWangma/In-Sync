@@ -64,24 +64,32 @@ export function deleteRoom(req, res) {
 }
 
 export function joinRoom(req, res) {
-  User.findById(req.body.userId, (err, foundUser) => {
-    if (err) {
-      res.status(404).json({ message: 'Could not find user' });
-    } else {
-      Room.findById(req.body.id, (error, foundRoom) => {
-        if (!foundRoom) {
-          res.status(404).json({ message: 'Could not find room' });
-        } else {
-          foundRoom.viewers.push(foundUser.username);
-          foundRoom.save((errorSave) => {
-            if (errorSave) {
-              res.status(500).json({ message: 'Server failed to add user to room' });
+  if(req.body.userId) {
+    User.findById(req.body.userId, (err, foundUser) => {
+      if (err) {
+        res.status(404).json({ message: 'Could not find user' });
+      } else {
+        Room.findById(req.body.id, (error, foundRoom) => {
+          if (!foundRoom) {
+            res.status(404).json({ message: 'Could not find room' });
+          } else {
+            if(req.body.remove) {
+              const index = foundRoom.viewers.indexOf(foundUser.username);
+              const newViewersList = foundRoom.viewers.splice(index, 1);
+              foundRoom.viewers = newViewersList;
             } else {
-              res.json(foundRoom);
+              foundRoom.viewers.push(foundUser.username);
             }
-          });
-        }
-      });
-    }
-  });
+            foundRoom.save((errorSave) => {
+              if (errorSave) {
+                res.status(500).json({ message: 'Server failed to add user to room' });
+              } else {
+                res.json(foundRoom);
+              }
+            });
+          }
+        });
+      }
+    });
+  }
 }

@@ -15,6 +15,11 @@ const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [userJoined, setUserJoined] = useState(false);
+  const [users, setUsers] = useState({
+    host: "",
+    viewers: []
+  });
   const [receivedMessage, setReceivedMessage] = useState([]);
 
   const roomId = qs.parse(window.location.search).id;
@@ -22,6 +27,7 @@ const VideoPage = () => {
   const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
+    let mounted = true;
     const joinData = {
       roomId: roomId,
       username: user.username
@@ -29,7 +35,7 @@ const VideoPage = () => {
     socket.emit('join', joinData)
   
     socket.on('userJoinedRoom', (data) => {
-      console.log(data);
+      setUserJoined(true);
     });
   
     socket.on('newMessage', (data) => {
@@ -45,8 +51,28 @@ const VideoPage = () => {
     })
 
     socket.on('userLeft', (data) => {
-      console.log(data);
+      handleUserLeaving(data);
     })
+
+    axios.put("http://localhost:3000/room", {
+      crossdomain: true,
+      userId: user.id,
+      username: user.username,
+      id: roomId,
+      remove: false
+    }, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => {
+      if(mounted) {
+          setVideoUrl(response.data.video)
+            setUsers({
+              host: response.data.host,
+              viewers: response.data.viewers,
+            })
+        }
+      })
+
+      return () => mounted = false;
   }, [roomId, user.username]);
 
   const sendMessage = (message) => {
@@ -76,12 +102,68 @@ const VideoPage = () => {
     socket.emit('play', data);
   }
 
-  // Get Video ID
-  const url = `http://localhost:3000/room/${roomId}`;
-  axios.get(url, {
+  const handleUserLeaving = (data) => {
+    const url = "http://localhost:3000/room/"
+    axios.get(`${url}${roomId}`, {
       headers: { Authorization: `Bearer ${token}`}
-    }).then((response) => setVideoUrl(response.data.video));
+    }).then((response) => {
+      // After getting the updated room, remove the list and update the room again with the new list
+      let newViewersList = response.data.viewers.filter((value) => {
+        if(value !== data) {
+          return value;
+        }
+      })
+      newViewersList = removeDuplicates(newViewersList);
+      setUsers({
+        host: response.data.host,
+        viewers: newViewersList
+      })
+      axios.put(url, {
+        crossdomain: true,
+        id: roomId,
+        userId: user.id,
+        username: data,
+        remove: true
+      }, {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+    })
+  }
 
+  const removeDuplicates = (array) => {
+    let unique = {};
+    array.forEach((i) => {
+      if(!unique[i]) {
+        unique[i] = true;
+      }
+    });
+    return Object.keys(unique);
+  }
+
+  const handleUserJoined = () => {
+    const url = `http://localhost:3000/room/${roomId}`
+    axios.get(url, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then((response) => {
+      setUsers({
+        host: response.data.host,
+        viewers: response.data.viewers
+      })
+    })
+      
+  }
+
+  useEffect(() => {
+    let mounted = true;
+    if(mounted && userJoined) {
+      handleUserJoined();
+    }
+    return () => {
+      mounted = false;
+      setUserJoined(false);
+    }
+  }, [userJoined])
+  
   return (
     <>
       <Header />
@@ -101,7 +183,7 @@ const VideoPage = () => {
             </Button>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch sendMessage={sendMessage} receivedMessage={receivedMessage} currentUser={user.username}/>
+            <ChatUserSwitch sendMessage={sendMessage} users={users} receivedMessage={receivedMessage} currentUser={user.username}/>
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>

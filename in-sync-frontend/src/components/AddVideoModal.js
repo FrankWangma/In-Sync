@@ -19,7 +19,7 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
-  const KEY = process.env.YOUTUBE_KEY || "API KEY NOT VALID LOCALLY";
+  const KEY = process.env.REACT_APP_YOUTUBE_KEY || "API KEY NOT VALID LOCALLY";
 
   const youtube = axios.create({
     baseURL: 'https://www.googleapis.com/youtube/v3',

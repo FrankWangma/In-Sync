@@ -69,7 +69,7 @@ const VideoPage = () => {
       handleHostLeaving();
     })
 
-    axios.put("http://localhost:3000/room", {
+    axios.put("https://in-sync-app-backend.herokuapp.com/room", {
       crossdomain: true,
       userId: user.id,
       username: user.username,
@@ -92,7 +92,7 @@ const VideoPage = () => {
 
   useEffect(() => {
     // Get Video ID
-    const url = `http://localhost:3000/room/${roomId}`;
+    const url = `https://in-sync-app-backend.herokuapp.com/room/${roomId}`;
     axios.get(url, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -135,7 +135,7 @@ const VideoPage = () => {
   }
 
   const changeVideo = (newUrl) => {
-    const url = `http://localhost:3000/room/${roomId}`;
+    const url = `https://in-sync-app-backend.herokuapp.com/room/${roomId}`;
     axios.put(url, {
       video: newUrl
     }, {
@@ -152,7 +152,7 @@ const VideoPage = () => {
   }
 
   const handleUserLeaving = (data) => {
-    const url = "http://localhost:3000/room/"
+    const url = "https://in-sync-app-backend.herokuapp.com/room/"
     axios.get(`${url}${roomId}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
@@ -190,7 +190,7 @@ const VideoPage = () => {
   }
 
   const handleUserJoined = () => {
-    const url = `http://localhost:3000/room/${roomId}`
+    const url = `https://in-sync-app-backend.herokuapp.com/room/${roomId}`
     axios.get(url, {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {

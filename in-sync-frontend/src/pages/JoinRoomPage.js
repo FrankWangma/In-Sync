@@ -24,7 +24,7 @@ const JoinRoomPage = () => {
   }
 
   if (loggedIn) {
-    axios.put("http://localhost:3000/room", {
+    axios.put("https://in-sync-app-backend.herokuapp.com/room", {
         crossdomain: true,
         userId: user.id,
         username: user.username,

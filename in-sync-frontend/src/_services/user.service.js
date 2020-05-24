@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:3000";
+const apiURL = "https://in-sync-app-backend.herokuapp.com";
 
 function logout() {
   // remove user from local storage to log user out

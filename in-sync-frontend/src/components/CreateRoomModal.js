@@ -20,7 +20,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
 
   const createRoom = () => {
     if (loggedIn) {
-      axios.post("http://localhost:3000/room", {
+      axios.post("https://in-sync-app-backend.herokuapp.com/room", {
           crossdomain: true,
           host: user.username,
           video: url,

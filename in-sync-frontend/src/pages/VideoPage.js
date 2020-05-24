@@ -44,11 +44,15 @@ const VideoPage = () => {
 
     socket.on('playVideo', (data) => {
       console.log(data);
-    })
+    });
 
     socket.on('pauseVideo', (data) => {
       console.log(data);
     })
+    
+    socket.on('changeVideo', (data) => {
+      setVideoUrl(data.video);
+    });
 
     socket.on('userLeft', (data) => {
       handleUserLeaving(data);
@@ -75,6 +79,17 @@ const VideoPage = () => {
       return () => mounted = false;
   }, [roomId, user.username]);
 
+  useEffect(() => {
+    // Get Video ID
+    const url = `http://localhost:3000/room/${roomId}`;
+    axios.get(url,{
+      headers: { Authorization: `Bearer ${token}`}
+    })
+      .then((response) => {
+        setVideoUrl(response.data.video);
+      });
+  }, [roomId, videoUrl]);
+
   const sendMessage = (message) => {
     const data = {
       roomId: roomId,
@@ -100,6 +115,23 @@ const VideoPage = () => {
       username: user.username
     };
     socket.emit('play', data);
+  }
+
+  const changeVideo = (newUrl) => {
+      const url = `http://localhost:3000/room/${roomId}`;
+      axios.put(url, {
+        video: newUrl
+      }, {
+        headers: { Authorization: `Bearer ${token}`}
+      }).then((response) => {
+        setVideoUrl(response.data.video);
+        const data = {
+          roomId: roomId,
+          url: newUrl,
+          username: user.username
+        };
+        socket.emit('change', data);
+      });
   }
 
   const handleUserLeaving = (data) => {
@@ -176,7 +208,7 @@ const VideoPage = () => {
           <Grid item sm={12} md={6}>
             <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
-              Add Video
+              Change Video
             </Button>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeInviteModal(true); }}>
               Invite Users
@@ -187,7 +219,7 @@ const VideoPage = () => {
           </Grid>
           <Grid item sm={12} md={1} />
         </Grid>
-        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} />
+        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} handleVideoChange={changeVideo}/>
         <InviteModal showModal={showInviteModal} modalHandler={changeInviteModal} roomId={roomId} />
       </div>
     </>

@@ -22,7 +22,7 @@ const Login = ({ joiningRoom }) => {
   // reset login status
   useEffect(() => {
     dispatch(userActions.logout());
-  }, []);
+  }, [dispatch]);
 
   function handleChange(e) {
     const { id, value } = e.target;

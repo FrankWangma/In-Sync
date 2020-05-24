@@ -15,7 +15,7 @@ function App() {
         // clear alert on location change
         dispatch(alertActions.clear());
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router history={history}>

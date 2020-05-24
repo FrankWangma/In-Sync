@@ -25,7 +25,7 @@ function SignUp() {
   // reset login status
   useEffect(() => {
     dispatch(userActions.logout());
-  }, []);
+  }, [dispatch]);
 
   function validateEmail(email) {
     // eslint-disable-next-line no-useless-escape

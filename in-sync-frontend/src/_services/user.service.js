@@ -36,7 +36,7 @@ function login(username, password) {
 }
 
 function register(user) {
-  return axios.post(`${apiURL}/user/register`,{
+  return axios.post(`${apiURL}/register`,{
     email: user.email,
     username: user.username,
     password: user.password,

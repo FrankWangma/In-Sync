@@ -89,6 +89,7 @@ const setupSocketListeners = (socket) => {
                   if (foundRoom.host === foundUser.username) {
                     console.log("found host");
                     socket.to(client.roomId).emit('hostLeft', client.username);
+                    Room.findOneAndDelete({ _id: client.roomId });
                   } else {
                     socket.to(client.roomId).emit('userLeft', client.username);
                   }

@@ -47,7 +47,6 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
           q: search
         }
       }).then((response) => {
-        console.log(response);
         setVideos(response.data.items);})
   }
 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Button, TextField, Card, CardContent, CardHeader, ClickAwayListener, IconButton,
+  Button, TextField, Card, CardContent, CardHeader, Modal, IconButton,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import { userActions } from "../_actions";
+import { userActions, alertActions } from "../_actions";
 import styles from "./ViewProfile.module.css";
 
 const DarkerDisabledTextField = withStyles({
@@ -25,17 +25,15 @@ const useStyles = makeStyles(() => ({
 
 const ViewProfile = (props) => {
   const classes = useStyles();
+  const alert = useSelector((state) => state.alert);
   const currentUser = useSelector((state) => state.authentication.user);
   const [user, setUser] = useState({
-    firstName: currentUser.firstName,
-    lastName: currentUser.lastName,
-    email: currentUser.email,
-    username: currentUser.userName,
-    password: "",
+    id: currentUser.id
   });
   const [viewInfo, setViewInfo] = useState(true);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
   const { handleClose } = props;
   const dispatch = useDispatch();
 
@@ -44,7 +42,7 @@ const ViewProfile = (props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(userActions.edit(user));
+    dispatch(userActions.edit(user))
   };
 
   function validateEmail(email) {
@@ -67,8 +65,24 @@ const ViewProfile = (props) => {
     setUser((inputs) => ({ ...inputs, [id]: value }));
   };
 
+  function handleAlert() {
+    if (alert.message !== alertMessage
+      && (alert.message === `Username ${user.username} is already taken` 
+      || alert.message === `Email ${user.email} is already taken`) ) {
+      setAlertMessage(alert.message);
+      if (alert.type === "alert-danger") {
+        setError(true);
+        setHelperText(alert.message);
+      }
+    }  else if (alert.type === "alert-success" && alert.message !== alertMessage) {
+      dispatch(userActions.logout());
+      dispatch(alertActions.clear());
+      window.location.reload(true);
+    }
+  }
+
   return (
-        <ClickAwayListener onClickAway={handleClose}>
+        <Modal className={styles.appModal} open={props.showModal}  onBackdropClick={() => { props.modalHandler(false); }}>
             <Card>
                 <CardHeader
                     title="Profile"
@@ -145,12 +159,13 @@ const ViewProfile = (props) => {
                         <Button className={classes.root} variant="contained" color="primary" onClick={handleSubmit}>
                             Submit
                         </Button>
+                        {alert.message && handleAlert()}
                         <Button variant="outlined" onClick={toggleEdit}>Cancel</Button>
                         </div>
                     }
                 </CardContent>
             </Card>
-        </ClickAwayListener>
+        </Modal>
   );
 };
 

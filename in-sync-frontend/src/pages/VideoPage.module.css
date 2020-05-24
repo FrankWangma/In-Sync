@@ -26,3 +26,12 @@
 .player {
     align-content: center;
 }
+
+.changeInviteButton {
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+    margin-left: calc(50% - 200px);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

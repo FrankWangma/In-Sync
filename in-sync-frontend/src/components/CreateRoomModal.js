@@ -44,15 +44,6 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
           Create Room
         </Typography>
         {loggedIn ? <></> : <Typography className={styles.warningText}>Please log in to create a room</Typography> }
-        <Typography>Room Title</Typography>
-        <TextField
-          className={styles.bodyText}
-          InputProps={{ disableUnderline: true }}
-          margin="normal"
-          name="title"
-          value={title}
-          onChange={(e) => { setRoomTitle(e.target.value); }}
-        />
         <Typography>Video URL</Typography>
         <TextField
           className={styles.bodyText}

@@ -10,7 +10,7 @@ const ChatComponent = ({ sendMessage, receivedMessage, currentUser }) => {
   const user = {
     name: currentUser,
     uid: currentUser,
-    avatar: "https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png",
+    avatar: "http://getdrawings.com/free-icon-bw/free-avatars-icons-6.png",
   };
 
   const handleSubmit = (message) => {
@@ -34,7 +34,7 @@ const ChatComponent = ({ sendMessage, receivedMessage, currentUser }) => {
       const user = {
         name: username,
         uid: username,
-        avatar: "https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png",
+        avatar: "http://getdrawings.com/free-icon-bw/free-avatars-icons-6.png",
       }; 
       const userMessage = {
         text: message,

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./UserList.module.css";
 import Star from '@material-ui/icons/Star';
 
-const avatar = 'https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png';
+const avatar = 'http://getdrawings.com/free-icon-bw/free-avatars-icons-6.png';
 const UserList = ({users}) => {
   const displayUser = (user) => (
       <div className={styles.userInfo}>

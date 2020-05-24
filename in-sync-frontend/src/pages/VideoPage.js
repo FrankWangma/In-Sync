@@ -37,11 +37,11 @@ const VideoPage = () => {
       username: user.username
     }
     socket.emit('join', joinData)
-  
+
     socket.on('userJoinedRoom', (data) => {
       setUserJoined(true);
     });
-  
+
     socket.on('newMessage', (data) => {
       setReceivedMessage(data);
     });
@@ -55,7 +55,7 @@ const VideoPage = () => {
       console.log(data);
       setPauseTime(data);
     })
-    
+
     socket.on('changeVideo', (data) => {
       setVideoUrl(data.video);
     });
@@ -76,25 +76,25 @@ const VideoPage = () => {
       id: roomId,
       remove: false
     }, {
-      headers: { Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
-      if(mounted) {
-          setVideoUrl(response.data.video)
-            setUsers({
-              host: response.data.host,
-              viewers: response.data.viewers,
-            })
-        }
-      })
+      if (mounted) {
+        setVideoUrl(response.data.video)
+        setUsers({
+          host: response.data.host,
+          viewers: response.data.viewers,
+        })
+      }
+    })
 
-      return () => mounted = false;
+    return () => mounted = false;
   }, [roomId, user.username]);
 
   useEffect(() => {
     // Get Video ID
     const url = `http://localhost:3000/room/${roomId}`;
-    axios.get(url,{
-      headers: { Authorization: `Bearer ${token}`}
+    axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
         setVideoUrl(response.data.video);
@@ -133,32 +133,32 @@ const VideoPage = () => {
     console.log("updated");
     setHostLeft(true);
   }
-  
+
   const changeVideo = (newUrl) => {
-      const url = `http://localhost:3000/room/${roomId}`;
-      axios.put(url, {
-        video: newUrl
-      }, {
-        headers: { Authorization: `Bearer ${token}`}
-      }).then((response) => {
-        setVideoUrl(response.data.video);
-        const data = {
-          roomId: roomId,
-          url: newUrl,
-          username: user.username
-        };
-        socket.emit('change', data);
-      });
+    const url = `http://localhost:3000/room/${roomId}`;
+    axios.put(url, {
+      video: newUrl
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then((response) => {
+      setVideoUrl(response.data.video);
+      const data = {
+        roomId: roomId,
+        url: newUrl,
+        username: user.username
+      };
+      socket.emit('change', data);
+    });
   }
 
   const handleUserLeaving = (data) => {
     const url = "http://localhost:3000/room/"
     axios.get(`${url}${roomId}`, {
-      headers: { Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
       // After getting the updated room, remove the list and update the room again with the new list
       let newViewersList = response.data.viewers.filter((value) => {
-        if(value !== data) {
+        if (value !== data) {
           return value;
         }
       })
@@ -174,7 +174,7 @@ const VideoPage = () => {
         username: data,
         remove: true
       }, {
-        headers: { Authorization: `Bearer ${token}`}
+        headers: { Authorization: `Bearer ${token}` }
       })
     })
   }
@@ -182,7 +182,7 @@ const VideoPage = () => {
   const removeDuplicates = (array) => {
     let unique = {};
     array.forEach((i) => {
-      if(!unique[i]) {
+      if (!unique[i]) {
         unique[i] = true;
       }
     });
@@ -192,19 +192,19 @@ const VideoPage = () => {
   const handleUserJoined = () => {
     const url = `http://localhost:3000/room/${roomId}`
     axios.get(url, {
-      headers: { Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
       setUsers({
         host: response.data.host,
         viewers: response.data.viewers
       })
     })
-      
+
   }
 
   useEffect(() => {
     let mounted = true;
-    if(mounted && userJoined) {
+    if (mounted && userJoined) {
       handleUserJoined();
     }
     return () => {
@@ -212,34 +212,29 @@ const VideoPage = () => {
       setUserJoined(false);
     }
   }, [userJoined])
-  
+
   return (
     <>
       <Header />
       <div className={styles.VideoPage}>
-        <Typography variant='h1'>
-          In-Sync
-        </Typography>
         <Grid container spacing={0}>
-          <Grid item sm={12} md={1} />
-          <Grid item sm={12} md={6}>
-            <EmbeddedVideo pauseTime={pauseTime} playTime={playTime} url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
-            <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
-              Change Video
+          <Grid item sm={12} md={8}>
+            <EmbeddedVideo pauseTime={pauseTime} playTime={playTime} url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo} />
+            <div className={styles.changeInviteButton}>
+              {user.username === users.host ? <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>Change Video</Button> : <div />}
+              <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeInviteModal(true); }}>
+                Invite Users
             </Button>
-            <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeInviteModal(true); }}>
-              Invite Users
-            </Button>
+            </div>
           </Grid>
           <Grid item sm={12} md={4}>
-            <ChatUserSwitch sendMessage={sendMessage} users={users} receivedMessage={receivedMessage} currentUser={user.username}/>
+            <ChatUserSwitch sendMessage={sendMessage} users={users} receivedMessage={receivedMessage} currentUser={user.username} />
           </Grid>
-          <Grid item sm={12} md={1} />
         </Grid>
-        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} handleVideoChange={changeVideo}/>
+        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} handleVideoChange={changeVideo} />
         <InviteModal showModal={showInviteModal} modalHandler={changeInviteModal} roomId={roomId} />
       </div>
-      <HostLeftModal showModal={hostLeft}/>
+      <HostLeftModal showModal={hostLeft} />
     </>
   );
 };

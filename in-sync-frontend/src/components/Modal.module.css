@@ -23,6 +23,11 @@
     overflow-y: auto;
 }
 
+.changeVideoModal {
+    min-height: 700px;
+    max-height: 700px;
+}
+
 .title {
     margin-bottom: 15px !important;
 }
@@ -74,4 +79,15 @@
 .warningText {
     color: red;
     padding-bottom: 10px;
+}
+
+.copyButton {
+    width: 30%;
+    float: inline-end;
+}
+
+.copyText {
+    padding-top: 7px;
+    width: 70%;
+    float: left;
 }

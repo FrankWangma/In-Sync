@@ -75,3 +75,14 @@
     color: red;
     padding-bottom: 10px;
 }
+
+.copyButton {
+    width: 30%;
+    float: inline-end;
+}
+
+.copyText {
+    padding-top: 7px;
+    width: 70%;
+    float: left;
+}

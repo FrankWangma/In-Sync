@@ -28,12 +28,7 @@ const ViewProfile = (props) => {
   const alert = useSelector((state) => state.alert);
   const currentUser = useSelector((state) => state.authentication.user);
   const [user, setUser] = useState({
-    id: currentUser.id,
-    firstName: currentUser.firstName,
-    lastName: currentUser.lastName,
-    email: currentUser.email,
-    username: currentUser.username,
-    password: "",
+    id: currentUser.id
   });
   const [viewInfo, setViewInfo] = useState(true);
   const [error, setError] = useState(false);
@@ -108,7 +103,7 @@ const ViewProfile = (props) => {
                         label="First Name"
                         placeholder="First Name"
                         margin="normal"
-                        defaultValue={user.firstName}
+                        defaultValue={currentUser.firstName}
                         onChange={handleChange}
                     />
                     <DarkerDisabledTextField
@@ -120,7 +115,7 @@ const ViewProfile = (props) => {
                         label="Last Name"
                         placeholder="Last Name"
                         margin="normal"
-                        defaultValue={user.lastName}
+                        defaultValue={currentUser.lastName}
                         onChange={handleChange}
                     />
                     <DarkerDisabledTextField
@@ -132,7 +127,7 @@ const ViewProfile = (props) => {
                         label="Username"
                         placeholder="Username"
                         margin="normal"
-                        defaultValue={user.username}
+                        defaultValue={currentUser.username}
                         onChange={handleChange}
                     />
                     <DarkerDisabledTextField
@@ -144,7 +139,7 @@ const ViewProfile = (props) => {
                         label="Email"
                         placeholder="Email"
                         margin="Email"
-                        defaultValue={user.email}
+                        defaultValue={currentUser.email}
                         onChange={handleChange}
                     />
                     { viewInfo

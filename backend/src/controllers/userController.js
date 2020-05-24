@@ -41,7 +41,7 @@ export function updateUser(req, res) {
       res.status(409).json({ message: `Username "${req.body.updatedUser.username}" is already taken` });
     } else {
       if (req.body.updatedUser.password) {
-        req.body.hash = bcrypt.hashSync(req.body.updatedUser.password, 10);
+        req.body.updatedUser.hash = bcrypt.hashSync(req.body.updatedUser.password, 10);
       }
 
       Object.assign(foundUser, req.body.updatedUser);

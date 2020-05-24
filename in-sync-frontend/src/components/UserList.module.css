@@ -1,5 +1,7 @@
 .userInfo {
     background-color: #253040;
+    display: flex;
+    flex-direction: row;
     height: 75px;
     margin: 10px;
 }
@@ -11,4 +13,8 @@
 
 .userName {
     padding-top: 10px;
+}
+
+.hostStar {
+    color: yellow;
 }

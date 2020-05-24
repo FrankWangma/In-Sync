@@ -1,8 +1,7 @@
-import mongoose, {
-  Schema,
-} from 'mongoose';
+import mongoose from 'mongoose';
 import { customAlphabet } from 'nanoid';
 
+const { Schema } = mongoose;
 const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 7);
 
 /**
@@ -26,4 +25,6 @@ const RoomSchema = new Schema({
   }],
 });
 
-export default mongoose.model('Room', RoomSchema);
+const Room = mongoose.model('Room', RoomSchema);
+
+export default Room;

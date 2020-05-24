@@ -1,18 +1,19 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import jwt from './src/_helpers/jwt'
+import jwt from './src/authentication/jwt.js';
+import cors from 'cors';
 
 import routes from './src/routes/index.js';
+import errorHandler from './src/authentication/errorHandler.js';
 
 const app = express();
-const cors = require('cors');
 
 /**
   * Connect to the database
   */
-
-mongoose.connect('mongodb://localhost');
+const mongoDB_uri = process.env.MONGODB_URI || "mongodb://localhost"
+mongoose.connect(mongoDB_uri);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
@@ -23,11 +24,10 @@ mongoose.set('useCreateIndex', true);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
-app.use(jwt());
 
 app.use(cors());
 app.use(jwt());
+app.use(errorHandler)
 
 // catch 400
 app.use((err, req, res, next) => {

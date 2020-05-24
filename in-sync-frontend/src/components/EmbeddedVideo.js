@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import Grid from '@material-ui/core/Grid';
@@ -15,6 +15,18 @@ const EmbeddedVideo = (props) => {
     const [seeking, setSeeking] = React.useState(false);
 
     const ref = useRef();
+
+    useEffect(() => {
+        setPlayed(props.playTime);
+        ref.current.seekTo(props.playTime);
+        setPlaying(true);
+    }, [props.playTime]);
+
+    useEffect(() => {
+        setPlayed(props.pauseTime);
+        ref.current.seekTo(props.pauseTime);
+        setPlaying(false);
+    }, [props.pauseTime])
 
     const handlePlay = () => {
         setPlaying(true);

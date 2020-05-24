@@ -7,7 +7,7 @@ import {
 import styles from "./Modal.module.css";
 import { Redirect } from "react-router-dom";
 
-const HostLeftModal = ({ hostLeft }) => {
+const HostLeftModal = ({ showModal }) => {
   const [redirect, setRedirect] = useState(false);
 
   if (redirect) {
@@ -17,13 +17,13 @@ const HostLeftModal = ({ hostLeft }) => {
   }
 
   return (
-  <Modal open={hostLeft}>
+  <Modal open={showModal}>
   <div className={styles.appModal}>
     <Typography className={styles.title}>
     The host has left the room, please continue to the home page
     </Typography>
-    <Button onClick={setRedirect(true)}>
-    Continue
+    <Button className={styles.createButton} onClick={() => { setRedirect(true); }}>
+      Continue
     </Button>
   </div>
   </Modal>

@@ -56,7 +56,8 @@ const VideoPage = () => {
       handleUserLeaving(data);
     })
 
-    socket.on('userLeft', (data) => {
+    socket.on('hostLeft', (data) => {
+      console.log('host has left');
       handleHostLeaving();
     })
 
@@ -110,6 +111,7 @@ const VideoPage = () => {
 
   const handleHostLeaving = () => {
     socket.emit('leaveRoom');
+    console.log("updated");
     setHostLeft(true);
   }
 

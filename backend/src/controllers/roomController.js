@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/extensions
 import Room from '../models/Room.js';
+// eslint-disable-next-line import/extensions
 import User from '../models/User.js';
 
 export function getRoom(req, res) {
@@ -64,7 +66,7 @@ export function deleteRoom(req, res) {
 }
 
 export function joinRoom(req, res) {
-  if(req.body.userId) {
+  if (req.body.userId) {
     User.findById(req.body.userId, (err, foundUser) => {
       if (err) {
         res.status(404).json({ message: 'Could not find user' });
@@ -73,9 +75,10 @@ export function joinRoom(req, res) {
           if (!foundRoom) {
             res.status(404).json({ message: 'Could not find room' });
           } else {
-            if(req.body.remove) {
+            if (req.body.remove) {
               const index = foundRoom.viewers.indexOf(foundUser.username);
               const newViewersList = foundRoom.viewers.splice(index, 1);
+              // eslint-disable-next-line no-param-reassign
               foundRoom.viewers = newViewersList;
             } else {
               foundRoom.viewers.push(foundUser.username);

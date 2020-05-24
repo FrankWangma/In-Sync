@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+// eslint-disable-next-line import/extensions
 import User from '../models/User.js';
 
 export function createUser(req, res) {
@@ -13,6 +14,7 @@ export function createUser(req, res) {
     newUser.save((err, createdUser) => {
       if (err) {
         if (err.keyValue.username) {
+          // eslint-disable-next-line max-len
           res.status(409).json({ message: `Username ${req.body.username} is already taken` });
         } else if (err.keyValue.email) {
           res.status(409).json({ message: `Email ${req.body.email} is already taken` });
@@ -37,7 +39,8 @@ export function updateUser(req, res) {
   User.findById(req.params.userId, (err, foundUser) => {
     if (!foundUser) {
       res.status(400).json({ message: 'User not found' });
-    } else if (foundUser.username !== req.body.updatedUser.username && usernameExists(req.body.updatedUser.username)) {
+    } else if (foundUser.username !== req.body.updatedUser.username
+      && usernameExists(req.body.updatedUser.username)) {
       res.status(409).json({ message: `Username "${req.body.updatedUser.username}" is already taken` });
     } else {
       if (req.body.updatedUser.password) {
@@ -92,9 +95,9 @@ export function deleteUser(req, res) {
 }
 
 export function authenticate(req, res) {
-  // Previously a config file was used to provide the secret locally, however that caused issues with
-  // nodemon, so a hardcoded string is used instead.
-  const secret = process.env.INSYNC_API_SECRET || "local so can use any string";
+  // Previously a config file was used to provide the secret locally,
+  // however that caused issues with nodemon, so a hardcoded string is used instead.
+  const secret = process.env.INSYNC_API_SECRET || 'local so can use any string';
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (foundUser && bcrypt.compareSync(req.body.password, foundUser.hash)) {
       const token = jwt.sign({ sub: foundUser.id }, secret);

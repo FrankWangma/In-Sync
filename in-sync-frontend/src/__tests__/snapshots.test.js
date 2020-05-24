@@ -13,7 +13,7 @@ it(' AddVideoModal renders correctly with no content', () => {
 });
 
 it(' UserList renders correctly', () => {
-  const tree = renderer.create(<UserList />).toJSON();
+  const tree = renderer.create(<UserList users={[]}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
 

@@ -3,10 +3,9 @@
 exports[` AddVideoModal renders correctly with no content 1`] = `null`;
 
 exports[` EmbeddedVideo renders correctly 1`] = `
-<div
-  className="App EmbeddedVideo"
->
+<div>
   <div
+    className="player"
     style={
       Object {
         "height": "360px",
@@ -18,58 +17,189 @@ exports[` EmbeddedVideo renders correctly 1`] = `
     className="MuiGrid-root MuiGrid-container"
   >
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
     >
       <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained"
+        disabled={false}
+        onBlur={[Function]}
         onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
       >
-        ▶
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M8 5v14l11-7z"
+            />
+          </svg>
+        </span>
       </button>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8"
     >
-      <input
-        className="seek"
-        max={0.999999}
-        min={0}
-        onChange={[Function]}
+      <span
+        className="MuiSlider-root MuiSlider-colorPrimary"
         onMouseDown={[Function]}
         onMouseUp={[Function]}
-        step="any"
-        type="range"
-        value={0}
-      />
+      >
+        <span
+          className="MuiSlider-rail"
+        />
+        <span
+          className="MuiSlider-track"
+          style={
+            Object {
+              "left": "0%",
+              "width": "0%",
+            }
+          }
+        />
+        <input
+          type="hidden"
+          value="0"
+        />
+        <span
+          aria-labelledby="continuous-slider"
+          aria-orientation="horizontal"
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={0}
+          className="MuiSlider-thumb MuiSlider-thumbColorPrimary"
+          data-index={0}
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          role="slider"
+          style={
+            Object {
+              "left": "0%",
+            }
+          }
+          tabIndex={0}
+        />
+      </span>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
     >
       <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained"
+        disabled={false}
+        onBlur={[Function]}
         onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
       >
-        ⛶
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
+            />
+          </svg>
+        </span>
       </button>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
     >
       <p
         className="volume"
       >
-        🔊
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+          />
+        </svg>
       </p>
     </div>
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
     >
-      <input
-        max={1}
-        min={0}
-        onChange={[Function]}
-        step="any"
-        type="range"
-        value={0.5}
-      />
+      <span
+        className="MuiSlider-root MuiSlider-colorPrimary"
+        onMouseDown={[Function]}
+      >
+        <span
+          className="MuiSlider-rail"
+        />
+        <span
+          className="MuiSlider-track"
+          style={
+            Object {
+              "left": "0%",
+              "width": "50%",
+            }
+          }
+        />
+        <input
+          type="hidden"
+          value="50"
+        />
+        <span
+          aria-labelledby="continuous-slider"
+          aria-orientation="horizontal"
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={50}
+          className="MuiSlider-thumb MuiSlider-thumbColorPrimary"
+          data-index={0}
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          role="slider"
+          style={
+            Object {
+              "left": "50%",
+            }
+          }
+          tabIndex={0}
+        />
+      </span>
     </div>
   </div>
 </div>
@@ -80,38 +210,5 @@ exports[` InviteModal renders correctly 1`] = `null`;
 exports[` UserList renders correctly 1`] = `
 <div
   className="container"
->
-  <div>
-    <div
-      className="userInfo"
-    >
-      <img
-        alt="User avatar"
-        className="userPic"
-        src="https://data.cometchat.com/assets/images/avatars/ironman.png"
-      />
-      <p
-        className="userName"
-      >
-        Ironman
-      </p>
-    </div>
-  </div>
-  <div>
-    <div
-      className="userInfo"
-    >
-      <img
-        alt="User avatar"
-        className="userPic"
-        src="https://data.cometchat.com/assets/images/avatars/spiderman.png"
-      />
-      <p
-        className="userName"
-      >
-        Spiderman
-      </p>
-    </div>
-  </div>
-</div>
+/>
 `;

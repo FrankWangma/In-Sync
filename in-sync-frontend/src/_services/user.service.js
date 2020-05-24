@@ -68,7 +68,6 @@ function update(user) {
     lastName:user.lastName,
     password: user.password
   }
-  console.log(updatedUser);
   const token = JSON.parse(localStorage.getItem("token"));
   return axios.put(`${apiURL}/user/${user.id}`, {updatedUser}, {
     headers: { Authorization: `Bearer ${token}`}

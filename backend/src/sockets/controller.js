@@ -33,10 +33,8 @@ const setupSocketListeners = (socket) => {
         if (client.roomId) {
           Room.findById(client.roomId, (err, foundRoom) => {
             if (foundRoom) {
-              console.log('found room');
               User.findOne({ username: client.username }, (err, foundUser) => {
                 if (foundUser) {
-                  console.log('found user')
                   if (foundRoom.host === foundUser.username) {
                     socket.to(data.roomId).emit('pauseVideo', data.time);
                   }
@@ -55,10 +53,8 @@ const setupSocketListeners = (socket) => {
         if (client.roomId) {
           Room.findById(client.roomId, (err, foundRoom) => {
             if (foundRoom) {
-              console.log('found room');
               User.findOne({ username: client.username }, (err, foundUser) => {
                 if (foundUser) {
-                  console.log('found user')
                   if (foundRoom.host === foundUser.username) {
                     socket.to(data.roomId).emit('playVideo', data.time);
                   }
@@ -80,18 +76,14 @@ const setupSocketListeners = (socket) => {
   })
 
   socket.on('leaveRoom', () => {
-    console.log(socket.id);
     clients.forEach((client,index) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
           Room.findById(client.roomId, (err, foundRoom) => {
             if (foundRoom) {
-              console.log('found room');
               User.findOne({ username: client.username }, (err, foundUser) => {
                 if (foundUser) {
-                  console.log('found user')
                   if (foundRoom.host === foundUser.username) {
-                    console.log("found host");
                     socket.to(client.roomId).emit('hostLeft', client.username);
                     Room.findOneAndDelete({ _id: client.roomId });
                   } else {

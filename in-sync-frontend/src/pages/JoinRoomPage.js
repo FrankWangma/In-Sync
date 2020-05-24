@@ -23,8 +23,17 @@ const JoinRoomPage = () => {
     return <Redirect to={roomUrl} />;
   }
 
+  // If hosting frontend locally, use local backend too
+  const url = window.location.host;
+  let baseURL = "";
+  if (url.includes("localhost")) {
+    baseURL = "http://localhost:5000"
+  } else {
+    baseURL = "https://in-sync-app-backend.herokuapp.com"
+  }
+
   if (loggedIn) {
-    axios.put("http://localhost:3000/room", {
+    axios.put(`${baseURL}/room`, {
         crossdomain: true,
         userId: user.id,
         username: user.username,

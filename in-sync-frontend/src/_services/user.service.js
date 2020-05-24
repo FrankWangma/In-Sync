@@ -1,6 +1,13 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:3000";
+// If hosting frontend locally, use local backend too
+const url = window.location.host;
+let apiURL = "";
+if (url.includes("localhost")) {
+  apiURL = "http://localhost:5000"
+} else {
+  apiURL = "https://in-sync-app-backend.herokuapp.com"
+}
 
 function logout() {
   // remove user from local storage to log user out

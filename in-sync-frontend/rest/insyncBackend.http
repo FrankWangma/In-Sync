@@ -2,7 +2,7 @@
 # IDs in these requests must be changed as rooms/users are created/deleted
 
 # Create User
-POST http://localhost:3000/user
+POST https://in-sync-app-backend.herokuapp.com/user
 Accept: application/json
 content-type: application/json
 
@@ -15,19 +15,19 @@ content-type: application/json
 ###
 
 # Get All Users
-GET http://localhost:3000/user
+GET https://in-sync-app-backend.herokuapp.com/user
 Accept: application/json
 
 ###
 
 # Get User By Id
-GET http://localhost:3000/user/5ea8de31f4d4b92ac44db792
+GET https://in-sync-app-backend.herokuapp.com/user/5ea8de31f4d4b92ac44db792
 Accept: application/json
 
 ###
 
 # Logging In
-GET http://localhost:3000/login
+GET https://in-sync-app-backend.herokuapp.com/login
 Accept: application/json
 content-type: application/json
 
@@ -39,7 +39,7 @@ content-type: application/json
 ###
 
 # Create Room
-POST http://localhost:3000/room
+POST https://in-sync-app-backend.herokuapp.com/room
 Accept: application/json
 content-type: application/json
 
@@ -52,19 +52,19 @@ content-type: application/json
 ###
 
 # Get Room By Id
-GET http://localhost:3000/room/5ea8e0e8f4d4b92ac44db797
+GET https://in-sync-app-backend.herokuapp.com/room/5ea8e0e8f4d4b92ac44db797
 Accept: application/json
 
 ###
 
 # Get All Rooms
-GET http://localhost:3000/room
+GET https://in-sync-app-backend.herokuapp.com/room
 Accept: application/json
 
 ###
 
 # Join Room
-PUT http://localhost:3000/room
+PUT https://in-sync-app-backend.herokuapp.com/room
 Accept: application/json
 content-type: application/json
 
@@ -76,7 +76,7 @@ content-type: application/json
 ###
 
 # Update Room
-PUT http://localhost:3000/room/5ea8e0e8f4d4b92ac44db797
+PUT https://in-sync-app-backend.herokuapp.com/room/5ea8e0e8f4d4b92ac44db797
 Accept: application/json
 content-type: application/json
 
@@ -87,7 +87,7 @@ content-type: application/json
 ###
 
 # Delete Room
-DELETE http://localhost:3000/room/5ea8e376f4d4b92ac44db799
+DELETE https://in-sync-app-backend.herokuapp.com/room/5ea8e376f4d4b92ac44db799
 Accept: application/json
 
 ###

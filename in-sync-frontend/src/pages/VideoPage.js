@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Button } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import * as qs from "query-string";
 import axios from "axios";
@@ -29,6 +29,15 @@ const VideoPage = () => {
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
   const token = useSelector((state) => state.authentication.token);
+
+  // If hosting frontend locally, use local backend too
+  const url = window.location.host;
+  let baseURL = "";
+  if (url.includes("localhost")) {
+    baseURL = "http://localhost:5000"
+  } else {
+    baseURL = "https://in-sync-app-backend.herokuapp.com"
+  }
 
   useEffect(() => {
     let mounted = true;
@@ -69,7 +78,7 @@ const VideoPage = () => {
       handleHostLeaving();
     })
 
-    axios.put("https://in-sync-app-backend.herokuapp.com/room", {
+    axios.put(`${baseURL}/room`, {
       crossdomain: true,
       userId: user.id,
       username: user.username,
@@ -92,7 +101,7 @@ const VideoPage = () => {
 
   useEffect(() => {
     // Get Video ID
-    const url = `https://in-sync-app-backend.herokuapp.com/room/${roomId}`;
+    const url = `${baseURL}/room/${roomId}`;
     axios.get(url, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -135,7 +144,7 @@ const VideoPage = () => {
   }
 
   const changeVideo = (newUrl) => {
-    const url = `https://in-sync-app-backend.herokuapp.com/room/${roomId}`;
+    const url = `${baseURL}/room/${roomId}`;
     axios.put(url, {
       video: newUrl
     }, {
@@ -152,7 +161,7 @@ const VideoPage = () => {
   }
 
   const handleUserLeaving = (data) => {
-    const url = "https://in-sync-app-backend.herokuapp.com/room/"
+    const url = `${baseURL}/room`
     axios.get(`${url}${roomId}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
@@ -190,7 +199,7 @@ const VideoPage = () => {
   }
 
   const handleUserJoined = () => {
-    const url = `https://in-sync-app-backend.herokuapp.com/room/${roomId}`
+    const url = `${baseURL}/room/${roomId}`
     axios.get(url, {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {

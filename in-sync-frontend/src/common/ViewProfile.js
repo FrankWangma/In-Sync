@@ -5,7 +5,7 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import { userActions, alertActions } from "../_actions";
+import { userActions, alertActions } from "../redux/_actions";
 import styles from "./ViewProfile.module.css";
 
 const DarkerDisabledTextField = withStyles({
@@ -28,13 +28,12 @@ const ViewProfile = (props) => {
   const alert = useSelector((state) => state.alert);
   const currentUser = useSelector((state) => state.authentication.user);
   const [user, setUser] = useState({
-    id: currentUser.id
+    id: currentUser.id,
   });
   const [viewInfo, setViewInfo] = useState(true);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
-  const { handleClose } = props;
   const dispatch = useDispatch();
 
   const toggleEdit = () => {
@@ -42,7 +41,7 @@ const ViewProfile = (props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(userActions.edit(user))
+    dispatch(userActions.edit(user));
   };
 
   function validateEmail(email) {
@@ -67,14 +66,14 @@ const ViewProfile = (props) => {
 
   function handleAlert() {
     if (alert.message !== alertMessage
-      && (alert.message === `Username ${user.username} is already taken` 
-      || alert.message === `Email ${user.email} is already taken`) ) {
+      && (alert.message === `Username ${user.username} is already taken`
+      || alert.message === `Email ${user.email} is already taken`)) {
       setAlertMessage(alert.message);
       if (alert.type === "alert-danger") {
         setError(true);
         setHelperText(alert.message);
       }
-    }  else if (alert.type === "alert-success" && alert.message !== alertMessage) {
+    } else if (alert.type === "alert-success" && alert.message !== alertMessage) {
       dispatch(userActions.logout());
       dispatch(alertActions.clear());
       window.location.reload(true);
@@ -82,7 +81,8 @@ const ViewProfile = (props) => {
   }
 
   return (
-        <Modal className={styles.appModal} open={props.showModal}  onBackdropClick={() => { props.modalHandler(false); }}>
+        <Modal className={styles.appModal} open={props.showModal}
+          onBackdropClick={() => { props.modalHandler(false); }}>
             <Card>
                 <CardHeader
                     title="Profile"

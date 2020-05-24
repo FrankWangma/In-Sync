@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ViewProfile from "./ViewProfile";
-import { userActions } from "../_actions";
+import { userActions } from "../redux/_actions";
 import socket from "../socket/socket";
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     color: "white",
     marginRight: 20,
-    zIndex: 1000
+    zIndex: 1000,
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -49,7 +49,7 @@ export default function ProfileButton() {
 
   const handleLogout = () => {
     if (socket.connected) {
-      socket.emit('leaveRoom');
+      socket.emit("leaveRoom");
     }
     dispatch(userActions.logout());
   };

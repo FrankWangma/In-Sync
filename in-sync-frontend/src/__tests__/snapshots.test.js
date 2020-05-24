@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import AddVideoModal from '../components/AddVideoModal';
-import UserList from '../components/UserList';
-import InviteModal from '../components/InviteModal';
-import EmbeddedVideo from '../components/EmbeddedVideo';
+import AddVideoModal from '../components/Modals/AddVideoModal';
+import UserList from '../components/UserList/UserList';
+import InviteModal from '../components/Modals/InviteModal';
+import EmbeddedVideo from '../components/EmbeddedVideo/EmbeddedVideo';
 
 
 it(' AddVideoModal renders correctly with no content', () => {
@@ -13,7 +13,7 @@ it(' AddVideoModal renders correctly with no content', () => {
 });
 
 it(' UserList renders correctly', () => {
-  const tree = renderer.create(<UserList />).toJSON();
+  const tree = renderer.create(<UserList users={[]}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
 

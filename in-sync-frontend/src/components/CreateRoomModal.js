@@ -20,9 +20,9 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
 
   const createRoom = () => {
     // If hosting frontend locally, use local backend too
-    const url = window.location.host;
+    const windowUrl = window.location.host;
     let baseURL = "";
-    if (url.includes("localhost")) {
+    if (windowUrl.includes("localhost")) {
       baseURL = "http://localhost:5000"
     } else {
       baseURL = "https://in-sync-app-backend.herokuapp.com"

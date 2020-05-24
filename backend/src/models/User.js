@@ -14,7 +14,6 @@ const UserSchema = new Schema({
   username: {
     type: String,
     unique: true,
-    dropDups: true,
     required: true,
   },
   hash: {
@@ -24,7 +23,6 @@ const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    dropDups: true,
     default: '',
   },
 });

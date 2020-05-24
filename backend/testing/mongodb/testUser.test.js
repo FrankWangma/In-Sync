@@ -52,8 +52,8 @@ afterAll(async () => {
   await mongod.stop();
 });
 
-it('runs dummy to test fix initialization issues', async () => {
-  expect(1).toBe(1);
+it('dummy test to intentionally fail', async () => {
+    expect(1).toBe(1);
 });
 
 it('gets users', async () => {

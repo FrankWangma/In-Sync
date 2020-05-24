@@ -1,7 +1,7 @@
-import Room from '../models/Room';
-import User from '../models/User';
+import Room from '../models/Room.js';
+import User from '../models/User.js';
 
-exports.getRoom = (req, res) => {
+export function getRoom(req, res) {
   Room.findById(req.params.roomId, (err, foundRoom) => {
     if (foundRoom) {
       res.json(foundRoom);
@@ -9,9 +9,8 @@ exports.getRoom = (req, res) => {
       res.status(404).json({ message: 'Room not found' });
     }
   });
-};
-
-exports.getAllRooms = (req, res) => {
+}
+export function getAllRooms(req, res) {
   Room.find({}, (err, foundRooms) => {
     if (foundRooms) {
       res.json(foundRooms);
@@ -19,9 +18,9 @@ exports.getAllRooms = (req, res) => {
       res.status(404).json({ message: 'Could not find rooms' });
     }
   });
-};
+}
 
-exports.createRoom = (req, res) => {
+export function createRoom(req, res) {
   const newRoom = new Room(req.body);
 
   if (!req.body.host) {
@@ -35,9 +34,9 @@ exports.createRoom = (req, res) => {
       }
     });
   }
-};
+}
 
-exports.updateRoom = (req, res) => {
+export function updateRoom(req, res) {
   Room.findOneAndUpdate(
     { _id: req.params.roomId },
     req.body,
@@ -50,9 +49,9 @@ exports.updateRoom = (req, res) => {
       }
     },
   );
-};
+}
 
-exports.deleteRoom = (req, res) => {
+export function deleteRoom(req, res) {
   Room.deleteOne({ _id: req.params.roomId }, (err) => {
     if (err) {
       res.status(404).json({ message: 'Could not find room' });
@@ -62,27 +61,35 @@ exports.deleteRoom = (req, res) => {
       });
     }
   });
-};
+}
 
-exports.joinRoom = (req, res) => {
-  User.findById(req.body.userId, (err, foundUser) => {
-    if (err) {
-      res.status(404).json({ message: 'Could not find user' });
-    } else {
-      Room.findById(req.body.id, (error, foundRoom) => {
-        if (!foundRoom) {
-          res.status(404).json({ message: 'Could not find room' });
-        } else {
-          foundRoom.viewers.push(foundUser.username);
-          foundRoom.save((errorSave) => {
-            if (errorSave) {
-              res.status(500).json({ message: 'Server failed to add user to room' });
+export function joinRoom(req, res) {
+  if(req.body.userId) {
+    User.findById(req.body.userId, (err, foundUser) => {
+      if (err) {
+        res.status(404).json({ message: 'Could not find user' });
+      } else {
+        Room.findById(req.body.id, (error, foundRoom) => {
+          if (!foundRoom) {
+            res.status(404).json({ message: 'Could not find room' });
+          } else {
+            if(req.body.remove) {
+              const index = foundRoom.viewers.indexOf(foundUser.username);
+              const newViewersList = foundRoom.viewers.splice(index, 1);
+              foundRoom.viewers = newViewersList;
             } else {
-              res.json(foundRoom);
+              foundRoom.viewers.push(foundUser.username);
             }
-          });
-        }
-      });
-    }
-  });
-};
+            foundRoom.save((errorSave) => {
+              if (errorSave) {
+                res.status(500).json({ message: 'Server failed to add user to room' });
+              } else {
+                res.json(foundRoom);
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+}

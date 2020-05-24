@@ -11,22 +11,26 @@ import axios from "axios";
 import styles from "./Modal.module.css";
 
 const CreateRoomModal = ({ showModal, modalHandler }) => {
-  const [title, setRoomTitle] = useState("");
   const [url, setURL] = useState("");
   const [roomId, setRoomId] = useState("");
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const user =  useSelector((state) => state.authentication.user);
   const token = useSelector((state) => state.authentication.token);
+  const loggedIn = useSelector((state) => state.authentication.loggedIn);
 
   const createRoom = () => {
-    axios.post("http://localhost:3000/room", {
-      crossdomain: true,
-      host: user.username,
-      video: url,
-      viewers: [],
-    })
-      .then((res) => setRoomId(`/video?id=${res.data._id}`))
-      .then(setShouldNavigate(true));
+    if (loggedIn) {
+      axios.post("http://localhost:3000/room", {
+          crossdomain: true,
+          host: user.username,
+          video: url,
+          viewers: [],
+        }, {
+          headers: { Authorization: `Bearer ${token}`}
+        }
+      ).then((res) => setRoomId(`/video?id=${res.data._id}`))
+        .then(setShouldNavigate(true));
+    }
   };
 
   if (shouldNavigate) {
@@ -39,15 +43,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
         <Typography variant="h2" className={styles.title}>
           Create Room
         </Typography>
-        <Typography>Room Title</Typography>
-        <TextField
-          className={styles.bodyText}
-          InputProps={{ disableUnderline: true }}
-          margin="normal"
-          name="title"
-          value={title}
-          onChange={(e) => { setRoomTitle(e.target.value); }}
-        />
+        {loggedIn ? <></> : <Typography className={styles.warningText}>Please log in to create a room</Typography> }
         <Typography>Video URL</Typography>
         <TextField
           className={styles.bodyText}
@@ -61,7 +57,7 @@ const CreateRoomModal = ({ showModal, modalHandler }) => {
             Cancel
           </Button>
           <Link to={roomId} onClick={() => { createRoom(); }}>
-            <Button className={styles.createButton}>
+            <Button disabled={!loggedIn} className={styles.createButton}>
               Create
             </Button>
           </Link>

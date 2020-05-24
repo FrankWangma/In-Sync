@@ -49,6 +49,35 @@ const VideoPage = () => {
     }
     socket.emit('join', joinData)
 
+    const handleUserLeaving = (data) => {
+      const url = `${baseURL}/room`
+      axios.get(`${url}${roomId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then((response) => {
+        // After getting the updated room, remove the list and update the room again with the new list
+        // eslint-disable-next-line array-callback-return
+        let newViewersList = response.data.viewers.filter((value) => {
+          if (value !== data) {
+            return value;
+          }
+        })
+        newViewersList = removeDuplicates(newViewersList);
+        setUsers({
+          host: response.data.host,
+          viewers: newViewersList
+        })
+        axios.put(url, {
+          crossdomain: true,
+          id: roomId,
+          userId: user.id,
+          username: data,
+          remove: true
+        }, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+      })
+    }
+
     socket.on('userJoinedRoom', (data) => {
       setUserJoined(true);
     });
@@ -99,7 +128,7 @@ const VideoPage = () => {
     })
 
     return () => mounted = false;
-  }, [roomId, user.username]);
+  }, [roomId, user.username, history, baseURL, user.id, token]);
 
   useEffect(() => {
     // Get Video ID
@@ -110,7 +139,7 @@ const VideoPage = () => {
       .then((response) => {
         setVideoUrl(response.data.video);
       });
-  }, [roomId, videoUrl]);
+  }, [roomId, videoUrl, baseURL, token]);
 
   const sendMessage = (message) => {
     const data = {
@@ -161,34 +190,6 @@ const VideoPage = () => {
     });
   }
 
-  const handleUserLeaving = (data) => {
-    const url = `${baseURL}/room`
-    axios.get(`${url}${roomId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then((response) => {
-      // After getting the updated room, remove the list and update the room again with the new list
-      let newViewersList = response.data.viewers.filter((value) => {
-        if (value !== data) {
-          return value;
-        }
-      })
-      newViewersList = removeDuplicates(newViewersList);
-      setUsers({
-        host: response.data.host,
-        viewers: newViewersList
-      })
-      axios.put(url, {
-        crossdomain: true,
-        id: roomId,
-        userId: user.id,
-        username: data,
-        remove: true
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-    })
-  }
-
   const removeDuplicates = (array) => {
     let unique = {};
     array.forEach((i) => {
@@ -199,20 +200,20 @@ const VideoPage = () => {
     return Object.keys(unique);
   }
 
-  const handleUserJoined = () => {
-    const url = `${baseURL}/room/${roomId}`
-    axios.get(url, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then((response) => {
-      setUsers({
-        host: response.data.host,
-        viewers: response.data.viewers
-      })
-    })
-
-  }
-
   useEffect(() => {
+    const handleUserJoined = () => {
+      const url = `${baseURL}/room/${roomId}`
+      axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then((response) => {
+        setUsers({
+          host: response.data.host,
+          viewers: response.data.viewers
+        })
+      })
+  
+    }
+
     let mounted = true;
     if (mounted && userJoined) {
       handleUserJoined();
@@ -221,7 +222,7 @@ const VideoPage = () => {
       mounted = false;
       setUserJoined(false);
     }
-  }, [userJoined])
+  }, [userJoined, baseURL, roomId, token])
 
   return (
     <>

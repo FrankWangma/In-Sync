@@ -2,14 +2,14 @@ import React, { useRef } from "react";
 import {
   Typography,
   Modal,
-  Button
+  Button,
 } from "@material-ui/core";
-import { FileCopy } from '@material-ui/icons';
+import { FileCopy } from "@material-ui/icons";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import styles from "./Modal.module.css";
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const InviteModal = ({ showModal, modalHandler, roomId }) => {
-  const link = window.location.host + "/joinRoom?id=" + roomId;
+  const link = `${window.location.host}/joinRoom?id=${roomId}`;
   const codeRef = useRef(null);
   const linkRef = useRef(null);
 

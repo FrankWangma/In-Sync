@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     color: "white",
     marginRight: 20,
-    zIndex: 1000
+    zIndex: 1000,
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -49,7 +49,7 @@ export default function ProfileButton() {
 
   const handleLogout = () => {
     if (socket.connected) {
-      socket.emit('leaveRoom');
+      socket.emit("leaveRoom");
     }
     dispatch(userActions.logout());
   };

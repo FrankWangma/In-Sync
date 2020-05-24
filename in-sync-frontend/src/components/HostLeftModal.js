@@ -4,8 +4,8 @@ import {
   Modal,
   Button,
 } from "@material-ui/core";
-import styles from "./Modal.module.css";
 import { Redirect } from "react-router-dom";
+import styles from "./Modal.module.css";
 
 const HostLeftModal = ({ showModal }) => {
   const [redirect, setRedirect] = useState(false);

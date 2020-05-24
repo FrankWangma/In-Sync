@@ -5,27 +5,28 @@ import ChatComponent from "./ChatComponent";
 import UserList from "./UserList";
 import styles from "./ChatUserSwitch.module.css";
 
-const ChatUserSwitch = ({ sendMessage, users, receivedMessage, currentUser }) => {
-    const [currentToggle, setCurrentToggle] = useState("chat");
+const ChatUserSwitch = ({
+  sendMessage, users, receivedMessage, currentUser,
+}) => {
+  const [currentToggle, setCurrentToggle] = useState("chat");
 
-    const chatOrUsers = () => {
-        if (currentToggle === "chat") {
-            return <ChatComponent className="chat" sendMessage={sendMessage} receivedMessage={receivedMessage} currentUser={currentUser} />
-        } else {
-            return <UserList users={users} />
-        }
-    };
+  const chatOrUsers = () => {
+    if (currentToggle === "chat") {
+      return <ChatComponent className="chat" sendMessage={sendMessage} receivedMessage={receivedMessage} currentUser={currentUser} />;
+    }
+    return <UserList users={users} />;
+  };
 
-    return (
+  return (
         <div className='container'>
             <ToggleButtonGroup
                 className={styles.switch}
                 value={currentToggle}
                 exclusive={true}
                 onChange={(e, newOption) => {
-                    if (newOption) {
-                        setCurrentToggle(newOption);
-                    }
+                  if (newOption) {
+                    setCurrentToggle(newOption);
+                  }
                 }}
             >
                 <ToggleButton className={styles.oneSwitch} value="chat">
@@ -37,7 +38,7 @@ const ChatUserSwitch = ({ sendMessage, users, receivedMessage, currentUser }) =>
             </ToggleButtonGroup>
             {chatOrUsers()}
         </div>
-    );
-}
+  );
+};
 
 export default ChatUserSwitch;

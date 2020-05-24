@@ -28,22 +28,22 @@ const ChatComponent = ({ sendMessage, receivedMessage, currentUser }) => {
   };
 
   useEffect(() => {
-    setMessageData(receivedMessage)
-    const {message, username} = receivedMessage;
-    if(message) {
-      const user = {
+    setMessageData(receivedMessage);
+    const { message, username } = receivedMessage;
+    if (message) {
+      const newUser = {
         name: username,
         uid: username,
         avatar: "http://getdrawings.com/free-icon-bw/free-avatars-icons-6.png",
-      }; 
+      };
       const userMessage = {
         text: message,
         id: messages.length + 1,
-        sender: user,
+        sender: newUser,
       };
       messages.push(userMessage);
     }
-  },[receivedMessage])
+  }, [receivedMessage]);
 
   return (
     <div className='container'>

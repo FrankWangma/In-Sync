@@ -3,6 +3,8 @@ import { userService } from "../_services";
 import { alertActions } from "./alert.actions";
 import { history } from "../_helpers";
 
+/* eslint no-shadow: 0 */
+
 function login(username, password, joiningRoom) {
   function request(user) { return { type: userConstants.LOGIN_REQUEST, user }; }
   function success(user) { return { type: userConstants.LOGIN_SUCCESS, user }; }
@@ -43,7 +45,7 @@ function register(user) {
       .then(
         (user) => {
           dispatch(success(user));
-          dispatch(alertActions.success('Registration successful, You can now log in'));
+          dispatch(alertActions.success("Registration successful, You can now log in"));
         },
         (error) => {
           dispatch(failure(error.toString()));
@@ -64,7 +66,7 @@ function edit(user) {
       .then(
         (user) => {
           dispatch(success(user));
-          dispatch(alertActions.success('Edit Successful'));
+          dispatch(alertActions.success("Edit Successful"));
         },
         (error) => {
           dispatch(failure(error.toString()));

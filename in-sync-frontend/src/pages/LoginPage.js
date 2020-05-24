@@ -7,14 +7,14 @@ import styles from "./LoginPage.module.css";
 import Header from "../common/Header";
 
 const LoginPage = () => {
-    const alert = useSelector((state) => state.alert);
+  const alert = useSelector((state) => state.alert);
 
-    return (
+  return (
     <div>
         <Header />
         <div className={styles.LoginPage}>
-            {alert.type === "alert-success" &&
-                <div className={`alert ${alert.type}`}>{alert.message}</div>
+            {alert.type === "alert-success"
+                && <div className={`alert ${alert.type}`}>{alert.message}</div>
             }
             <Grid container spacing={0}>
                 <Grid item xs={2} />

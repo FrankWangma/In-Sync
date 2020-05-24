@@ -6,7 +6,7 @@ export function userEdit(state = {}, action) {
     case userConstants.EDIT_REQUEST:
       return { edit: true };
     case userConstants.EDIT_SUCCESS:
-      return {user: action.user} ;
+      return { user: action.user };
     case userConstants.EDIT_FAILURE:
       return {};
     default:

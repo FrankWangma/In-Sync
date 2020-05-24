@@ -7,11 +7,11 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogActions
+  DialogActions,
 } from "@material-ui/core";
+import axios from "axios";
 import styles from "./Modal.module.css";
-import VideoList from './VideoList'
-import axios from 'axios';
+import VideoList from "./VideoList";
 
 const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const [url, setVideoURL] = useState("");
@@ -22,71 +22,72 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const KEY = process.env.REACT_APP_YOUTUBE_KEY || "API KEY NOT VALID LOCALLY";
 
   const youtube = axios.create({
-    baseURL: 'https://www.googleapis.com/youtube/v3',
+    baseURL: "https://www.googleapis.com/youtube/v3",
     params: {
-      part: 'snippet',
+      part: "snippet",
       maxResults: 5,
       key: KEY,
-    }
-  })
+    },
+  });
 
   const checkYoutubeUrl = (input) => {
     // eslint-disable-next-line no-useless-escape
     const re = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
     return re.test(input);
-  }
+  };
 
   const handleSearchSubmit = () => {
-    youtube.get('/search', {
+    youtube.get("/search", {
       params: {
-        part: 'snippet',
+        part: "snippet",
         maxResults: 5,
         key: KEY,
-        type: 'video',
-        q: search
-      }
+        type: "video",
+        q: search,
+      },
     }).then((response) => {
       setVideos(response.data.items);
-    })
-  }
+    });
+  };
 
   const handleVideoSelect = (video) => {
-    const url = `https://www.youtube.com/watch?v=${video.id.videoId}`;
-    handleVideoChange(url);
-    modalHandler(false)
-  }
-
-  const handleChangeKey = (e) => {
-    if (keyPress(e) && url) {
-      changeVideos();
-    }
-  }
-
-  const handleSearchKey = (e) => {
-    if (keyPress(e) && search) {
-      handleSearchSubmit();
-    }
-  }
+    const newUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
+    handleVideoChange(newUrl);
+    modalHandler(false);
+  };
 
   const changeVideos = () => {
     if (checkYoutubeUrl(url)) {
       handleVideoChange(url);
       setError(false);
-      setHelperText('');
-      setVideoURL('');
+      setHelperText("");
+      setVideoURL("");
       modalHandler(false);
     } else {
       setError(true);
-      setHelperText('Please enter a valid YouTube URL');
+      setHelperText("Please enter a valid YouTube URL");
     }
-  }
+  };
 
   const keyPress = (e) => {
     if (e.keyCode === 13) {
       return true;
     }
     return false;
-  }
+  };
+
+  const handleChangeKey = (e) => {
+    if (keyPress(e) && url) {
+      changeVideos();
+    }
+  };
+
+  const handleSearchKey = (e) => {
+    if (keyPress(e) && search) {
+      handleSearchSubmit();
+    }
+  };
+
 
   return (
     <Dialog
@@ -94,12 +95,12 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
       onBackdropClick={() => {
         modalHandler(false);
         setError(false);
-        setHelperText('');
-        setVideoURL('');
+        setHelperText("");
+        setVideoURL("");
       }}
       scroll='paper'
       fullWidth={true}
-      maxWidth={'lg'}
+      maxWidth={"lg"}
     >
       <DialogTitle>Change the video</DialogTitle>
       <DialogContent className={styles.changeVideoModal} dividers={true}>

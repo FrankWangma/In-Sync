@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react";
 import styles from "./VideoItem.module.css";
 
-const VideoItem = ({video, handleVideoSelect}) => {
-    return (
+const VideoItem = ({ video, handleVideoSelect }) => (
         <div className={styles.item} onClick={ () => handleVideoSelect(video)}>
             <img src={video.snippet.thumbnails.medium.url}
                 alt={video.snippet.description}/>
@@ -10,7 +9,6 @@ const VideoItem = ({video, handleVideoSelect}) => {
                 <div>{video.snippet.title}</div>
             </div>
         </div>
-    )
-}
+);
 
 export default VideoItem;

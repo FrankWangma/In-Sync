@@ -22,13 +22,13 @@ const Routes = () => {
       <Route exact path={paths.LOGINPAGE} component={LoginPage} />
       <Route exact path={paths.JOINROOMPAGE} component={JoinRoomPage} />
       {
-        loggedIn ? 
-        <Route exact path={paths.VIDEOPAGE} component={VideoPage}/> :
-        <Redirect to="/"/>
+        loggedIn
+          ? <Route exact path={paths.VIDEOPAGE} component={VideoPage}/>
+          : <Redirect to="/"/>
       }
       <Redirect from="*" to="/" />
     </Switch>
-  )
+  );
 };
 
 export default Routes;

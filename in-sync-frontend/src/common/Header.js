@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  }
+  },
 }));
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
 
   const handleReturn = () => {
     if (socket.connected) {
-      socket.emit('leaveRoom');
+      socket.emit("leaveRoom");
     }
   };
 
@@ -38,11 +38,11 @@ const Header = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {path !== "/" ?
-            <Link to={"/"}>
+          {path !== "/"
+            ? <Link to={"/"}>
               <Button variant="contained" color="secondary" onClick={handleReturn}>Return Home</Button>
-            </Link> :
-            <></>
+            </Link>
+            : <></>
           }
           <div variant="h6" className={classes.title} />
           {loggedIn

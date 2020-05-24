@@ -53,9 +53,9 @@ const Login = ({ joiningRoom }) => {
     }
   }
 
-  function keyPress(e){
-    if(e.keyCode === 13){
-       handleSubmit(e);
+  function keyPress(e) {
+    if (e.keyCode === 13) {
+      handleSubmit(e);
     }
   }
 

@@ -10,13 +10,13 @@ export function authentication(state = initialState, action) {
     case userConstants.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.user.foundUser
+        user: action.user.foundUser,
       };
     case userConstants.LOGIN_SUCCESS:
       return {
         loggedIn: true,
         user: action.user.foundUser,
-        token: action.user.token
+        token: action.user.token,
       };
     case userConstants.LOGIN_FAILURE:
       return {};

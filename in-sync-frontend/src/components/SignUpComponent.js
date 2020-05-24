@@ -63,8 +63,8 @@ function SignUp() {
 
   function handleAlert() {
     if (alert.message !== alertMessage
-      && (alert.message === `Username ${user.username} is already taken` 
-      || alert.message === `Email ${user.email} is already taken`) ) {
+      && (alert.message === `Username ${user.username} is already taken`
+      || alert.message === `Email ${user.email} is already taken`)) {
       setAlertMessage(alert.message);
       if (alert.type === "alert-danger") {
         setError(true);
@@ -78,12 +78,12 @@ function SignUp() {
         email: "",
         username: "",
         password: "",
-      })
+      });
     }
   }
 
-  function keyPress(e){
-    if(e.keyCode === 13){
+  function keyPress(e) {
+    if (e.keyCode === 13) {
       handleSubmit(e);
     }
   }

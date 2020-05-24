@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
-import Login from "../components/LoginComponent";
 import * as qs from "query-string";
+import axios from "axios";
+import Login from "../components/LoginComponent";
 import SignUp from "../components/SignUpComponent";
 import styles from "./JoinRoomPage.module.css";
 import Header from "../common/Header";
-import axios from "axios";
 
 const JoinRoomPage = () => {
   const loggedIn = useSelector((state) => state.authentication.loggedIn);
   const alert = useSelector((state) => state.alert);
   const roomId = qs.parse(window.location.search).id;
-  const roomUrl = "/video?id=" + roomId;
+  const roomUrl = `/video?id=${roomId}`;
   const [navigateToRoom, setNavigateToRoom] = useState(false);
 
-  const user =  useSelector((state) => state.authentication.user)
+  const user = useSelector((state) => state.authentication.user);
   const token = useSelector((state) => state.authentication.token);
 
   if (navigateToRoom) {
@@ -27,30 +27,29 @@ const JoinRoomPage = () => {
   const url = window.location.host;
   let baseURL = "";
   if (url.includes("localhost")) {
-    baseURL = "http://localhost:5000"
+    baseURL = "http://localhost:5000";
   } else {
-    baseURL = "https://in-sync-app-backend.herokuapp.com"
+    baseURL = "https://in-sync-app-backend.herokuapp.com";
   }
 
   if (loggedIn) {
     axios.put(`${baseURL}/room`, {
-        crossdomain: true,
-        userId: user.id,
-        username: user.username,
-        id: roomId,
-      }, {
-        headers: { Authorization: `Bearer ${token}`}
-      }
-    )
-    .then(setNavigateToRoom(true));
+      crossdomain: true,
+      userId: user.id,
+      username: user.username,
+      id: roomId,
+    }, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(setNavigateToRoom(true));
   }
 
   return (
     <div>
       <Header />
       <div className={styles.JoinRoomPage}>
-        {alert.type === "alert-success" &&
-          <div className={`alert ${alert.type}`}>{alert.message}</div>
+        {alert.type === "alert-success"
+          && <div className={`alert ${alert.type}`}>{alert.message}</div>
         }
         <Typography className={styles.HeaderText}>
           Please log in to navigate to the room
@@ -67,7 +66,7 @@ const JoinRoomPage = () => {
         </Grid>
       </div>
     </div>
-  )
+  );
 };
 
 export default JoinRoomPage;

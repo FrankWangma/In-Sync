@@ -53,7 +53,7 @@ const JoinRoomModal = ({ showModal, modalHandler }) => {
           <Button className={styles.cancelButton} onClick={() => { modalHandler(false); }}>
             Cancel
           </Button>
-          <Button onClick={() => { joinRoom() }} className={styles.createButton}>
+          <Button onClick={() => { joinRoom(); }} className={styles.createButton}>
             Join
           </Button>
         </div>

@@ -3,13 +3,19 @@ Group-4-Pink-Polar-Bear
 # In-Sync
 In-Sync is a synchronised video watching web application, where you can enjoy YouTube videos with your friends!
 
+The In-Sync web application is currently up and running, hosted using [Heroku](https://www.heroku.com/). 
+
+You can visit the website at [https://in-sync-app.herokuapp.com/](https://in-sync-app.herokuapp.com/)
+
 # Getting Started
 
+The application is comprised of two parts, the front end web application and the backend server, which are in separate directories in this repository. Both parts need to be running for the application to work properly.
+
 ### Backend-Server
-Please read the [Setup and tools](https://github.com/FrankWangma/Group-4-Pink-Polar-Bear/wiki/Setup-and-tools) page for the backend server to set it up locally!
+Please read the [Setup and tools](https://github.com/FrankWangma/Group-4-Pink-Polar-Bear/wiki/Backend-Setup-and-tools) page for the backend server to set it up locally!
 
 ### Web-App
-Please read the [Setup and tools]() page for the frontend web app to set it up locally!
+Please read the [Setup and tools](https://github.com/FrankWangma/Group-4-Pink-Polar-Bear/wiki/Frontend-Setup-and-Tools) page for the frontend web app to set it up locally!
 
 # Documentation
 All related documentation for this project can be found our [Wiki Page](https://github.com/FrankWangma/Group-4-Pink-Polar-Bear/wiki)

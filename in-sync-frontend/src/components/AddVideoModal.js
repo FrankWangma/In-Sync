@@ -54,7 +54,7 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   const handleVideoSelect = (video) => {
     const url = `https://www.youtube.com/watch?v=${video.id.videoId}`;
     handleVideoChange(url);
-    modalHandler(false);
+    modalHandler(false)
   }
 
   const handleChangeKey = (e) => {

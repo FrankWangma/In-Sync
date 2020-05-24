@@ -51,7 +51,6 @@ const VideoPage = () => {
     })
     
     socket.on('changeVideo', (data) => {
-      console.log(data);
       setVideoUrl(data.video);
     });
 
@@ -83,7 +82,9 @@ const VideoPage = () => {
   useEffect(() => {
     // Get Video ID
     const url = `http://localhost:3000/room/${roomId}`;
-    axios.get(url)
+    axios.get(url,{
+      headers: { Authorization: `Bearer ${token}`}
+    })
       .then((response) => {
         setVideoUrl(response.data.video);
       });
@@ -120,6 +121,8 @@ const VideoPage = () => {
       const url = `http://localhost:3000/room/${roomId}`;
       axios.put(url, {
         video: newUrl
+      }, {
+        headers: { Authorization: `Bearer ${token}`}
       }).then((response) => {
         setVideoUrl(response.data.video);
         const data = {
@@ -130,6 +133,7 @@ const VideoPage = () => {
         socket.emit('change', data);
       });
   }
+
   const handleUserLeaving = (data) => {
     const url = "http://localhost:3000/room/"
     axios.get(`${url}${roomId}`, {

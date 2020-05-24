@@ -18,6 +18,8 @@ const VideoPage = () => {
   const [videoUrl, setVideoUrl] = useState("");
   const [userJoined, setUserJoined] = useState(false);
   const [hostLeft, setHostLeft] = useState(false);
+  const [playTime, setPlayTime] = useState(0);
+  const [pauseTime, setPauseTime] = useState(0);
   const [users, setUsers] = useState({
     host: "",
     viewers: []
@@ -46,10 +48,12 @@ const VideoPage = () => {
 
     socket.on('playVideo', (data) => {
       console.log(data);
+      setPlayTime(data)
     });
 
     socket.on('pauseVideo', (data) => {
       console.log(data);
+      setPauseTime(data);
     })
     
     socket.on('changeVideo', (data) => {
@@ -219,7 +223,7 @@ const VideoPage = () => {
         <Grid container spacing={0}>
           <Grid item sm={12} md={1} />
           <Grid item sm={12} md={6}>
-            <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
+            <EmbeddedVideo pauseTime={pauseTime} playTime={playTime} url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
               Change Video
             </Button>

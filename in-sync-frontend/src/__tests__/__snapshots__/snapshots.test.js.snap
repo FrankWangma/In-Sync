@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` AddVideoModal renders correctly with no content 1`] = `null`;
+
+exports[` EmbeddedVideo renders correctly 1`] = `
+<div
+  className="App EmbeddedVideo"
+>
+  <div
+    style={
+      Object {
+        "height": "360px",
+        "width": "640px",
+      }
+    }
+  />
+  <div
+    className="MuiGrid-root MuiGrid-container"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+    >
+      <button
+        onClick={[Function]}
+      >
+        ▶
+      </button>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10"
+    >
+      <input
+        className="seek"
+        max={0.999999}
+        min={0}
+        onChange={[Function]}
+        onMouseDown={[Function]}
+        onMouseUp={[Function]}
+        step="any"
+        type="range"
+        value={0}
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+    >
+      <button
+        onClick={[Function]}
+      >
+        ⛶
+      </button>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+    >
+      <p
+        className="volume"
+      >
+        🔊
+      </p>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
+    >
+      <input
+        max={1}
+        min={0}
+        onChange={[Function]}
+        step="any"
+        type="range"
+        value={0.5}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[` InviteModal renders correctly 1`] = `null`;
+
+exports[` UserList renders correctly 1`] = `
+<div
+  className="container"
+>
+  <div>
+    <div
+      className="userInfo"
+    >
+      <img
+        alt="User avatar"
+        className="userPic"
+        src="https://data.cometchat.com/assets/images/avatars/ironman.png"
+      />
+      <p
+        className="userName"
+      >
+        Ironman
+      </p>
+    </div>
+  </div>
+  <div>
+    <div
+      className="userInfo"
+    >
+      <img
+        alt="User avatar"
+        className="userPic"
+        src="https://data.cometchat.com/assets/images/avatars/spiderman.png"
+      />
+      <p
+        className="userName"
+      >
+        Spiderman
+      </p>
+    </div>
+  </div>
+</div>
+`;

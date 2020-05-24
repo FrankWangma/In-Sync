@@ -5,6 +5,7 @@ import * as qs from "query-string";
 import axios from "axios";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
+import HostLeftModal from "../components/HostLeftModal";
 import InviteModal from "../components/InviteModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
@@ -16,6 +17,7 @@ const VideoPage = () => {
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [userJoined, setUserJoined] = useState(false);
+  const [hostLeft, setHostLeft] = useState(false);
   const [users, setUsers] = useState({
     host: "",
     viewers: []
@@ -56,6 +58,11 @@ const VideoPage = () => {
 
     socket.on('userLeft', (data) => {
       handleUserLeaving(data);
+    })
+
+    socket.on('hostLeft', (data) => {
+      console.log('host has left');
+      handleHostLeaving();
     })
 
     axios.put("http://localhost:3000/room", {
@@ -117,6 +124,12 @@ const VideoPage = () => {
     socket.emit('play', data);
   }
 
+  const handleHostLeaving = () => {
+    socket.emit('leaveRoom');
+    console.log("updated");
+    setHostLeft(true);
+  }
+  
   const changeVideo = (newUrl) => {
       const url = `http://localhost:3000/room/${roomId}`;
       axios.put(url, {
@@ -222,6 +235,7 @@ const VideoPage = () => {
         <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} handleVideoChange={changeVideo}/>
         <InviteModal showModal={showInviteModal} modalHandler={changeInviteModal} roomId={roomId} />
       </div>
+      <HostLeftModal showModal={hostLeft}/>
     </>
   );
 };

@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { Link, useLocation } from "react-router-dom";
 import { history } from "../_helpers";
 import ProfileButton from "./ProfileButton";
+import socket from "../socket/socket";
 
 /* eslint no-nested-ternary: 0 */
 
@@ -32,12 +33,25 @@ const Header = () => {
   const location = useLocation();
   const [isLoginPage] = useState(location.pathname === "/login");
   const loggedIn = useSelector((state) => state.authentication.loggedIn);
+  const path = window.location.pathname;
+
+  const handleReturn = () => {
+    if (socket.connected) {
+      socket.emit('leaveRoom');
+    }
+  };
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <div variant="h6" className={classes.title} />
+          {path !== "/" ?
+            <Link to={"/"}>
+              <Button variant="contained" color="secondary" onClick={handleReturn}>Return Home</Button>
+            </Link> :
+            <></>
+          }
           {loggedIn
             ? <ProfileButton />
             : isLoginPage

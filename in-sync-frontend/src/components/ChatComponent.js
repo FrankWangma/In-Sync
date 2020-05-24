@@ -31,6 +31,7 @@ const ChatComponent = ({ sendMessage, receivedMessage, currentUser }) => {
     setMessageData(receivedMessage)
     const {message, username} = receivedMessage;
 
+    // eslint-disable-next-line array-callback-return
     const filteredMessages = messages.filter((message) => {
       if (message.sender.name === username) { return message }
     });
@@ -47,7 +48,7 @@ const ChatComponent = ({ sendMessage, receivedMessage, currentUser }) => {
     }
 
     if(message && !spam) {
-      const user = {
+      const newUser = {
         name: username,
         uid: username,
         avatar: "http://getdrawings.com/free-icon-bw/free-avatars-icons-6.png",

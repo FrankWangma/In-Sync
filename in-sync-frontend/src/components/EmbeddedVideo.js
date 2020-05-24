@@ -35,8 +35,8 @@ const EmbeddedVideo = (props) => {
     }
 
     const handleSeekChange = (_e, v) => {
-        ref.current.seekTo(v * 2);
-        setPlayed(v);
+        setPlayed(v / 100);
+        ref.current.seekTo(v / 100);
     }
 
     const handleSeekMouseUp = (e, v) => {

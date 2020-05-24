@@ -29,34 +29,17 @@ const setupSocketListeners = (socket) => {
 
   socket.on('pause', (data) => {
     socket.to(data.roomId).emit('pauseVideo', data.time);
-    // Ignoring validating by user till login stuff set up
-    // Room.findById(data.roomId, (err, foundRoom) => {
-    //     if (foundRoom) {
-    //         User.findOne({ username: data.username }, (err, foundUser) => {
-    //             if (foundUser) {
-    //                 if (foundRoom.host === foundUser) {
-    //                     socket.to(data.roomId).emit('pauseVideo', data.time);
-    //                 }
-    //             }
-    //         })
-    //     }
-    // })
+    if (userIsHost(data.roomId, data.username)) {
+      socket.to(data.roomId).emit('pauseVideo', data.time);
+    }
   });
 
   socket.on('play', (data) => {
     socket.to(data.roomId).emit('playVideo', data.time);
     // Ignoring validating by user till the login stuff is set up
-    // Room.findById(data.roomId, (err, foundRoom) => {
-    //     if (foundRoom) {
-    //         User.findOne({ username: data.username }, (err, foundUser) => {
-    //             if (foundUser) {
-    //                 if (foundRoom.host === foundUser) {
-    //                     socket.to(data.roomId).emit('playVideo', data.time);
-    //                 }
-    //             }
-    //         })
-    //     }
-    // })
+    if (userIsHost(data.roomId, data.username)) {
+      socket.to(data.roomId).emit('playVideo', data.time);
+    }
   });
 
   socket.on('message', (data) => {
@@ -68,7 +51,11 @@ const setupSocketListeners = (socket) => {
     clients.forEach((client,index) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
-          socket.to(client.roomId).emit('userLeft', client.username);
+          if (userIsHost(client.roomId, client.username)) {
+            socket.to(client.roomId).emit('hostLeft', client.username);
+          } else {
+            socket.to(client.roomId).emit('userLeft', client.username);
+          }
           removeFromRoom(client);
         }
         clients.splice(index, 1);
@@ -80,7 +67,11 @@ const setupSocketListeners = (socket) => {
     clients.forEach((client,index) => {
       if (client.clientId === socket.id ) {
         if (client.roomId) {
-          socket.to(client.roomId).emit('userLeft', client.username);
+          if (userIsHost(client.roomId, client.username)) {
+            socket.to(client.roomId).emit('hostLeft', client.username);
+          } else {
+            socket.to(client.roomId).emit('userLeft', client.username);
+          }
           removeFromRoom(client);
         }
         clients.splice(index, 1);
@@ -91,6 +82,21 @@ const setupSocketListeners = (socket) => {
 
 const removeFromRoom = (client) => {
   Room.findOneAndUpdate({ _id: client.roomId }, { $pullAll: {viewers: [client.username] }});
+}
+
+const userIsHost = (roomId, inputUsername) => {
+  Room.findById(roomId, (err, foundRoom) => {
+    if (foundRoom) {
+      User.findOne({ username: inputUsername }, (err, foundUser) => {
+        if (foundUser) {
+          if (foundRoom.host === foundUser) {
+            return true;
+          }
+        }
+      })
+    }
+  })
+  return false;
 }
 
 export default setupSocketListeners;

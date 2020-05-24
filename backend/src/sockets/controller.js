@@ -75,6 +75,10 @@ const setupSocketListeners = (socket) => {
     socket.to(data.roomId).emit('newMessage', data);
   });
 
+  socket.on('change', (data) => {
+    socket.to(data.roomId).emit('changeVideo', data);
+  })
+
   socket.on('leaveRoom', () => {
     console.log(socket.id);
     clients.forEach((client,index) => {

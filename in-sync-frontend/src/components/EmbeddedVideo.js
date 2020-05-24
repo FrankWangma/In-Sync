@@ -6,6 +6,7 @@ import screenfull from 'screenfull';
 import Button from '@material-ui/core/Button';
 import { Fullscreen, VolumeUp, PlayArrow, Pause } from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
+import styles from "./EmbeddedVideo.module.css";
 
 const EmbeddedVideo = (props) => {
 
@@ -59,8 +60,9 @@ const EmbeddedVideo = (props) => {
     }
 
     return (
-        <div className="App EmbeddedVideo">
+        <div>
             <ReactPlayer
+                className={styles.player}
                 url={props.url}
                 ref={ref}
                 playing={playing}

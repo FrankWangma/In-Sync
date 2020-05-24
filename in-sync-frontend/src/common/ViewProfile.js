@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Button, TextField, Card, CardContent, CardHeader, ClickAwayListener, IconButton,
+  Button, TextField, Card, CardContent, CardHeader, Modal, IconButton,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
@@ -82,7 +82,7 @@ const ViewProfile = (props) => {
   }
 
   return (
-        <ClickAwayListener onClickAway={handleClose}>
+        <Modal className={styles.appModal} open={props.showModal}  onBackdropClick={() => { props.modalHandler(false); }}>
             <Card>
                 <CardHeader
                     title="Profile"
@@ -165,7 +165,7 @@ const ViewProfile = (props) => {
                     }
                 </CardContent>
             </Card>
-        </ClickAwayListener>
+        </Modal>
   );
 };
 

@@ -14,7 +14,7 @@ const UserList = ({users}) => {
 
   return (
     <div className={styles.container}>
-      {users.viewers.map((user, index) => <div key={index} >{displayUser(user)}</div>)}
+      {[...new Set(users.viewers)].map((user, index) => <div key={index} >{displayUser(user)}</div>)}
     </div>
   );
 };

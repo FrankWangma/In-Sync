@@ -56,12 +56,10 @@ const VideoPage = () => {
     });
 
     socket.on('playVideo', (data) => {
-      console.log(data);
       setPlayTime(data)
     });
 
     socket.on('pauseVideo', (data) => {
-      console.log(data);
       setPauseTime(data);
     })
 
@@ -74,7 +72,6 @@ const VideoPage = () => {
     })
 
     socket.on('hostLeft', (data) => {
-      console.log('host has left');
       handleHostLeaving();
     })
 
@@ -139,7 +136,6 @@ const VideoPage = () => {
 
   const handleHostLeaving = () => {
     socket.emit('leaveRoom');
-    console.log("updated");
     setHostLeft(true);
   }
 

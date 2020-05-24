@@ -3,6 +3,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ChatComponent from "./ChatComponent";
 import UserList from "./UserList";
+import styles from "./ChatUserSwitch.module.css";
 
 const ChatUserSwitch = ({ sendMessage, users, receivedMessage, currentUser }) => {
     const [currentToggle, setCurrentToggle] = useState("chat");
@@ -18,6 +19,7 @@ const ChatUserSwitch = ({ sendMessage, users, receivedMessage, currentUser }) =>
     return (
         <div className='container'>
             <ToggleButtonGroup
+                className={styles.switch}
                 value={currentToggle}
                 exclusive={true}
                 onChange={(e, newOption) => {
@@ -26,10 +28,10 @@ const ChatUserSwitch = ({ sendMessage, users, receivedMessage, currentUser }) =>
                     }
                 }}
             >
-                <ToggleButton value="chat">
+                <ToggleButton className={styles.oneSwitch} value="chat">
                     Chat
                 </ToggleButton>
-                <ToggleButton value="users">
+                <ToggleButton className={styles.oneSwitch} value="users">
                     User List
                 </ToggleButton>
             </ToggleButtonGroup>

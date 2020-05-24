@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     color: "white",
-    marginRight: 10,
+    marginRight: 20,
+    zIndex: 1000
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -94,7 +95,7 @@ export default function ProfileButton() {
               style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
             >
               {viewProfile
-                ? <ViewProfile handleClose={handleClose}/>
+                ? <ViewProfile showModal={viewProfile} modalHandler={setViewProfile}/>
                 : <Paper>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>

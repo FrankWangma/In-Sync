@@ -6,9 +6,10 @@ import screenfull from 'screenfull';
 import Button from '@material-ui/core/Button';
 import { Fullscreen, VolumeUp, PlayArrow, Pause } from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
+import styles from "./EmbeddedVideo.module.css";
 
 const EmbeddedVideo = (props) => {
-
+    const targetRef = useRef();
     const [playing, setPlaying] = React.useState(false);
     const [volume, setVolume] = React.useState(50);
     const [played, setPlayed] = React.useState(0);
@@ -70,9 +71,20 @@ const EmbeddedVideo = (props) => {
         screenfull.request(findDOMNode(ref.current));
     }
 
+    const getVideoWidth = () => {
+        try {
+            return targetRef.current.offsetWidth / 2;
+        }
+        catch {
+            return "360px";
+        }
+    }
+
+
     return (
-        <div className="App EmbeddedVideo">
+        <div ref={targetRef}>
             <ReactPlayer
+                className={styles.player}
                 url={props.url}
                 ref={ref}
                 playing={playing}
@@ -81,6 +93,7 @@ const EmbeddedVideo = (props) => {
                 onPause={handlePause}
                 onEnded={handlePause}
                 onProgress={handleProgress}
+                height={getVideoWidth()}
             />
 
             {/* Video Player Controls */}

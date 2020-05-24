@@ -21,17 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
+  }
 }));
-
-const handleCancel = () => {
-  history.goBack();
-};
 
 const Header = () => {
   const classes = useStyles();
   const location = useLocation();
-  const [isLoginPage] = useState(location.pathname === "/login");
   const loggedIn = useSelector((state) => state.authentication.loggedIn);
   const path = window.location.pathname;
 
@@ -45,22 +40,18 @@ const Header = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <div variant="h6" className={classes.title} />
           {path !== "/" ?
             <Link to={"/"}>
               <Button variant="contained" color="secondary" onClick={handleReturn}>Return Home</Button>
             </Link> :
             <></>
           }
+          <div variant="h6" className={classes.title} />
           {loggedIn
             ? <ProfileButton />
-            : isLoginPage
-              ? <Button variant="contained" onClick={handleCancel}>
-                Cancel
-              </Button>
-              : <Link to={"/login"}>
-                <Button variant="contained" color="secondary">Login</Button>
-              </Link>
+            : <Link to={"/login"}>
+              <Button variant="contained" color="secondary">Login</Button>
+            </Link>
           }
         </Toolbar>
       </AppBar>

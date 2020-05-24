@@ -60,11 +60,11 @@ function edit(user) {
 
   return (dispatch) => {
     dispatch(request(user));
-
     userService.update(user)
       .then(
         (user) => {
           dispatch(success(user));
+          dispatch(alertActions.success('Edit Successful'));
         },
         (error) => {
           dispatch(failure(error.toString()));

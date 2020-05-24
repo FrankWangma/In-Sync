@@ -4,9 +4,9 @@ import { userConstants } from "../_constants";
 export function userEdit(state = {}, action) {
   switch (action.type) {
     case userConstants.EDIT_REQUEST:
-      return { registering: true };
+      return { edit: true };
     case userConstants.EDIT_SUCCESS:
-      return {};
+      return {user: action.user} ;
     case userConstants.EDIT_FAILURE:
       return {};
     default:

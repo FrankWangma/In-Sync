@@ -38,16 +38,17 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
   }
 
   const handleSearchSubmit = () => {
-      youtube.get('/search', {
-        params: {
-          part: 'snippet',
-          maxResults: 5,
-          key: KEY,
-          type: 'video',
-          q: search
-        }
-      }).then((response) => {
-        setVideos(response.data.items);})
+    youtube.get('/search', {
+      params: {
+        part: 'snippet',
+        maxResults: 5,
+        key: KEY,
+        type: 'video',
+        q: search
+      }
+    }).then((response) => {
+      setVideos(response.data.items);
+    })
   }
 
   const handleVideoSelect = (video) => {
@@ -58,51 +59,51 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
 
   const handleChangeKey = (e) => {
     if (keyPress(e) && url) {
-        changeVideos();
+      changeVideos();
     }
   }
 
   const handleSearchKey = (e) => {
-    if(keyPress(e) && search) {
+    if (keyPress(e) && search) {
       handleSearchSubmit();
     }
   }
 
   const changeVideos = () => {
-    if(checkYoutubeUrl(url)) {
+    if (checkYoutubeUrl(url)) {
       handleVideoChange(url);
       setError(false);
       setHelperText('');
       setVideoURL('');
       modalHandler(false);
     } else {
-        setError(true);
-        setHelperText('Please enter a valid YouTube URL');
+      setError(true);
+      setHelperText('Please enter a valid YouTube URL');
     }
   }
 
   const keyPress = (e) => {
-    if(e.keyCode === 13){
-       return true;
+    if (e.keyCode === 13) {
+      return true;
     }
     return false;
   }
 
   return (
-    <Dialog 
-    open={showModal} 
-    onBackdropClick={() => { 
-      modalHandler(false); 
-      setError(false);
-      setHelperText(''); 
-      setVideoURL('');
-    }} 
-    scroll='paper'
-    fullWidth={true}
-    maxWidth={'lg'}
+    <Dialog
+      open={showModal}
+      onBackdropClick={() => {
+        modalHandler(false);
+        setError(false);
+        setHelperText('');
+        setVideoURL('');
+      }}
+      scroll='paper'
+      fullWidth={true}
+      maxWidth={'lg'}
     >
       <DialogTitle>Change the video</DialogTitle>
-      <DialogContent dividers={true}>
+      <DialogContent className={styles.changeVideoModal} dividers={true}>
         <Grid container spacing={0}>
           <Grid item xs={1} />
           <Grid item xs={5}>
@@ -130,14 +131,14 @@ const AddVideoModal = ({ showModal, modalHandler, handleVideoChange }) => {
               onKeyDown={handleSearchKey}
             />
           </Grid>
-          <Grid item xs={1}/>
+          <Grid item xs={1} />
           <Grid item xs={4}>
             <Typography variant="h6">
               Top 5 Videos Found
             </Typography>
-            <VideoList handleVideoSelect={handleVideoSelect} videos={videos}/>
+            <VideoList handleVideoSelect={handleVideoSelect} videos={videos} />
           </Grid>
-          <Grid item xs={1}/>
+          <Grid item xs={1} />
         </Grid>
       </DialogContent>
       <DialogActions>

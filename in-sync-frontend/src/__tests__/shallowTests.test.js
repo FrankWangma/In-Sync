@@ -16,15 +16,3 @@ describe('<EmbeddedVideo />', () => {
         expect(wrapper).toContainExactlyOneMatchingElement('ReactPlayer');
     })
 });
-
-describe('<LoginPage />', () => {
-    it('renders components', () => {
-        const initialState = {}
-        const store = mockStore(initialState)
-        const wrapper = shallow(
-            <Provider store={store}>
-                <LoginPage />
-            </Provider>).dive();
-        expect(wrapper.find(Header)).toHaveLength(1);
-    })
-});

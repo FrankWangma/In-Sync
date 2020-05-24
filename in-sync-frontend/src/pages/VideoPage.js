@@ -5,6 +5,7 @@ import * as qs from "query-string";
 import axios from "axios";
 import EmbeddedVideo from "../components/EmbeddedVideo";
 import AddVideoModal from "../components/AddVideoModal";
+import HostLeftModal from "../components/HostLeftModal";
 import InviteModal from "../components/InviteModal";
 import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
@@ -16,6 +17,7 @@ const VideoPage = () => {
   const [showInviteModal, changeInviteModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [userJoined, setUserJoined] = useState(false);
+  const [hostLeft, setHostLeft] = useState(false);
   const [users, setUsers] = useState({
     host: "",
     viewers: []
@@ -44,14 +46,23 @@ const VideoPage = () => {
 
     socket.on('playVideo', (data) => {
       console.log(data);
-    })
+    });
 
     socket.on('pauseVideo', (data) => {
       console.log(data);
     })
+    
+    socket.on('changeVideo', (data) => {
+      setVideoUrl(data.video);
+    });
 
     socket.on('userLeft', (data) => {
       handleUserLeaving(data);
+    })
+
+    socket.on('hostLeft', (data) => {
+      console.log('host has left');
+      handleHostLeaving();
     })
 
     axios.put("http://localhost:3000/room", {
@@ -74,6 +85,17 @@ const VideoPage = () => {
 
       return () => mounted = false;
   }, [roomId, user.username]);
+
+  useEffect(() => {
+    // Get Video ID
+    const url = `http://localhost:3000/room/${roomId}`;
+    axios.get(url,{
+      headers: { Authorization: `Bearer ${token}`}
+    })
+      .then((response) => {
+        setVideoUrl(response.data.video);
+      });
+  }, [roomId, videoUrl]);
 
   const sendMessage = (message) => {
     const data = {
@@ -100,6 +122,29 @@ const VideoPage = () => {
       username: user.username
     };
     socket.emit('play', data);
+  }
+
+  const handleHostLeaving = () => {
+    socket.emit('leaveRoom');
+    console.log("updated");
+    setHostLeft(true);
+  }
+  
+  const changeVideo = (newUrl) => {
+      const url = `http://localhost:3000/room/${roomId}`;
+      axios.put(url, {
+        video: newUrl
+      }, {
+        headers: { Authorization: `Bearer ${token}`}
+      }).then((response) => {
+        setVideoUrl(response.data.video);
+        const data = {
+          roomId: roomId,
+          url: newUrl,
+          username: user.username
+        };
+        socket.emit('change', data);
+      });
   }
 
   const handleUserLeaving = (data) => {
@@ -172,7 +217,7 @@ const VideoPage = () => {
           <Grid item sm={12} md={8}>
             <EmbeddedVideo url={videoUrl} playVideo={playVideo} pauseVideo={pauseVideo}/>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeAddVideoModal(true); }}>
-              Add Video
+              Change Video
             </Button>
             <Button variant="contained" color="primary" className={"addVideoButton"} onClick={() => { changeInviteModal(true); }}>
               Invite Users
@@ -182,9 +227,10 @@ const VideoPage = () => {
             <ChatUserSwitch sendMessage={sendMessage} users={users} receivedMessage={receivedMessage} currentUser={user.username}/>
           </Grid>
         </Grid>
-        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} />
+        <AddVideoModal showModal={showAddVideoModal} modalHandler={changeAddVideoModal} handleVideoChange={changeVideo}/>
         <InviteModal showModal={showInviteModal} modalHandler={changeInviteModal} roomId={roomId} />
       </div>
+      <HostLeftModal showModal={hostLeft}/>
     </>
   );
 };

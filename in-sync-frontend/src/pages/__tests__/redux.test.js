@@ -1,21 +1,37 @@
-import rootReducer from "../../_reducers";
-import { createStore } from 'redux';
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import fetchMock from 'fetch-mock'
+import { userActions } from '../../_actions';
 
-let store;
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares);
 
-beforeEach(() => {
-    store = createStore(rootReducer);
+describe('async actions', () => {
+    afterEach(() => {
+        fetchMock.restore();
+    })
+
+    it('creates LOGIN_SUCCESS when fetching login is done', () => {
+        fetchMock.post('/login'), {
+            response: {
+                foundUser: "user",
+                token: "token"
+            }
+        }
+
+        const expectedActions= [
+            {type: "USERS_LOGIN_REQUEST", user: {username: "test", password: "test", joiningRoom: false} },
+            {type: "USERS_LOGIN_SUCCESS", user: {foundUser: "user", token:"token"}}
+        ]
+        
+        const store = mockStore({user: {}});
+
+        return store.dispatch(userActions.login("test", "test", false)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        })
+    })
 })
 
-it('check the intial store state', () => {
-    const keys = Object.keys(store.getState());
-    expect(keys.length).toBe(3);
-    expect(keys[0]).toBe('authentication');
-    expect(store.getState.authentication).toBe(undefined);
-    expect(keys[1]).toBe('registration');
-    expect(store.getState.registration).toBe(undefined);
-    expect(keys[2]).toBe('alert');
-    expect(store.getState.alert).toBe(undefined);
-})
+
 
 

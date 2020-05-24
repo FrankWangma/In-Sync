@@ -11,6 +11,7 @@ import styles from "./VideoPage.module.css";
 import ChatUserSwitch from "../components/ChatUserSwitch";
 import Header from "../common/Header";
 import socket from "../socket/socket"
+import { useHistory } from "react-router-dom";
 
 const VideoPage = () => {
   const [showAddVideoModal, changeAddVideoModal] = useState(false);
@@ -25,6 +26,7 @@ const VideoPage = () => {
     viewers: []
   });
   const [receivedMessage, setReceivedMessage] = useState([]);
+  const history = useHistory();
 
   const roomId = qs.parse(window.location.search).id;
   const user = useSelector((state) => state.authentication.user);
@@ -91,6 +93,9 @@ const VideoPage = () => {
           viewers: response.data.viewers,
         })
       }
+    }).catch((error) => {
+        console.log(error);
+        history.push("/");
     })
 
     return () => mounted = false;

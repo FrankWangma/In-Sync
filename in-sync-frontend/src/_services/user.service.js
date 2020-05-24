@@ -8,7 +8,6 @@ function logout() {
 }
 
 function handleResponse(response) {
-  console.log("response", response.data);
   return response.data;
 }
 

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
+  }
 }));
 
 const handleCancel = () => {
@@ -45,13 +45,13 @@ const Header = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <div variant="h6" className={classes.title} />
           {path !== "/" ?
             <Link to={"/"}>
               <Button variant="contained" color="secondary" onClick={handleReturn}>Return Home</Button>
             </Link> :
             <></>
           }
+          <div variant="h6" className={classes.title} />
           {loggedIn
             ? <ProfileButton />
             : isLoginPage
